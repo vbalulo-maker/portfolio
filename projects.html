@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Портфолио — Проекты</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <header>
+    <div class="container header-inner">
+      <a href="index.html" class="logo">My Portfolio</a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="projects.html" class="active">Кейсы</a></li>
+          <li><a href="articles-list.html">Статьи</a></li>
+        </ul>
+      </nav>
+      <button class="lang-switch" id="langSwitch" aria-label="Switch language">🌐 RU</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="container">
+      <h1>Проекты</h1>
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-company="all">Все</button>
+      </div>
+      <div class="cards-grid" id="projectsGrid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025-2026 My Portfolio</p>
+    </div>
+  </footer>
+
+  <script src="js/projects.js"></script>
+</body>
+</html>
