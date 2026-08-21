@@ -122,7 +122,96 @@ h1 {
   color: var(--text-primary);
 }
 
-/* ── НОВАЯ СЕТКА КАРТОЧЕК ── */
+/* ===== НОВЫЙ БЛОК "ОБО МНЕ" ===== */
+.about-section {
+  margin-bottom: 48px;
+}
+
+.about-card {
+  display: flex;
+  gap: 40px;
+  background: var(--visual);
+  border-radius: var(--radius);
+  padding: 32px 36px;
+  box-shadow: var(--shadow);
+  align-items: flex-start;
+}
+
+/* Левая колонка */
+.about-left {
+  flex: 0 0 33.333%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.about-photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--accent);
+  background: #fff;
+}
+
+.about-name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 8px 0 4px;
+  color: var(--text-primary);
+}
+
+.about-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  align-items: center;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.contact-icon {
+  font-size: 1.1rem;
+  width: 24px;
+  text-align: center;
+}
+
+.contact-item a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.contact-item a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* Правая колонка */
+.about-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 100%;
+}
+
+.about-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* ===== СЕТКА КАРТОЧЕК ===== */
 .cards-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -133,7 +222,7 @@ h1 {
   grid-column: 1 / -1;
 }
 
-/* ── НОВЫЙ ДИЗАЙН КАРТОЧКИ ── */
+/* ===== ДИЗАЙН КАРТОЧКИ ===== */
 .card {
   background: var(--visual);
   border-radius: var(--radius);
@@ -423,10 +512,43 @@ footer {
   margin-top: auto;
 }
 
-/* ── Adaptive ── */
+/* ── АДАПТИВ ── */
 
 /* Планшеты */
 @media (max-width: 768px) {
+  .about-card {
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 20px;
+  }
+
+  .about-left {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .about-photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .about-name {
+    font-size: 1.4rem;
+  }
+
+  .about-right {
+    width: 100%;
+  }
+
+  .about-text {
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  .about-contacts {
+    align-items: center;
+  }
+
   .cards-grid {
     grid-template-columns: 1fr;
   }
@@ -491,5 +613,22 @@ footer {
 
   .project-metrics {
     grid-template-columns: 1fr;
+  }
+
+  .about-card {
+    padding: 16px;
+  }
+
+  .about-photo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .about-name {
+    font-size: 1.2rem;
+  }
+
+  .contact-item {
+    font-size: 0.85rem;
   }
 }
