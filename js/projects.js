@@ -48,18 +48,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     grid.innerHTML = filtered.map(project => `
       <div class="card" data-id="${project.id}">
-        <h3>${project.title}</h3>
-        <p>${project.description || ''}</p>
-        <span class="badge">${project.company || '—'}</span>
-        <div class="meta">${project.year || ''} · ${project.role || ''}</div>
+        <div class="card-header">
+          <img class="card-logo" src="${project.logo || 'assets/images/logos/default-logo.png'}" alt="${project.company || 'Проект'}" />
+          <div class="card-title-group">
+            <h3>${project.title}</h3>
+            <p class="card-role">${project.role || ''}</p>
+          </div>
+          <span class="card-period">${project.year || ''}</span>
+        </div>
+        <p class="card-description">${project.description || ''}</p>
+        <a href="project-detail.html?id=${project.id}" class="card-link">Подробнее →</a>
       </div>
     `).join('');
 
-    // Клик по карточке → переход на детальную страницу
-    document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('click', () => {
-        const id = card.dataset.id;
-        window.location.href = `project-detail.html?id=${id}`;
+    // Обработчик клика по ссылке "Подробнее"
+    document.querySelectorAll('.card-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.stopPropagation();
       });
     });
   }
