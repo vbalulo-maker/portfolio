@@ -10,19 +10,23 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       grid.innerHTML = data.map(company => `
         <div class="card" data-id="${company.id}">
-          <h3>${company.name}</h3>
-          <p>${company.description || ''}</p>
-          <span class="badge">${company.industry || 'General'}</span>
-          <div class="meta">${company.location || ''}</div>
+          <div class="card-header">
+            <img class="card-logo" src="${company.logo || 'assets/images/logos/logo-mts.png'}" alt="${company.name}" />
+            <div class="card-title-group">
+              <h3>${company.name}</h3>
+              <p class="card-role">${company.role || ''}</p>
+            </div>
+            <span class="card-period">${company.period || ''}</span>
+          </div>
+          <p class="card-description">${company.description || ''}</p>
+          <a href="project-detail.html?id=${company.projectId || 'project-1'}" class="card-link">Подробнее →</a>
         </div>
       `).join('');
 
-      // Клик по карточке → переход на project-detail.html?id=project-1
-      document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('click', () => {
-          const id = card.dataset.id;
-          // Для примера используем project-1, но можно маппить компании → проекты
-          window.location.href = `project-detail.html?id=project-1`;
+      // Обработчик клика по ссылке "Подробнее" (чтобы не мешать клику по карточке)
+      document.querySelectorAll('.card-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.stopPropagation(); // Чтобы не сработал клик по карточке
         });
       });
     })
@@ -38,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const current = langBtn.textContent.trim();
       if (current.startsWith('🌐 RU')) {
         langBtn.textContent = '🌐 EN';
-        // Здесь будет логика перевода
         console.log('Switch to EN');
       } else {
         langBtn.textContent = '🌐 RU';
