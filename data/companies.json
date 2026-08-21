@@ -3,7 +3,7 @@
     "id": "company-1",
     "name": "Финтех-Платформа",
     "role": "Head of Product",
-    "period": "2025.08-2026.04"
+    "period": "2025.08-2026.04",
     "description": "Консорциум крупнейших банков (Сбер, Альфа-Банк, Т-Банк)",
     "logo": "assets/images/logos/logo-mts.png",
     "projectId": "project-1"
@@ -12,7 +12,7 @@
     "id": "company-2",
     "name": "РСХБ",
     "role": "Chief Product Officer",
-    "period": "2024.07-2024.08"
+    "period": "2024.07-2024.08",
     "description": "Национально-значимый банк из топ-5",
     "logo": "assets/images/logos/logo-mts.png",
     "projectId": "project-1"
@@ -21,7 +21,7 @@
     "id": "company-3",
     "name": "Росбанк",
     "role": "Head of Product",
-    "period": "2022.08-2024.07"
+    "period": "2022.08-2024.07",
     "description": "Системно-значимый банк (бывш. акционеры - Societe Generale)",
     "logo": "assets/images/logos/logo-mts.png",
     "projectId": "project-1"
@@ -30,7 +30,7 @@
     "id": "company-4",
     "name": "МТС-Банк",
     "role": "Head of Product",
-    "period": "2019.03-2022.08"
+    "period": "2019.03-2022.08",
     "description": "АФК Система",
     "logo": "assets/images/logos/logo-mts.png",
     "projectId": "project-1"
@@ -39,7 +39,7 @@
     "id": "company-5",
     "name": "Кредит Европа Банк",
     "role": "Заместитель начальника управления эквайринга",
-    "period": "2005.09-2019.02"
+    "period": "2005.09-2019.02",
     "description": "Банк из топ-30, с иностранным топ-менеджментом и входящий в международный холдинг",
     "logo": "assets/images/logos/logo-mts.png",
     "projectId": "project-1"
