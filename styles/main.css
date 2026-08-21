@@ -122,7 +122,7 @@ h1 {
   color: var(--text-primary);
 }
 
-/* ===== НОВЫЙ БЛОК "ОБО МНЕ" ===== */
+/* ===== БЛОК "ОБО МНЕ" ===== */
 .about-section {
   margin-bottom: 48px;
 }
@@ -185,15 +185,39 @@ h1 {
   text-align: center;
 }
 
+/* SVG-иконки в контактах */
+.contact-icon-svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  flex-shrink: 0;
+  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+  /* Делает иконки чёрными */
+  transition: var(--transition);
+}
+
+/* Ссылки в контактах */
 .contact-item a {
   color: var(--text-primary);
   text-decoration: none;
   transition: var(--transition);
 }
 
+/* При наведении на ссылку меняем цвет текста и иконки */
 .contact-item a:hover {
   color: var(--accent);
   text-decoration: underline;
+}
+
+.contact-item a:hover .contact-icon-svg {
+  filter: brightness(0) saturate(100%) invert(68%) sepia(22%) saturate(612%) hue-rotate(7deg) brightness(95%) contrast(87%);
+  /* Меняет цвет иконки на акцентный #C9A87C */
+}
+
+/* Если иконка цветная и нужно просто затемнить/осветлить */
+.contact-item a:hover .contact-icon-svg {
+  opacity: 0.8;
+  transform: scale(1.05);
 }
 
 /* Правая колонка */
