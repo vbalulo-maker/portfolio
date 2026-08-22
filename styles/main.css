@@ -485,7 +485,7 @@ footer .container {
 }
 
 .footer-contacts a {
-  color: var(--text-secondary);
+  color: #C9A87C;
   text-decoration: none;
   font-size: 0.9rem;
   transition: var(--transition);
