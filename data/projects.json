@@ -2,13 +2,15 @@
   {
     "id": "project-1",
     "title": "Запуск сервисов по приёму платежей с нуля",
-    "description": "Запуск ...",
+    "description": "В роли Head of Product отвечал за разработку, развитие и продвижение сервисов по приёму платежей и выплатам для малого и микробизнеса.",
     "company": "Росбанк",
     "year": "2023",
     "role": "Head of Product",
     "metrics": {
       "MAU": "6 500",
       "Penetration": "1,5% --> 8%"
+      "Время подключения": "3,5 дня --> 1,5 дня",
+      "CSI": "4,8"
     },
     "screenshots": ["images/screen1.png", "images/screen2.png"],
     "chartLabel": "Рост MAU по месяцам"
