@@ -19,13 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="card-period">${company.period || ''}</span>
           </div>
           <p class="card-description">${company.intro || company.description || ''}</p>
-          <a href="project-detail.html?id=${company.projectId || 'project-1'}" class="card-link">Подробнее →</a>
+          <a href="projects.html?company=${encodeURIComponent(company.name)}" class="card-link">Подробнее →</a>
         </div>
       `).join('');
 
+      // Обработчик клика по ссылке "Подробнее"
       document.querySelectorAll('.card-link').forEach(link => {
         link.addEventListener('click', (e) => {
-          e.stopPropagation();
+          e.stopPropagation(); // Чтобы не сработал клик по карточке
         });
       });
     })
