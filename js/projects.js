@@ -20,9 +20,23 @@ document.addEventListener('DOMContentLoaded', () => {
         `<button class="filter-btn ${name === 'Все' ? 'active' : ''}" data-company="${name}">${name}</button>`
       ).join('');
 
-      renderProjects('Все');
+      // ===== ЧИТАЕМ ПАРАМЕТР ИЗ URL =====
+      const params = new URLSearchParams(window.location.search);
+      const filterCompany = params.get('company');
 
-      // Фильтрация
+      // Если в URL есть компания — применяем фильтр, иначе "Все"
+      const initialFilter = filterCompany && uniqueCompanies.includes(filterCompany) 
+        ? filterCompany 
+        : 'Все';
+
+      // Активируем нужную кнопку фильтра
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.company === initialFilter);
+      });
+
+      renderProjects(initialFilter);
+
+      // Фильтрация по клику
       filterBar.addEventListener('click', (e) => {
         const btn = e.target.closest('.filter-btn');
         if (!btn) return;
@@ -67,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     }).join('');
 
-    // Обработчик клика по ссылке "Подробнее"
     document.querySelectorAll('.card-link').forEach(link => {
       link.addEventListener('click', (e) => {
         e.stopPropagation();
