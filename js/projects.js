@@ -46,20 +46,27 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    grid.innerHTML = filtered.map(project => `
-      <div class="card" data-id="${project.id}">
-        <div class="card-header">
-          <img class="card-logo" src="${project.logo || 'assets/images/logos/default-logo.png'}" alt="${project.company || 'Проект'}" />
-          <div class="card-title-group">
-            <h3>${project.title}</h3>
-            <p class="card-role">${project.role || ''}</p>
+    grid.innerHTML = filtered.map(project => {
+      // Ищем логотип компании (если нет в projects, берём из companies)
+      const companyLogo = companies.find(c => c.name === project.company)?.logo 
+        || project.logo 
+        || 'assets/images/logos/default-logo.png';
+
+      return `
+        <div class="card" data-id="${project.id}">
+          <div class="card-header">
+            <img class="card-logo" src="${companyLogo}" alt="${project.company || 'Проект'}" />
+            <div class="card-title-group">
+              <h3>${project.title}</h3>
+              <p class="card-role">${project.role || ''}</p>
+            </div>
+            <span class="card-period">${project.year || ''}</span>
           </div>
-          <span class="card-period">${project.year || ''}</span>
+          <p class="card-description">${project.intro || project.description || ''}</p>
+          <a href="project-detail.html?id=${project.id}" class="card-link">Подробнее →</a>
         </div>
-        <p class="card-description">${project.description || ''}</p>
-        <a href="project-detail.html?id=${project.id}" class="card-link">Подробнее →</a>
-      </div>
-    `).join('');
+      `;
+    }).join('');
 
     // Обработчик клика по ссылке "Подробнее"
     document.querySelectorAll('.card-link').forEach(link => {
