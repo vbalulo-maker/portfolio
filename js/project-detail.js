@@ -20,28 +20,70 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Рендерим детали
-      container.innerHTML = `
+      // Базовый HTML с intro
+      let html = `
         <h1>${project.title}</h1>
-        <p style="font-size:1.1rem; color:#444;">${project.description || ''}</p>
-        <div class="project-metrics">
-          ${project.metrics ? Object.entries(project.metrics).map(([key, val]) => `
-            <div class="metric"><strong>${val}</strong> ${key}</div>
-          `).join('') : ''}
-        </div>
-        <div class="screenshots">
-          ${project.screenshots ? project.screenshots.map(src => `
-            <img src="${src}" alt="screenshot" loading="lazy" />
-          `).join('') : ''}
-        </div>
-        <div class="chart-placeholder">
-          📊 График: ${project.chartLabel || 'данные не загружены'}
-        </div>
+        <p class="project-intro">${project.intro || ''}</p>
+        <p style="font-size:1.1rem; color:#444; margin-bottom: 20px;">${project.description || ''}</p>
+      `;
+
+      // ===== РЕНДЕРИМ В ЗАВИСИМОСТИ ОТ ТИПА =====
+      if (project.type === 'strategy') {
+        // Блоки стратегии
+        if (project.strategyBlocks && project.strategyBlocks.length) {
+          html += `<div class="strategy-blocks">`;
+          project.strategyBlocks.forEach(block => {
+            html += `
+              <div class="strategy-block">
+                ${block.image ? `<img src="${block.image}" alt="${block.name}" class="strategy-image" />` : ''}
+                <h3>${block.name}</h3>
+                <p>${block.description}</p>
+              </div>
+            `;
+          });
+          html += `</div>`;
+        }
+      } else {
+        // STANDARD: метрики и скриншоты
+        if (project.metrics) {
+          html += `<div class="project-metrics">`;
+          Object.entries(project.metrics).forEach(([key, val]) => {
+            html += `<div class="metric"><strong>${val}</strong> ${key}</div>`;
+          });
+          html += `</div>`;
+        }
+
+        if (project.screenshots && project.screenshots.length) {
+          html += `<div class="screenshots">`;
+          project.screenshots.forEach(src => {
+            html += `<img src="${src}" alt="screenshot" loading="lazy" />`;
+          });
+          html += `</div>`;
+        }
+
+        if (project.chartLabel) {
+          html += `<div class="chart-placeholder">📊 График: ${project.chartLabel}</div>`;
+        }
+      }
+
+      // ===== КЛЮЧЕВЫЕ РЕЗУЛЬТАТЫ (общие для обоих типов) =====
+      if (project.results && project.results.length) {
+        html += `<div class="project-results"><h3>Ключевые результаты</h3><ul>`;
+        project.results.forEach(item => {
+          html += `<li>${item}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+
+      // ===== МЕТАДАННЫЕ =====
+      html += `
         <p><strong>Компания:</strong> ${project.company || '—'}</p>
         <p><strong>Год:</strong> ${project.year || '—'}</p>
         <p><strong>Роль:</strong> ${project.role || '—'}</p>
         <a href="projects.html" style="display:inline-block; margin-top:20px; color:var(--accent);">← Назад к проектам</a>
       `;
+
+      container.innerHTML = html;
     })
     .catch(err => {
       container.innerHTML = `<p style="color:#b00;">⚠️ ${err.message}</p>`;
