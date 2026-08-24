@@ -47,15 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     grid.innerHTML = filtered.map(project => {
-      // Ищем логотип компании (если нет в projects, берём из companies)
-      const companyLogo = companies.find(c => c.name === project.company)?.logo 
-        || project.logo 
-        || 'assets/images/logos/default-logo.png';
+      // Ищем логотип в companies.json по совпадению company
+      const company = companies.find(c => c.name === project.company);
+      const logo = company?.logo || project.logo || 'assets/images/logos/default-logo.png';
 
       return `
         <div class="card" data-id="${project.id}">
           <div class="card-header">
-            <img class="card-logo" src="${companyLogo}" alt="${project.company || 'Проект'}" />
+            <img class="card-logo" src="${logo}" alt="${project.company || 'Проект'}" />
             <div class="card-title-group">
               <h3>${project.title}</h3>
               <p class="card-role">${project.role || ''}</p>
