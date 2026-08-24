@@ -17,7 +17,7 @@
     "screenshots": ["images/screen1.png", "images/screen2.png"],
     "chartLabel": "Рост MAU по месяцам"
   },
-    {
+  {
     "id": "project-2",
     "type": "standard",
     "title": "Цифровой онбординг B2B-клиентов (Росбанк)",
@@ -40,7 +40,7 @@
     "type": "standard",
     "title": "Цифровой онбординг B2B-клиентов (РСХБ)",
     "intro": "Запустил цифровой онбординг для B2B-клиентов, сократив время подключения на 30% и повысив конверсию на 20%.",
-    "description": "В роли СРО (электронная коммерция и торговый эквайринг) реализовывал продуктовую стратегию B2B-продуктов. Управлял полным жизненным циклом продуктов и командой 30+ человек.",
+    "description": "В роли CPO (электронная коммерция и торговый эквайринг) реализовывал продуктовую стратегию B2B-продуктов. Управлял полным жизненным циклом продуктов и командой 30+ человек.",
     "company": "РСХБ",
     "year": "2024",
     "role": "CPO",
@@ -66,7 +66,7 @@
     "screenshots": ["images/ml1.png"],
     "chartLabel": "..."
   },
-    {
+  {
     "id": "project-5",
     "type": "strategy",
     "title": "Запуск SoftPOS (Tap-to-Pay) - Росбанк",
@@ -81,7 +81,7 @@
     "screenshots": ["images/ml1.png"],
     "chartLabel": "..."
   },
-      {
+  {
     "id": "project-6",
     "type": "strategy",
     "title": "Исследование BNPL",
@@ -96,7 +96,7 @@
     "screenshots": ["images/ml1.png"],
     "chartLabel": "..."
   },
-      {
+  {
     "id": "project-7",
     "type": "strategy",
     "title": "Запуск партнёрских каналов и интеграция с PSP",
@@ -111,11 +111,11 @@
     "screenshots": ["images/ml1.png"],
     "chartLabel": "..."
   },
-      {
+  {
     "id": "project-8",
     "type": "strategy",
     "title": "Запуск СБП B2B-переводов",
-    "intro": "Запустил пилот СБП В2В-переводов.",
+    "intro": "Запустил пилот СБП B2B-переводов.",
     "description": "...",
     "company": "РСХБ",
     "year": "2024",
@@ -126,7 +126,7 @@
     "screenshots": ["images/ml1.png"],
     "chartLabel": "..."
   },
-      {
+  {
     "id": "project-9",
     "type": "strategy",
     "title": "Анализ глобального рынка финтеха",
@@ -141,7 +141,7 @@
     "screenshots": ["images/ml1.png"],
     "chartLabel": "..."
   },
-      {
+  {
     "id": "project-10",
     "type": "strategy",
     "title": "Исследование мультибанкинга",
@@ -156,7 +156,7 @@
     "screenshots": ["images/ml1.png"],
     "chartLabel": "..."
   },
-      {
+  {
     "id": "project-11",
     "type": "strategy",
     "title": "Запуск SoftPOS (Tap-to-Pay) - МТС-Банк",
@@ -171,7 +171,7 @@
     "screenshots": ["images/ml1.png"],
     "chartLabel": "..."
   },
-      {
+  {
     "id": "project-12",
     "type": "strategy",
     "title": "Interchange++",
