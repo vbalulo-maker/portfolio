@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МТС-Банк — Запуск СБП C2B | Портфолио</title>
+    <style>
+        /* --- Сброс и базовые стили (с вашими цветами) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #F8F6F2; /* --bg-primary */
+            color: #1A1A1A; /* --text-primary */
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem 2rem;
+        }
+
+        /* --- Навигация --- */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #1A1A1A; /* --text-primary */
+            text-decoration: none;
+            font-weight: 500;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+        }
+
+        /* --- Заголовок --- */
+        .project-header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #F0EDE8; /* --visual */
+            padding-bottom: 2rem;
+        }
+
+        .project-header .company-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-header .company {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .project-header .role {
+            font-size: 0.9rem;
+            color: #1A1A1A;
+            opacity: 0.7;
+            font-weight: 400;
+        }
+
+        .project-header .period {
+            font-size: 0.9rem;
+            color: #1A1A1A;
+            opacity: 0.7;
+            background-color: #F0EDE8; /* --visual */
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            margin-left: auto;
+        }
+
+        .project-header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 0.75rem 0 0.5rem 0;
+            letter-spacing: -0.02em;
+            color: #1A1A1A;
+        }
+
+        .project-header .subtitle {
+            font-size: 1.2rem;
+            color: #1A1A1A;
+            opacity: 0.8;
+            max-width: 80%;
+        }
+
+        /* --- Интро о компании --- */
+        .company-intro {
+            background-color: #F0EDE8; /* --visual */
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+            color: #1A1A1A;
+            border-left: 4px solid #C9A87C; /* --accent */
+        }
+
+        /* --- Ключевые результаты (карточки целей) --- */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .result-card {
+            background: #F0EDE8; /* --visual */
+            padding: 1.5rem 1rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid #F0EDE8;
+            transition: transform 0.2s;
+        }
+
+        .result-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .result-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 0.25rem;
+        }
+
+        .result-description {
+            font-size: 0.9rem;
+            color: #1A1A1A;
+            opacity: 0.7;
+        }
+
+        /* --- Секции проектов (детали) --- */
+        .project-detail {
+            margin: 3rem 0;
+            padding-top: 2rem;
+            border-top: 1px solid #F0EDE8;
+        }
+
+        .project-detail:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .detail-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.75rem;
+        }
+
+        .detail-header h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .detail-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .detail-text {
+            flex: 2;
+            min-width: 280px;
+        }
+
+        .detail-text p {
+            margin-bottom: 0.75rem;
+            color: #1A1A1A;
+            opacity: 0.9;
+        }
+
+        .detail-text ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .detail-text li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+            color: #1A1A1A;
+            opacity: 0.9;
+        }
+
+        .detail-text li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #C9A87C; /* --accent */
+            font-weight: bold;
+        }
+
+        .detail-image {
+            flex: 1.2;
+            min-width: 200px;
+            background: #F0EDE8; /* --visual */
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px dashed #C9A87C;
+        }
+
+        .detail-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .detail-image .placeholder-text {
+            color: #1A1A1A;
+            opacity: 0.5;
+            font-size: 0.9rem;
+            padding: 2rem 0;
+        }
+
+        /* --- Блок сложностей --- */
+        .challenge-block {
+            background: #F0EDE8; /* --visual */
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            margin: 2.5rem 0;
+            border-left: 4px solid #C9A87C; /* --accent */
+        }
+
+        .challenge-block h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1A1A1A;
+        }
+
+        .challenge-block p {
+            color: #1A1A1A;
+            opacity: 0.9;
+        }
+
+        /* --- Команда --- */
+        .team-block {
+            background: #ffffff;
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            border: 1px solid #F0EDE8;
+            margin: 2rem 0;
+        }
+
+        .team-block p {
+            color: #1A1A1A;
+            opacity: 0.9;
+        }
+
+        .team-block strong {
+            color: #1A1A1A;
+        }
+
+        /* --- Адаптивность --- */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .project-header h1 {
+                font-size: 2rem;
+            }
+
+            .project-header .subtitle {
+                max-width: 100%;
+            }
+
+            .detail-content {
+                flex-direction: column;
+            }
+
+            .detail-image {
+                width: 100%;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Навигация назад -->
+        <a href="/" class="back-link">← На главную</a>
+
+        <!-- ШАПКА ПРОЕКТА -->
+        <header class="project-header">
+            <div class="company-meta">
+                <span class="company">МТС-Банк</span>
+                <span class="role">Product Lead (эквайринг)</span>
+                <span class="period">2020–2021</span>
+            </div>
+            <h1>Запуск и масштабирование СБП C2B</h1>
+            <div class="subtitle">
+                Как мы интегрировали новый платёжный метод в эквайринговую инфраструктуру банка, несмотря на технологические и рыночные вызовы
+            </div>
+        </header>
+
+        <!-- ИНТРО О КОМПАНИИ -->
+        <div class="company-intro">
+            <strong>О компании:</strong> МТС-Банк (тикер: MTS) — универсальный банк, входящий в экосистему АФК «Система».
+        </div>
+
+        <!-- КЛЮЧЕВЫЕ РЕЗУЛЬТАТЫ (ЦЕЛИ СБП) -->
+        <section>
+            <h2 style="font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; color: #1A1A1A;">Ключевые результаты</h2>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-label">Безналичный оборот</div>
+                    <div class="result-description">Увеличение доли безналичных платежей в экономике</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">Скорость</div>
+                    <div class="result-description">Мгновенное зачисление средств на счёт ЮЛ</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">Стоимость</div>
+                    <div class="result-description">Снижение транзакционных издержек бизнеса в 2–3 раза</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ДЕТАЛИ ПРОЕКТА: ИНТЕГРАЦИЯ -->
+        <section class="project-detail">
+            <div class="detail-header">
+                <h2>Интеграция СБП C2B в эквайринговую инфраструктуру</h2>
+            </div>
+            <div class="detail-content">
+                <div class="detail-text">
+                    <p>В 2020 году Банк России и НСПК запустили новый платёжный инструмент — СБП C2B (платежи от физических лиц в пользу юридических лиц через QR-код). Основные цели: сделать оплату более доступной для бизнеса и снизить транзакционные издержки. Моей задачей было интегрировать этот метод в эквайринговый продукт МТС-Банка и масштабировать его на партнёрскую сеть.</p>
+                    <p><strong>Мой вклад и действия:</strong></p>
+                    <ul>
+                        <li>Управлял запуском СБП C2B как нового платёжного метода для B2B-клиентов эквайринга.</li>
+                        <li>Интегрировал СБП в существующую платёжную инфраструктуру и продуктовые бандлы.</li>
+                        <li>Разрабатывал стратегию масштабирования: подключал новых партнёров (PSP, маркетплейсы), оптимизировал процессы.</li>
+                        <li>Отвечал за P&L и unit-экономику (LTV, CAC) продукта.</li>
+                    </ul>
+                </div>
+                <div class="detail-image">
+                    <img src="https://placehold.co/600x400/C9A87C/FFFFFF?text=Схема+интеграции+СБП" alt="Схема интеграции СБП C2B">
+                    <div class="placeholder-text">*Схема интеграции (иллюстрация)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- БЛОК СЛОЖНОСТЕЙ -->
+        <div class="challenge-block">
+            <h3>Технологические вызовы и их решение</h3>
+            <p>Ключевой сложностью на старте стала интеграция СБП с POS-терминалами. Терминальный парк наших клиентов состоял из устройств разных моделей и поставщиков, что вызывало ошибки при проведении оплаты. Мы провели аудит и доработали интеграционное решение, чтобы обеспечить стабильную работу на всех типах терминалов.</p>
+        </div>
+
+        <!-- ДОПОЛНИТЕЛЬНЫЕ ИНИЦИАТИВЫ -->
+        <section class="project-detail">
+            <div class="detail-header">
+                <h2>Дополнительные инициативы</h2>
+            </div>
+            <div class="detail-content">
+                <div class="detail-text">
+                    <ul>
+                        <li>Запустили сервисы B2C-выплат, расширив возможности для бизнеса.</li>
+                        <li>Интегрировали СБП с нашими партнёрскими каналами для привлечения нового бизнеса.</li>
+                        <li>Управляли полным жизненным циклом продукта: от гипотезы до масштабирования.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- КОМАНДА -->
+        <div class="team-block">
+            <p><strong>Команда и управление:</strong> Управлял кросс-функциональной командой и продуктовой разработкой. Защищал инициативы на бизнес-комитетах, аргументируя их экономикой и потенциалом роста.</p>
+        </div>
+
+    </div>
+    <!-- Конец container -->
+
+</body>
+</html>
