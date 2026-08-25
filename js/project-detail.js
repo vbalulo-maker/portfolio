@@ -20,10 +20,41 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Базовый HTML с intro
+      // =============================================
+      // 1. ТИП: PRESENTATION (загрузка внешнего HTML)
+      // =============================================
+      if (project.type === 'presentation') {
+        const presentationPath = project.presentationFile || `cases/${project.id}.html`;
+        fetch(presentationPath)
+          .then(res => {
+            if (!res.ok) throw new Error(`Презентация не найдена: ${presentationPath}`);
+            return res.text();
+          })
+          .then(html => {
+            container.innerHTML = html;
+            // Если в презентации есть скрипты — они выполнятся автоматически
+            // Можно добавить стили для встроенной презентации
+          })
+          .catch(err => {
+            container.innerHTML = `
+              <div style="padding: 40px; text-align: center; background: var(--visual); border-radius: var(--radius);">
+                <p style="font-size: 1.2rem; color: #b00;">⚠️ ${err.message}</p>
+                <p style="margin-top: 12px; color: #666;">Файл презентации: ${presentationPath}</p>
+                <a href="projects.html" style="display:inline-block; margin-top:20px; color:var(--accent);">← Назад к проектам</a>
+              </div>
+            `;
+            console.error(err);
+          });
+        return; // Выходим, чтобы не рендерить стандартный шаблон
+      }
+
+      // =============================================
+      // 2. ТИП: STANDARD и STRATEGY (общий рендеринг)
+      // =============================================
+
+      // Базовый HTML
       let html = `
         <h1>${project.title}</h1>
-        <p class="project-intro">${project.intro || ''}</p>
         <p style="font-size:1.1rem; color:#444; margin-bottom: 20px;">${project.description || ''}</p>
       `;
 
@@ -61,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
           html += `</div>`;
         }
 
-        if (project.chartLabel) {
+        if (project.chartLabel && project.chartLabel !== '...') {
           html += `<div class="chart-placeholder">📊 График: ${project.chartLabel}</div>`;
         }
       }
