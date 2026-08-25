@@ -61,17 +61,15 @@
   {
     "id": "project-5",
     "type": "strategy",
-    "title": "Запуск SoftPOS (Tap-to-Pay) - Росбанк",
-    "intro": "Запустил SoftPOS (Tap-to-Pay) и бесконтактные платежи, расширив платёжную инфраструктуру для бизнеса.",
+    "title": "Запуск и масштабирование QR-платежей",
+    "intro": "Как мы интегрировали новый платёжный метод в эквайринговую инфраструктуру банка.",
     "description": "...",
-    "company": "Росбанк",
-    "year": "2023-2024",
-    "role": "Head of Product",
+    "company": "МТС-Банк",
+    "year": "2020-2021",
+    "role": "Product Lead",
     "metrics": {
       "...": "..."
     },
-    "screenshots": ["images/ml1.png"],
-    "chartLabel": "..."
   },
   {
     "id": "project-6",
