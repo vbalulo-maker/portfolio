@@ -68,9 +68,6 @@
   "role": "Product Lead",
   "presentationFile": "cases/project-5.html"
 },
-    "screenshots": ["images/ml1.png"],
-    "chartLabel": "..."
-  },
   {
     "id": "project-6",
     "type": "strategy",
