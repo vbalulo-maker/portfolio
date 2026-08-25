@@ -755,31 +755,6 @@
     </div>
     </div> <!-- закрывающий div для последнего слайда -->
 
-    <!-- ===== НАВИГАЦИЯ ПО СЛАЙДАМ ===== -->
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-
-        function showSlide(index) {
-            slides.forEach((s, i) => {
-                s.style.display = i === index ? 'flex' : 'none';
-            });
-        }
-
-        // Навигация стрелками
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                currentSlide = Math.min(currentSlide + 1, slides.length - 1);
-                showSlide(currentSlide);
-            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                currentSlide = Math.max(currentSlide - 1, 0);
-                showSlide(currentSlide);
-            }
-        });
-
-        // Показываем первый слайд
-        showSlide(0);
-    </script>
 
 </body>
 </html>
