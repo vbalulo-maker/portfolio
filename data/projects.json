@@ -58,18 +58,16 @@
     "screenshots": ["images/ml1.png"],
     "chartLabel": "..."
   },
-  {
-    "id": "project-5",
-    "type": "strategy",
-    "title": "Запуск и масштабирование QR-платежей",
-    "intro": "Как мы интегрировали новый платёжный метод в эквайринговую инфраструктуру банка.",
-    "description": "...",
-    "company": "МТС-Банк",
-    "year": "2020-2021",
-    "role": "Product Lead",
-    "metrics": {
-      "...": "..."
-    },
+{
+  "id": "project-5",
+  "type": "presentation",
+  "title": "Запуск и масштабирование QR-платежей",
+  "intro": "Как мы интегрировали новый платёжный метод в эквайринговую инфраструктуру банка.",
+  "company": "МТС-Банк",
+  "year": "2020-2021",
+  "role": "Product Lead",
+  "presentationFile": "cases/project-5.html"
+},
     "screenshots": ["images/ml1.png"],
     "chartLabel": "..."
   },
