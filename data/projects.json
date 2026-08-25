@@ -1,14 +1,14 @@
 [
-{
-  "id": "project-1",
-  "type": "presentation",
-  "title": "Запуск приёма платежей для бизнеса с нуля",
-  "intro": "Запустил с нуля B2B-сервисы приёма платежей и выплат, нарастив базу эквайринга в 10 раз.",
-  "company": "Росбанк",
-  "year": "2022-2023",
-  "role": "Head of Product",
-  "presentationFile": "cases/project-1.html"
-},
+  {
+    "id": "project-1",
+    "type": "presentation",
+    "title": "Запуск приёма платежей для бизнеса с нуля",
+    "intro": "Запустил с нуля B2B-сервисы приёма платежей и выплат, нарастив базу эквайринга в 10 раз.",
+    "company": "Росбанк",
+    "year": "2022-2023",
+    "role": "Head of Product",
+    "presentationFile": "cases/project-1.html"
+  },
   {
     "id": "project-2",
     "type": "standard",
@@ -70,6 +70,8 @@
     "metrics": {
       "...": "..."
     },
+    "screenshots": ["images/ml1.png"],
+    "chartLabel": "..."
   },
   {
     "id": "project-6",
