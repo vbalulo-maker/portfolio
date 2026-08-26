@@ -1,48 +1,234 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Валерий Балуло</title>
-  <link rel="stylesheet" href="styles/main.css" />
-  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Кейсы · Валерий Балуло</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 24px 0 32px;
+        }
+        .filters button {
+            background: var(--bg-soft);
+            border: 1px solid var(--border-light);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+        .filters button:hover {
+            border-color: var(--accent);
+            background: var(--bg-white);
+        }
+        .filters button.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .project-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-light);
+            padding: 24px 28px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--accent);
+        }
+        .project-card:first-child {
+            grid-column: 1 / -1;
+        }
+        .project-card .card-top {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+        .project-card .card-top img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: contain;
+            background: var(--bg-soft);
+            padding: 4px;
+        }
+        .project-card .card-top .info h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .project-card .card-top .info .meta {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        .project-card .card-top .year {
+            margin-left: auto;
+            font-size: 0.85rem;
+            color: #666;
+            white-space: nowrap;
+        }
+        .project-card p {
+            color: #555;
+            font-size: 0.95rem;
+            margin: 8px 0 16px;
+            flex: 1;
+        }
+        .project-card .link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            align-self: flex-start;
+            transition: var(--transition);
+        }
+        .project-card .link:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+        @media (max-width:768px) {
+            .projects-grid { grid-template-columns:1fr; }
+            .project-card:first-child { grid-column:1; }
+        }
+    </style>
 </head>
 <body>
-  <header>
+
+<!-- ===== HEADER ===== -->
+<header>
     <div class="container header-inner">
-      <a href="index.html" class="logo">Валерий Балуло</a>
-      <nav>
-        <ul>
-          <li><a href="index.html">Главная</a></li>
-          <li><a href="projects.html" class="active">Кейсы</a></li>
-          <li><a href="articles-list.html">Статьи</a></li>
-        </ul>
-      </nav>
-      <button class="lang-switch" id="langSwitch" aria-label="Switch language">🌐 RU</button>
+        <a href="index.html" class="logo">Валерий <span>Балуло</span></a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="projects.html" class="active">Кейсы</a></li>
+            </ul>
+        </nav>
     </div>
-  </header>
+</header>
 
-  <main>
-    <section class="container">
-      <h1>Проекты</h1>
-      <div class="filter-bar" id="filterBar">
-        <button class="filter-btn active" data-company="all">Все</button>
-      </div>
-      <div class="cards-grid" id="projectsGrid"></div>
-    </section>
-  </main>
-
-  <footer>
+<!-- ===== MAIN ===== -->
+<section class="section-hero" style="padding-top:20px;">
     <div class="container">
-      <div class="footer-contacts">
-        <a href="tel:+71234567890">+7 (926) 559-88-23</a>
-        <a href="https://t.me/Balulo" target="_blank">Telegram</a>
-        <a href="http://linkedin.com/in/valeriy-balulo" target="_blank">LinkedIn</a>
-        <a href="mailto:vbalulo@yandex.ru">vbalulo@yandex.ru</a>
-      </div>
-    </div>
-  </footer>
+        <h1 style="font-size:2.8rem;font-weight:700;letter-spacing:-0.02em;">Проекты</h1>
 
-  <script src="js/projects.js"></script>
+        <div class="filters" id="filtersContainer">
+            <!-- Фильтры загружаются из JS -->
+        </div>
+
+        <div class="projects-grid" id="projectsGrid">
+            <!-- Карточки загружаются из JS -->
+        </div>
+    </div>
+</section>
+
+<!-- ===== ФУТЕР ===== -->
+<footer class="section-footer">
+    <div class="container footer-inner">
+        <div class="footer-contacts">
+            <a href="tel:+71234567890">+7 (123) 456-78-90</a>
+            <a href="https://t.me/Balulo" target="_blank">Telegram</a>
+            <a href="https://linkedin.com/in/valeriy-balulo" target="_blank">LinkedIn</a>
+            <a href="mailto:vbalulo@yandex.ru">vbalulo@yandex.ru</a>
+        </div>
+        <div class="footer-copy">© 2025-2026 Валерий Балуло</div>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let allProjects = [];
+        let companiesMap = {};
+
+        // Загружаем компании
+        fetch('data/companies.json')
+            .then(r => r.json())
+            .then(companies => {
+                companies.forEach(c => { companiesMap[c.name] = c; });
+            })
+            .catch(() => {});
+
+        // Загружаем проекты
+        fetch('data/projects.json')
+            .then(r => r.json())
+            .then(projects => {
+                allProjects = projects;
+                renderFilters(projects);
+                applyFilter('Все');
+            })
+            .catch(() => {});
+
+        // Получаем company из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialCompany = urlParams.get('company');
+
+        function renderFilters(projects) {
+            const container = document.getElementById('filtersContainer');
+            const companies = ['Все', ...new Set(projects.map(p => p.company))];
+            container.innerHTML = companies.map(c =>
+                `<button data-company="${c}" ${c === initialCompany ? 'class="active"' : ''}>${c}</button>`
+            ).join('');
+
+            container.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    container.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    applyFilter(btn.dataset.company);
+                });
+            });
+
+            // Если есть initialCompany, применяем фильтр
+            if (initialCompany && companies.includes(initialCompany)) {
+                applyFilter(initialCompany);
+            }
+        }
+
+        function applyFilter(company) {
+            const grid = document.getElementById('projectsGrid');
+            let filtered = allProjects;
+            if (company !== 'Все') {
+                filtered = allProjects.filter(p => p.company === company);
+            }
+            // Сортируем: сначала presentation, потом остальные
+            filtered.sort((a,b) => {
+                if (a.type === 'presentation' && b.type !== 'presentation') return -1;
+                if (b.type === 'presentation' && a.type !== 'presentation') return 1;
+                return 0;
+            });
+            grid.innerHTML = filtered.map(p => {
+                const logo = companiesMap[p.company]?.logo || '';
+                return `
+                    <div class="project-card">
+                        <div class="card-top">
+                            <img src="${logo}" alt="${p.company}" onerror="this.style.display='none'" />
+                            <div class="info">
+                                <h4>${p.title}</h4>
+                                <div class="meta">${p.company} · ${p.role}</div>
+                            </div>
+                            <span class="year">${p.year}</span>
+                        </div>
+                        <p>${p.intro}</p>
+                        <a href="project-detail.html?id=${p.id}" class="link">Подробнее →</a>
+                    </div>
+                `;
+            }).join('');
+        }
+    });
+</script>
 </body>
 </html>
