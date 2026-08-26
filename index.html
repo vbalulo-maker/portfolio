@@ -1,63 +1,317 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Валерий Балуло — Портфолио</title>
-  <link rel="stylesheet" href="styles/main.css" />
-  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Валерий Балуло · Продуктовый лидер в финтехе</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        /* ===== Дополнительные стили для главной ===== */
+        .hero-grid {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+        .hero-text { flex: 2; }
+        .hero-text h1 {
+            font-size: 4.2rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+        .hero-text h1 .highlight { color: var(--accent); }
+        .hero-text p {
+            font-size: 1.3rem;
+            color: #444;
+            margin-bottom: 40px;
+            max-width: 90%;
+        }
+        .hero-text .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            padding: 14px 40px;
+            border-radius: 60px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .hero-text .cta-button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(201,168,124,0.25);
+        }
+        .hero-photo {
+            flex: 1;
+            max-width: 320px;
+            min-width: 200px;
+        }
+        .hero-photo img {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            border: 4px solid var(--accent);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            display: block;
+        }
+        .visual-anchor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        .visual-anchor img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+        .visual-anchor img:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 24px;
+            margin-top: 32px;
+        }
+        .step {
+            background: var(--bg-white);
+            padding: 28px 24px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+        .step:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--accent);
+        }
+        .step .number {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .step h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 12px 0 8px;
+        }
+        .step p {
+            color: #555;
+            font-size: 0.95rem;
+        }
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 24px;
+            margin-top: 32px;
+        }
+        .featured-item {
+            background: var(--bg-soft);
+            padding: 32px 28px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .featured-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--accent);
+        }
+        .featured-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .featured-label {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        .featured-company {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: auto;
+            margin-bottom: 8px;
+        }
+        .featured-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            align-self: flex-start;
+        }
+        .featured-link:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+        @media (max-width:1024px) {
+            .hero-text h1 { font-size: 3.2rem; }
+            .hero-text p { max-width:100%; }
+            .steps { grid-template-columns:1fr 1fr; }
+            .featured-grid { grid-template-columns:1fr 1fr; }
+        }
+        @media (max-width:768px) {
+            .hero-grid { flex-direction:column-reverse; gap:40px; }
+            .hero-photo { max-width:240px; min-width:unset; }
+            .hero-text h1 { font-size:2.8rem; }
+            .hero-text p { font-size:1.1rem; }
+            .steps { grid-template-columns:1fr 1fr; }
+        }
+        @media (max-width:640px) {
+            .hero-text h1 { font-size:2.2rem; }
+            .hero-text p { font-size:1rem; }
+            .steps { grid-template-columns:1fr; }
+            .featured-grid { grid-template-columns:1fr; }
+        }
+    </style>
 </head>
 <body>
-  <header>
+
+<!-- ===== HEADER ===== -->
+<header>
     <div class="container header-inner">
-      <a href="index.html" class="logo">Валерий Балуло</a>
-      <nav>
-        <ul>
-          <li><a href="index.html" class="active">Главная</a></li>
-          <li><a href="projects.html">Кейсы</a></li>
-          <li><a href="articles-list.html">Статьи</a></li>
-        </ul>
-      </nav>
-      <button class="lang-switch" id="langSwitch" aria-label="Switch language">🌐 RU</button>
+        <a href="index.html" class="logo">Валерий <span>Балуло</span></a>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Главная</a></li>
+                <li><a href="projects.html">Кейсы</a></li>
+            </ul>
+        </nav>
     </div>
-  </header>
+</header>
 
-  <main>
-    <!-- ===== БЛОК "ОБО МНЕ" (без контактов) ===== -->
-    <section class="container about-section">
-      <div class="about-card">
-        <!-- Левая колонка: только фото и имя -->
-        <div class="about-left">
-          <img class="about-photo" src="assets/images/photo.jpg" alt="Валерий Балуло" />
+<!-- ===== HERO ===== -->
+<section class="section-hero">
+    <div class="container hero-grid">
+        <div class="hero-text">
+            <h1>
+                Запускаю сложные<br />
+                <span class="highlight">финтех-продукты</span>,<br />
+                которые приносят прибыль
+            </h1>
+            <p>
+                10+ лет в финтехе, из них 5+ лет на позициях Head of Product и CPO.
+                Управляю полным жизненным циклом транзакционных продуктов: от стратегии и юнит-экономики до запуска и масштабирования.
+            </p>
+            <a href="projects.html" class="cta-button">Посмотреть кейсы</a>
         </div>
-
-        <!-- Правая колонка: текст -->
-        <div class="about-right">
-          <p class="about-text">
-            Привет! Я - Валерий Балуло. У меня более 10 лет в финтехе, из них 5+ лет на позициях Head of Product и CPO. Управлял полным жизненным циклом транзакционных продуктов: от стратегии и юнит-экономики до запуска и масштабирования. Запустил с нуля сервисы приёма платежей, СБП, SoftPOS, что привело к росту клиентской базы в 10 раз и увеличению доходности на 60%. Ищу роль, где смогу применить экспертизу в развитии альтернативных платежей и цифровых финансовых продуктов.
-          </p>
+        <div class="hero-photo">
+            <img src="assets/images/photo.jpg" alt="Валерий Балуло" />
         </div>
-      </div>
-    </section>
-
-    <!-- ===== БЛОК С КОМПАНИЯМИ ===== -->
-    <section class="container">
-      <h1>Опыт работы</h1>
-      <div class="cards-grid" id="companiesGrid"></div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <div class="footer-contacts">
-        <a href="tel:+71234567890">+7 (926) 559-88-23</a>
-        <a href="https://t.me/Balulo" target="_blank">Telegram</a>
-        <a href="http://linkedin.com/in/valeriy-balulo" target="_blank">LinkedIn</a>
-        <a href="mailto:vbalulo@yandex.ru">vbalulo@yandex.ru</a>
-      </div>
     </div>
-  </footer>
+</section>
 
-  <script src="js/main.js"></script>
+<!-- ===== ВИЗУАЛЬНЫЙ ЯКОРЬ ===== -->
+<section class="section-visual">
+    <div class="container visual-anchor">
+        <img src="assets/images/picture.png" alt="Экспертиза в платежах" />
+    </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="section-process">
+    <div class="container process">
+        <h2>Как я работаю</h2>
+        <div class="sub">Системный подход к созданию продуктов</div>
+        <div class="steps">
+            <div class="step">
+                <div class="number">01</div>
+                <h3>Аудит</h3>
+                <p>Погружаюсь в бизнес-контекст, анализирую метрики, продукт и команду, чтобы найти точки роста.</p>
+            </div>
+            <div class="step">
+                <div class="number">02</div>
+                <h3>Стратегия</h3>
+                <p>Разрабатываю стратегию, дорожную карту и приоритизирую гипотезы на основе данных и юнит-экономики.</p>
+            </div>
+            <div class="step">
+                <div class="number">03</div>
+                <h3>Запуск</h3>
+                <p>Собираю кросс-функциональную команду и запускаю MVP, фокусируясь на быстром получении обратной связи.</p>
+            </div>
+            <div class="step">
+                <div class="number">04</div>
+                <h3>Масштабирование</h3>
+                <p>Систематизирую процессы, передаю рутину команде и масштабирую решение, чтобы оно работало без меня.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ИЗБРАННЫЕ РЕЗУЛЬТАТЫ ===== -->
+<section class="section-featured">
+    <div class="container featured">
+        <h2>Избранные результаты</h2>
+        <div class="sub">Ключевые достижения в цифрах</div>
+        <div class="featured-grid" id="featuredGrid">
+            <!-- Загружается из JS -->
+        </div>
+    </div>
+</section>
+
+<!-- ===== ФУТЕР ===== -->
+<footer class="section-footer">
+    <div class="container footer-inner">
+        <div class="footer-contacts">
+            <a href="tel:+71234567890">+7 (123) 456-78-90</a>
+            <a href="https://t.me/Balulo" target="_blank">Telegram</a>
+            <a href="https://linkedin.com/in/valeriy-balulo" target="_blank">LinkedIn</a>
+            <a href="mailto:vbalulo@yandex.ru">vbalulo@yandex.ru</a>
+        </div>
+        <div class="footer-copy">© 2025-2026 Валерий Балуло</div>
+    </div>
+</footer>
+
+<script>
+    // Жёстко заданные достижения с привязкой к project-1, project-2, project-3
+    const featuredData = [
+        {
+            number: '10x',
+            label: 'Запуск цифрового онбординга и рост клиентской базы эквайринга',
+            company: 'Росбанк · 2022–2024',
+            projectId: 'project-1'
+        },
+        {
+            number: '+60%',
+            label: 'надо другую цифру',
+            company: 'МТС-Банк · 2019–2020',
+            projectId: 'project-2'
+        },
+        {
+            number: '3x',
+            label: 'расширение портфеля B2B-клиентов',
+            company: 'МТС-Банк · 2019–2020',
+            projectId: 'project-3'
+        }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const grid = document.getElementById('featuredGrid');
+        grid.innerHTML = featuredData.map(item => `
+            <div class="featured-item">
+                <span class="featured-number">${item.number}</span>
+                <span class="featured-label">${item.label}</span>
+                <span class="featured-company">${item.company}</span>
+                <a href="project-detail.html?id=${item.projectId}" class="featured-link">Подробнее →</a>
+            </div>
+        `).join('');
+    });
+</script>
 </body>
 </html>
