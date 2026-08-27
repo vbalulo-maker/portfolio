@@ -6,119 +6,130 @@
     <title>Кейсы · Валерий Балуло</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css" />
-<style>
-    .filters {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin: 24px 0 32px;
-    }
-    .filters button {
-        background: var(--bg-soft);
-        border: 1px solid var(--border-light);
-        padding: 8px 20px;
-        border-radius: 40px;
-        font-size: 0.95rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: var(--transition);
-        color: var(--text-primary);
-        font-family: inherit;
-    }
-    .filters button:hover {
-        border-color: var(--accent);
-        background: var(--bg-white);
-        transform: translateY(-1px);
-    }
-    .filters button.active {
-        background: var(--accent);
-        color: #fff;
-        border-color: var(--accent);
-    }
-    .projects-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 28px;
-    }
-    .project-card {
-        background: var(--bg-white);
-        border-radius: var(--radius);
-        border: 1px solid var(--border-light);
-        padding: 28px 32px;
-        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-    }
-    .project-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
-        border-color: var(--accent);
-    }
-    .project-card:first-child {
-        grid-column: 1 / -1;
-    }
-    .project-card .card-top {
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        margin-bottom: 16px;
-    }
-    .project-card .card-top img {
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        object-fit: contain;
-        background: var(--bg-soft);
-        padding: 6px;
-        flex-shrink: 0;
-    }
-    .project-card .card-top .info h4 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        line-height: 1.3;
-        margin-bottom: 4px;
-    }
-    .project-card .card-top .info .meta {
-        font-size: 0.95rem;
-        color: #666;
-    }
-    .project-card .card-top .year {
-        margin-left: auto;
-        font-size: 0.95rem;
-        color: #666;
-        white-space: nowrap;
-        background: var(--bg-soft);
-        padding: 2px 14px;
-        border-radius: 20px;
-    }
-    .project-card p {
-        color: #444;
-        font-size: 1.05rem;
-        line-height: 1.6;
-        margin: 8px 0 20px;
-        flex: 1;
-    }
-    .project-card .link {
-        color: var(--accent);
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 1rem;
-        align-self: flex-start;
-        transition: var(--transition);
-        border-bottom: 1px solid transparent;
-    }
-    .project-card .link:hover {
-        color: var(--accent-hover);
-        border-bottom-color: var(--accent);
-    }
-    @media (max-width:768px) {
-        .projects-grid { grid-template-columns:1fr; }
-        .project-card:first-child { grid-column:1; }
-        .project-card .card-top { flex-wrap: wrap; }
-        .project-card .card-top .year { margin-left: 0; }
-    }
-</style>
+    <style>
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 24px 0 32px;
+        }
+        .filters button {
+            background: var(--bg-soft);
+            border: 1px solid var(--border-light);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+        .filters button:hover {
+            border-color: var(--accent);
+            background: var(--bg-white);
+            transform: translateY(-1px);
+        }
+        .filters button.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+        .project-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-light);
+            padding: 28px 32px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent);
+        }
+        .project-card:first-child {
+            grid-column: 1 / -1;
+        }
+        .project-card .card-top {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 16px;
+        }
+        .project-card .card-top img {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: contain;
+            background: var(--bg-soft);
+            padding: 6px;
+            flex-shrink: 0;
+        }
+        .project-card .card-top .info h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 4px;
+        }
+        .project-card .card-top .info .meta {
+            font-size: 0.95rem;
+            color: #666;
+        }
+        .project-card .card-top .year {
+            margin-left: auto;
+            font-size: 0.95rem;
+            color: #666;
+            white-space: nowrap;
+            background: var(--bg-soft);
+            padding: 2px 14px;
+            border-radius: 20px;
+        }
+        .project-card p {
+            color: #444;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin: 8px 0 20px;
+            flex: 1;
+        }
+        .project-card .link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            align-self: flex-start;
+            transition: var(--transition);
+            border-bottom: 1px solid transparent;
+        }
+        .project-card .link:hover {
+            color: var(--accent-hover);
+            border-bottom-color: var(--accent);
+        }
+        .project-card .link.placeholder {
+            color: #999;
+            cursor: default;
+            border-bottom: none;
+            font-weight: 400;
+        }
+        .project-card .link.placeholder:hover {
+            color: #999;
+            border-bottom: none;
+            transform: none;
+        }
+        @media (max-width:768px) {
+            .projects-grid { grid-template-columns:1fr; }
+            .project-card:first-child { grid-column:1; }
+            .project-card .card-top { flex-wrap: wrap; }
+            .project-card .card-top .year { margin-left: 0; }
+        }
+    </style>
 </head>
 <body>
 
@@ -153,13 +164,10 @@
 <!-- ===== ФУТЕР ===== -->
 <footer class="section-footer">
     <div class="container footer-inner">
-        <div class="footer-contacts">
-            <a href="tel:+71234567890">+7 (123) 456-78-90</a>
-            <a href="https://t.me/Balulo" target="_blank">Telegram</a>
-            <a href="https://linkedin.com/in/valeriy-balulo" target="_blank">LinkedIn</a>
-            <a href="mailto:vbalulo@yandex.ru">vbalulo@yandex.ru</a>
+        <div class="footer-copy">
+            Завайбкодил сам. Если интересно как — <a href="https://t.me/Balulo" style="color:var(--accent);text-decoration:none;">спроси меня</a>
+            <br />
         </div>
-        <div class="footer-copy">© 2025-2026 Валерий Балуло</div>
     </div>
 </footer>
 
@@ -223,8 +231,19 @@
                 if (b.type === 'presentation' && a.type !== 'presentation') return 1;
                 return 0;
             });
+            
             grid.innerHTML = filtered.map(p => {
                 const logo = companiesMap[p.company]?.logo || '';
+                // Проверяем, есть ли детальная информация (hasFullDetails === true)
+                const hasDetails = p.hasFullDetails === true;
+                
+                let linkHtml = '';
+                if (hasDetails) {
+                    linkHtml = `<a href="project-detail.html?id=${p.id}" class="link">Подробнее →</a>`;
+                } else {
+                    linkHtml = `<span class="link placeholder">Скоро здесь появится больше информации</span>`;
+                }
+                
                 return `
                     <div class="project-card">
                         <div class="card-top">
@@ -236,7 +255,7 @@
                             <span class="year">${p.year}</span>
                         </div>
                         <p>${p.intro}</p>
-                        <a href="project-detail.html?id=${p.id}" class="link">Подробнее →</a>
+                        ${linkHtml}
                     </div>
                 `;
             }).join('');
