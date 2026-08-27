@@ -6,106 +6,119 @@
     <title>Кейсы · Валерий Балуло</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css" />
-    <style>
-        .filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 24px 0 32px;
-        }
-        .filters button {
-            background: var(--bg-soft);
-            border: 1px solid var(--border-light);
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--text-primary);
-            font-family: inherit;
-        }
-        .filters button:hover {
-            border-color: var(--accent);
-            background: var(--bg-white);
-        }
-        .filters button.active {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
-        }
-        .projects-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-        .project-card {
-            background: var(--bg-white);
-            border-radius: var(--radius);
-            border: 1px solid var(--border-light);
-            padding: 24px 28px;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-        }
-        .project-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow);
-            border-color: var(--accent);
-        }
-        .project-card:first-child {
-            grid-column: 1 / -1;
-        }
-        .project-card .card-top {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 12px;
-        }
-        .project-card .card-top img {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            object-fit: contain;
-            background: var(--bg-soft);
-            padding: 4px;
-        }
-        .project-card .card-top .info h4 {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-        .project-card .card-top .info .meta {
-            font-size: 0.85rem;
-            color: #666;
-        }
-        .project-card .card-top .year {
-            margin-left: auto;
-            font-size: 0.85rem;
-            color: #666;
-            white-space: nowrap;
-        }
-        .project-card p {
-            color: #555;
-            font-size: 0.95rem;
-            margin: 8px 0 16px;
-            flex: 1;
-        }
-        .project-card .link {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-            align-self: flex-start;
-            transition: var(--transition);
-        }
-        .project-card .link:hover {
-            color: var(--accent-hover);
-            text-decoration: underline;
-        }
-        @media (max-width:768px) {
-            .projects-grid { grid-template-columns:1fr; }
-            .project-card:first-child { grid-column:1; }
-        }
-    </style>
+<style>
+    .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 24px 0 32px;
+    }
+    .filters button {
+        background: var(--bg-soft);
+        border: 1px solid var(--border-light);
+        padding: 8px 20px;
+        border-radius: 40px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+        color: var(--text-primary);
+        font-family: inherit;
+    }
+    .filters button:hover {
+        border-color: var(--accent);
+        background: var(--bg-white);
+        transform: translateY(-1px);
+    }
+    .filters button.active {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+    }
+    .projects-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+    }
+    .project-card {
+        background: var(--bg-white);
+        border-radius: var(--radius);
+        border: 1px solid var(--border-light);
+        padding: 28px 32px;
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+    .project-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+        border-color: var(--accent);
+    }
+    .project-card:first-child {
+        grid-column: 1 / -1;
+    }
+    .project-card .card-top {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 16px;
+    }
+    .project-card .card-top img {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        object-fit: contain;
+        background: var(--bg-soft);
+        padding: 6px;
+        flex-shrink: 0;
+    }
+    .project-card .card-top .info h4 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        line-height: 1.3;
+        margin-bottom: 4px;
+    }
+    .project-card .card-top .info .meta {
+        font-size: 0.95rem;
+        color: #666;
+    }
+    .project-card .card-top .year {
+        margin-left: auto;
+        font-size: 0.95rem;
+        color: #666;
+        white-space: nowrap;
+        background: var(--bg-soft);
+        padding: 2px 14px;
+        border-radius: 20px;
+    }
+    .project-card p {
+        color: #444;
+        font-size: 1.05rem;
+        line-height: 1.6;
+        margin: 8px 0 20px;
+        flex: 1;
+    }
+    .project-card .link {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        align-self: flex-start;
+        transition: var(--transition);
+        border-bottom: 1px solid transparent;
+    }
+    .project-card .link:hover {
+        color: var(--accent-hover);
+        border-bottom-color: var(--accent);
+    }
+    @media (max-width:768px) {
+        .projects-grid { grid-template-columns:1fr; }
+        .project-card:first-child { grid-column:1; }
+        .project-card .card-top { flex-wrap: wrap; }
+        .project-card .card-top .year { margin-left: 0; }
+    }
+</style>
 </head>
 <body>
 
