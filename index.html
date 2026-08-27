@@ -327,8 +327,8 @@
     </div>
 </footer>
 
+<!-- ===== СКРИПТ ДЛЯ ИЗБРАННЫХ РЕЗУЛЬТАТОВ ===== -->
 <script>
-    // Жёстко заданные достижения с привязкой к project-1, project-2, project-3
     const featuredData = [
         {
             number: '10x',
@@ -362,113 +362,60 @@
         `).join('');
     });
 </script>
+
+<!-- ===== СКРИПТ ДЛЯ КАРЬЕРНОГО ТРЕКА (ГОРИЗОНТАЛЬНЫЙ) ===== -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Загружаем данные о компаниях
         fetch('data/companies.json')
             .then(r => r.json())
             .then(companies => {
-                // Сортируем компании по дате окончания работы (от новых к старым)
-                const sortedCompanies = companies.sort((a, b) => {
-                    const getEndYear = (period) => {
-                        const parts = period.split('–');
-                        const end = parts[parts.length - 1].trim();
-                        return end === 'н.в.' ? 9999 : parseInt(end, 10);
+                // Сортируем: от старых к новым (по году начала)
+                const sorted = companies.sort((a, b) => {
+                    const getStart = (p) => {
+                        const parts = p.split('–');
+                        const start = parts[0].trim();
+                        return parseInt(start, 10);
                     };
-                    return getEndYear(b.period) - getEndYear(a.period);
+                    return getStart(a.period) - getStart(b.period);
                 });
 
-                const timelineContainer = document.getElementById('careerTimeline');
-                timelineContainer.innerHTML = sortedCompanies.map((company, index) => {
-                    // Проверяем, есть ли проекты у этой компании (смотрим в projects.json)
-                    // Для этого нам нужно либо загрузить projects.json, либо добавить поле hasProjects в companies.json
-                    // Пока сделаем заглушку: если есть projectId, значит есть проекты
-                    const hasProjects = Boolean(company.projectId);
-                    const isLast = index === sortedCompanies.length - 1;
+                const container = document.getElementById('careerTimeline');
+                if (!container) return;
 
-                    return `
-                        <div class="timeline-node ${hasProjects ? 'has-projects' : ''}" 
-                             data-company="${company.name}"
-                             style="--node-index: ${index + 1};">
-                            <div class="timeline-marker"></div>
-                            ${!isLast ? '<div class="timeline-line"></div>' : ''}
-                            <div class="timeline-content">
-                                <div class="timeline-header">
-                                    <span class="timeline-period">${company.period}</span>
-                                    <span class="timeline-role">${company.role}</span>
+                const html = `
+                    <div class="timeline-horizontal">
+                        ${sorted.map((company) => {
+                            const hasProjects = Boolean(company.projectId);
+                            return `
+                                <div class="timeline-node-h ${hasProjects ? 'has-projects' : ''}">
+                                    <div class="node-top">
+                                        <span class="timeline-marker-h"></span>
+                                        <span class="timeline-period-h">${company.period}</span>
+                                    </div>
+                                    <div class="timeline-content-h">
+                                        <h4>${company.name}</h4>
+                                        <div class="role-h">${company.role}</div>
+                                        <div class="intro-h">${company.intro}</div>
+                                        ${hasProjects ? 
+                                            `<a href="projects.html?company=${encodeURIComponent(company.name)}" class="timeline-link-h">Кейсы →</a>` :
+                                            `<span class="timeline-link-h placeholder">скоро</span>`
+                                        }
+                                    </div>
                                 </div>
-                                <h3>${company.name}</h3>
-                                <p class="timeline-intro">${company.intro}</p>
-                                ${hasProjects ? 
-                                    `<a href="projects.html?company=${encodeURIComponent(company.name)}" class="timeline-link">
-                                        Смотреть проекты →
-                                    </a>` :
-                                    `<span class="timeline-link placeholder">Проекты в разработке</span>`
-                                }
-                            </div>
-                        </div>
-                    `;
-                }).join('');
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+                container.innerHTML = html;
             })
-            .catch(err => {
-                document.getElementById('careerTimeline').innerHTML = '<p>Не удалось загрузить данные о карьере.</p>';
-                console.error('Ошибка загрузки компаний:', err);
+            .catch(() => {
+                const container = document.getElementById('careerTimeline');
+                if (container) {
+                    container.innerHTML = '<p style="color:#999;">Не удалось загрузить данные о карьере.</p>';
+                }
             });
     });
 </script>
-<!-- ===== СКРИПТ ДЛЯ КАРЬЕРНОГО ТРЕКА ===== -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('data/companies.json')
-                .then(r => r.json())
-                .then(companies => {
-                    // Сортируем: сначала последние (по году окончания)
-                    const sorted = companies.sort((a, b) => {
-                        const getEnd = (p) => {
-                            const parts = p.split('–');
-                            const end = parts[parts.length - 1].trim();
-                            return end === 'н.в.' ? 9999 : parseInt(end, 10);
-                        };
-                        return getEnd(b.period) - getEnd(a.period);
-                    });
-
-                    const container = document.getElementById('careerTimeline');
-                    if (!container) return;
-
-                    const html = `
-                        <div class="timeline-horizontal">
-                            ${sorted.map((company) => {
-                                const hasProjects = Boolean(company.projectId);
-                                return `
-                                    <div class="timeline-node-h ${hasProjects ? 'has-projects' : ''}">
-                                        <div class="node-top">
-                                            <span class="timeline-marker-h"></span>
-                                            <span class="timeline-period-h">${company.period}</span>
-                                        </div>
-                                        <div class="timeline-content-h">
-                                            <h4>${company.name}</h4>
-                                            <div class="role-h">${company.role}</div>
-                                            <div class="intro-h">${company.intro}</div>
-                                            ${hasProjects ? 
-                                                `<a href="projects.html?company=${encodeURIComponent(company.name)}" class="timeline-link-h">Кейсы →</a>` :
-                                                `<span class="timeline-link-h placeholder">скоро</span>`
-                                            }
-                                        </div>
-                                    </div>
-                                `;
-                            }).join('')}
-                        </div>
-                    `;
-                    container.innerHTML = html;
-                })
-                .catch(() => {
-                    const container = document.getElementById('careerTimeline');
-                    if (container) {
-                        container.innerHTML = '<p style="color:#999;">Не удалось загрузить данные о карьере.</p>';
-                    }
-                });
-        });
-    </script>
 
 </body>
 </html>
