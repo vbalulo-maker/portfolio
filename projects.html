@@ -176,6 +176,10 @@
         let allProjects = [];
         let companiesMap = {};
 
+        // Получаем company из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialCompany = urlParams.get('company');
+
         // Загружаем компании
         fetch('data/companies.json')
             .then(r => r.json())
@@ -190,13 +194,8 @@
             .then(projects => {
                 allProjects = projects;
                 renderFilters(projects);
-                applyFilter('Все');
             })
             .catch(() => {});
-
-        // Получаем company из URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const initialCompany = urlParams.get('company');
 
         function renderFilters(projects) {
             const container = document.getElementById('filtersContainer');
@@ -213,9 +212,11 @@
                 });
             });
 
-            // Если есть initialCompany, применяем фильтр
+            // Применяем фильтр: если есть initialCompany — по ней, иначе "Все"
             if (initialCompany && companies.includes(initialCompany)) {
                 applyFilter(initialCompany);
+            } else {
+                applyFilter('Все');
             }
         }
 
@@ -234,7 +235,6 @@
             
             grid.innerHTML = filtered.map(p => {
                 const logo = companiesMap[p.company]?.logo || '';
-                // Проверяем, есть ли детальная информация (hasFullDetails === true)
                 const hasDetails = p.hasFullDetails === true;
                 
                 let linkHtml = '';
