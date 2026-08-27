@@ -443,3 +443,53 @@ nav a.active {
         font-size: 0.55rem;
     }
 }
+/* ===== ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА ===== */
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+.lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    user-select: none;
+}
+.lang-active {
+    opacity: 1;
+    font-weight: 600;
+    color: var(--accent);
+    cursor: default;
+}
+.lang-inactive {
+    opacity: 0.4;
+    cursor: default;
+    transition: var(--transition);
+}
+.lang-inactive:hover {
+    opacity: 0.7;
+}
+.lang-divider {
+    opacity: 0.3;
+}
+
+/* Адаптив для переключателя */
+@media (max-width: 640px) {
+    .header-right {
+        gap: 16px;
+    }
+    .lang-switch {
+        font-size: 0.75rem;
+    }
+    nav ul {
+        gap: 12px;
+    }
+}
