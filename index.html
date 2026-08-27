@@ -416,5 +416,59 @@
             });
     });
 </script>
+<!-- ===== СКРИПТ ДЛЯ КАРЬЕРНОГО ТРЕКА ===== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('data/companies.json')
+                .then(r => r.json())
+                .then(companies => {
+                    // Сортируем: сначала последние (по году окончания)
+                    const sorted = companies.sort((a, b) => {
+                        const getEnd = (p) => {
+                            const parts = p.split('–');
+                            const end = parts[parts.length - 1].trim();
+                            return end === 'н.в.' ? 9999 : parseInt(end, 10);
+                        };
+                        return getEnd(b.period) - getEnd(a.period);
+                    });
+
+                    const container = document.getElementById('careerTimeline');
+                    if (!container) return;
+
+                    const html = `
+                        <div class="timeline-horizontal">
+                            ${sorted.map((company) => {
+                                const hasProjects = Boolean(company.projectId);
+                                return `
+                                    <div class="timeline-node-h ${hasProjects ? 'has-projects' : ''}">
+                                        <div class="node-top">
+                                            <span class="timeline-marker-h"></span>
+                                            <span class="timeline-period-h">${company.period}</span>
+                                        </div>
+                                        <div class="timeline-content-h">
+                                            <h4>${company.name}</h4>
+                                            <div class="role-h">${company.role}</div>
+                                            <div class="intro-h">${company.intro}</div>
+                                            ${hasProjects ? 
+                                                `<a href="projects.html?company=${encodeURIComponent(company.name)}" class="timeline-link-h">Кейсы →</a>` :
+                                                `<span class="timeline-link-h placeholder">скоро</span>`
+                                            }
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    `;
+                    container.innerHTML = html;
+                })
+                .catch(() => {
+                    const container = document.getElementById('careerTimeline');
+                    if (container) {
+                        container.innerHTML = '<p style="color:#999;">Не удалось загрузить данные о карьере.</p>';
+                    }
+                });
+        });
+    </script>
+
 </body>
 </html>
