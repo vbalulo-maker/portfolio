@@ -138,3 +138,65 @@ nav a.active {
     nav a { font-size:0.85rem; }
     .logo { font-size:1.2rem; }
 }
+
+/* ===== КОНТАКТЫ (новая секция) ===== */
+.section-contacts {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    padding: 60px 0;
+}
+.contacts-block h2 {
+    font-size: 2.8rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 8px;
+}
+.contacts-subtitle {
+    font-size: 1.1rem;
+    color: #aaa;
+    margin-bottom: 40px;
+}
+.contacts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+.contact-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+}
+.contact-card:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: var(--accent);
+    transform: translateY(-4px);
+}
+.contact-card svg {
+    color: var(--accent);
+    margin-bottom: 4px;
+}
+.contact-card span {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+.contact-card small {
+    opacity: 0.6;
+    font-size: 0.85rem;
+}
+@media (max-width:640px) {
+    .contacts-block h2 { font-size: 2rem; }
+    .contacts-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width:400px) {
+    .contacts-grid { grid-template-columns: 1fr; }
+}
