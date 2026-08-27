@@ -200,3 +200,160 @@ nav a.active {
 @media (max-width:400px) {
     .contacts-grid { grid-template-columns: 1fr; }
 }
+/* ===== КАРЬЕРНЫЙ ТРЕК (ЛЕНТА ВРЕМЕНИ) ===== */
+.section-career {
+    background: var(--bg-white);
+    padding: 60px 0;
+}
+.career-timeline h2 {
+    font-size: 2.8rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+}
+.career-timeline .sub {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 48px;
+}
+
+/* Обертка ленты */
+.timeline-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Узел ленты */
+.timeline-node {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    position: relative;
+    padding: 24px 0;
+    cursor: default;
+    transition: var(--transition);
+}
+.timeline-node:hover {
+    background: var(--bg-soft);
+    margin: 0 -24px;
+    padding: 24px;
+    border-radius: var(--radius);
+}
+
+/* Маркер (кружок) */
+.timeline-marker {
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--border-light);
+    border: 2px solid var(--bg-white);
+    box-shadow: 0 0 0 2px var(--border-light);
+    margin-top: 6px;
+    position: relative;
+    z-index: 2;
+    transition: var(--transition);
+}
+.timeline-node.has-projects .timeline-marker {
+    background: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent);
+}
+.timeline-node:hover .timeline-marker {
+    transform: scale(1.2);
+}
+
+/* Линия между маркерами */
+.timeline-line {
+    position: absolute;
+    left: 7px;
+    top: 30px;
+    bottom: -6px;
+    width: 2px;
+    background: var(--border-light);
+    z-index: 1;
+}
+.timeline-node:last-child .timeline-line {
+    display: none;
+}
+
+/* Контент узла */
+.timeline-content {
+    flex: 1;
+    padding-bottom: 8px;
+}
+.timeline-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 12px 20px;
+    margin-bottom: 4px;
+}
+.timeline-period {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+}
+.timeline-role {
+    font-size: 0.95rem;
+    color: #666;
+    font-weight: 500;
+}
+.timeline-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+.timeline-intro {
+    font-size: 0.95rem;
+    color: #555;
+    max-width: 80%;
+    margin-bottom: 8px;
+}
+.timeline-link {
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    transition: var(--transition);
+    border-bottom: 1px solid transparent;
+    display: inline-block;
+}
+.timeline-link:hover {
+    color: var(--accent-hover);
+    border-bottom-color: var(--accent);
+}
+.timeline-link.placeholder {
+    color: #999;
+    cursor: default;
+    border-bottom: none;
+}
+.timeline-link.placeholder:hover {
+    color: #999;
+    border-bottom: none;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+    .timeline-node {
+        padding: 16px 0;
+        gap: 16px;
+    }
+    .timeline-node:hover {
+        margin: 0;
+        padding: 16px 0;
+        background: transparent;
+    }
+    .timeline-header {
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+    }
+    .timeline-intro {
+        max-width: 100%;
+    }
+    .timeline-content h3 {
+        font-size: 1.3rem;
+    }
+}
