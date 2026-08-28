@@ -57,22 +57,6 @@
   {
     "id": "project-5",
     "type": "strategy",
-    "title": "Исследование BNPL",
-    "hasFullDetails": false,
-    "intro": "Провёл исследование BNPL: разработал сценарии, модель монетизации и оценку кредитных рисков.",
-    "description": "...",
-    "company": "Финтех-Платформа",
-    "year": "2026",
-    "role": "Head of Product",
-    "metrics": {
-      "...": "..."
-    },
-    "screenshots": ["images/ml1.png"],
-    "chartLabel": "..."
-  },
-  {
-    "id": "project-6",
-    "type": "strategy",
     "title": "Запуск партнёрских каналов и интеграция с PSP",
     "hasFullDetails": false,
     "intro": "Развил партнёрские каналы привлечения бизнеса, расширив портфель эквайринга до 12 тыс. клиентов.",
@@ -87,7 +71,7 @@
     "chartLabel": "..."
   },
   {
-    "id": "project-7",
+    "id": "project-6",
     "type": "strategy",
     "title": "Запуск СБП B2B-переводов",
     "hasFullDetails": false,
@@ -103,11 +87,11 @@
     "chartLabel": "..."
   },
   {
-    "id": "project-8",
+    "id": "project-7",
     "type": "strategy",
     "title": "Анализ глобального рынка финтеха",
     "hasFullDetails": false,
-    "intro": "Провёл анализ глобальных трендов финтеха, определив точки роста для мультибанкинга и ИИ-агентов.",
+    "intro": "В рамках подготовки к Стратегической сессии, провёл анализ глобальных трендов финтеха, определив точки роста для компании.",
     "description": "...",
     "company": "Финтех-Платформа",
     "year": "2026",
@@ -119,23 +103,7 @@
     "chartLabel": "..."
   },
   {
-    "id": "project-9",
-    "type": "strategy",
-    "title": "Исследование мультибанкинга",
-    "hasFullDetails": false,
-    "intro": "Разработал концепцию мультибанкинга: агрегацию счетов и пользовательские сценарии для клиентов банков-партнёров.",
-    "description": "...",
-    "company": "Финтех-Платформа",
-    "year": "2026",
-    "role": "Head of Product",
-    "metrics": {
-      "...": "..."
-    },
-    "screenshots": ["images/ml1.png"],
-    "chartLabel": "..."
-  },
-  {
-    "id": "project-10",
+    "id": "project-8",
     "type": "strategy",
     "title": "Запуск SoftPOS (Tap-to-Pay) - МТС-Банк",
     "hasFullDetails": false,
@@ -151,7 +119,7 @@
     "chartLabel": "..."
   },
   {
-    "id": "project-11",
+    "id": "project-9",
     "type": "strategy",
     "title": "Interchange++",
     "hasFullDetails": false,
