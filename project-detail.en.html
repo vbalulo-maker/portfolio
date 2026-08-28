@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Details · Valeriy Balulo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        .detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            box-shadow: var(--shadow);
+        }
+        .detail-container h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+        .detail-container .meta {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .detail-container .meta span { background: var(--bg-soft); padding: 2px 14px; border-radius: 20px; }
+        .detail-container .description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #333;
+            margin: 20px 0 28px;
+            border-left: 4px solid var(--accent);
+            padding-left: 20px;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .metric-card {
+            background: var(--bg-soft);
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            text-align: center;
+        }
+        .metric-card .value { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+        .metric-card .label { font-size: 0.85rem; color: #555; margin-top: 4px; }
+        .detail-container .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+        .detail-container .back-link:hover { opacity: 1; }
+        .strategy-block {
+            background: var(--bg-soft);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 16px 0;
+            border-left: 4px solid var(--accent);
+        }
+        .strategy-block h3 { margin-bottom: 6px; }
+        .strategy-block p { color: #555; }
+        .presentation-frame {
+            width: 100%;
+            min-height: 600px;
+            border: none;
+            border-radius: var(--radius);
+            margin-top: 16px;
+        }
+        @media (max-width:640px) {
+            .detail-container { padding: 20px 16px; }
+            .detail-container h1 { font-size: 1.8rem; }
+        }
+    </style>
+    <script data-goatcounter="https://vbalulo.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="container header-inner">
+        <a href="index.html" class="logo">Valeriy <span>Balulo</span></a>
+        <div class="header-right">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="projects.html">Case Studies</a></li>
+                    <li><a href="ai-chat.html" class="active">Ask AI</a></li>
+                </ul>
+            </nav>
+            <div class="lang-switch">
+                <span class="lang-active">RU</span>
+                <span class="lang-divider">/</span>
+                <span class="lang-inactive">EN</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ===== CONTENT ===== -->
+<section class="section-hero" style="padding-top:20px;">
+    <div class="container">
+        <div class="detail-container" id="detailContainer">
+            <a href="projects.html" class="back-link">← Back to Case Studies</a>
+            <div id="detailContent">
+                <!-- Загружается из JS -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ФУТЕР ===== -->
+<footer class="section-footer">
+    <div class="container footer-inner">
+        <div class="footer-copy">
+            Hand-coded with good vibes. <a href="https://t.me/Balulo" style="color:var(--accent);text-decoration:none;"> Ask me how. </a>
+            <br />
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const container = document.getElementById('detailContent');
+
+        if (!id) {
+            container.innerHTML = '<p>Case study not found.</p>';
+            return;
+        }
+
+        fetch('data/projects.json')
+            .then(r => r.json())
+            .then(projects => {
+                const project = projects.find(p => p.id === id);
+                if (!project) {
+                    container.innerHTML = '<p>Case study not found.</p>';
+                    return;
+                }
+
+                // Тип presentation — встраиваем HTML
+                if (project.type === 'presentation' && project.presentationFile) {
+                    container.innerHTML = `
+                        <iframe class="presentation-frame" src="${project.presentationFile}"></iframe>
+                    `;
+                    return;
+                }
+
+                // Типы standard и strategy
+                let html = `
+                    <h1>${project.title}</h1>
+                    <div class="meta">
+                        <span>${project.company}</span>
+                        <span>${project.role}</span>
+                        <span>${project.year}</span>
+                    </div>
+                    <div class="description">${project.description || project.intro}</div>
+                `;
+
+                // Метрики
+                if (project.metrics && Object.keys(project.metrics).length > 0) {
+                    html += `<div class="metrics-grid">`;
+                    for (const [key, val] of Object.entries(project.metrics)) {
+                        html += `
+                            <div class="metric-card">
+                                <div class="value">${val}</div>
+                                <div class="label">${key}</div>
+                            </div>
+                        `;
+                    }
+                    html += `</div>`;
+                }
+
+                // Стратегия (strategyBlocks)
+                if (project.type === 'strategy' && project.strategyBlocks?.length) {
+                    html += `<h2 style="margin-top:28px;font-size:1.6rem;">Strategy & Researches</h2>`;
+                    project.strategyBlocks.forEach(block => {
+                        html += `
+                            <div class="strategy-block">
+                                <h3>${block.title || ''}</h3>
+                                <p>${block.description || ''}</p>
+                                ${block.image ? `<img src="${block.image}" alt="${block.title}" style="max-width:100%;border-radius:8px;margin-top:8px;" />` : ''}
+                            </div>
+                        `;
+                    });
+                }
+
+                // Результаты (results)
+                if (project.results?.length) {
+                    html += `<h2 style="margin-top:28px;font-size:1.6rem;">Key Results</h2><ul style="list-style:none;padding:0;">`;
+                    project.results.forEach(r => {
+                        html += `<li style="padding:6px 0 6px 24px;background:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23C9A87C%22 stroke-width=%223%22><line x1=%224%22 y1=%2212%22 x2=%2220%22 y2=%2212%22/></svg>') left center no-repeat;background-size:16px;">${r}</li>`;
+                    });
+                    html += `</ul>`;
+                }
+
+                // Скриншоты (screenshots)
+                if (project.screenshots?.length) {
+                    html += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:20px;">`;
+                    project.screenshots.forEach(s => {
+                        html += `<img src="${s}" alt="Скриншот" style="width:100%;border-radius:8px;border:1px solid var(--border-light);" />`;
+                    });
+                    html += `</div>`;
+                }
+
+                container.innerHTML = html;
+            })
+            .catch(() => {
+                container.innerHTML = '<p>Could not load data.</p>';
+            });
+    });
+</script>
+</body>
+</html>

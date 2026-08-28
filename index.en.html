@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valeriy Balulo · Head of Product in Fintech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        /* ===== Дополнительные стили для главной ===== */
+        .hero-grid {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+        .hero-text { flex: 2; }
+        .hero-text h1 {
+            font-size: 4.2rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+        .hero-text h1 .highlight { color: var(--accent); }
+        .hero-text p {
+            font-size: 1.3rem;
+            color: #444;
+            margin-bottom: 40px;
+            max-width: 90%;
+        }
+        .hero-text .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            padding: 14px 40px;
+            border-radius: 60px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .hero-text .cta-button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(201,168,124,0.25);
+        }
+        .hero-photo {
+            flex: 1;
+            max-width: 320px;
+            min-width: 200px;
+        }
+        .hero-photo img {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            border: 4px solid var(--accent);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            display: block;
+        }
+        .visual-anchor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        .visual-anchor img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+        .visual-anchor img:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 24px;
+            margin-top: 32px;
+        }
+        .step {
+            background: var(--bg-white);
+            padding: 28px 24px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+        .step:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--accent);
+        }
+        .step .number {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .step h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 12px 0 8px;
+        }
+        .step p {
+            color: #555;
+            font-size: 0.95rem;
+        }
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 24px;
+            margin-top: 32px;
+        }
+        .featured-item {
+            background: var(--bg-soft);
+            padding: 32px 28px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .featured-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--accent);
+        }
+        .featured-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .featured-label {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        .featured-company {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: auto;
+            margin-bottom: 8px;
+        }
+        .featured-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            align-self: flex-start;
+        }
+        .featured-link:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+        @media (max-width:1024px) {
+            .hero-text h1 { font-size: 3.2rem; }
+            .hero-text p { max-width:100%; }
+            .steps { grid-template-columns:1fr 1fr; }
+            .featured-grid { grid-template-columns:1fr 1fr; }
+        }
+        @media (max-width:768px) {
+            .hero-grid { flex-direction:column-reverse; gap:40px; }
+            .hero-photo { max-width:240px; min-width:unset; }
+            .hero-text h1 { font-size:2.8rem; }
+            .hero-text p { font-size:1.1rem; }
+            .steps { grid-template-columns:1fr 1fr; }
+        }
+        @media (max-width:640px) {
+            .hero-text h1 { font-size:2.2rem; }
+            .hero-text p { font-size:1rem; }
+            .steps { grid-template-columns:1fr; }
+            .featured-grid { grid-template-columns:1fr; }
+        }
+    </style>
+    <script data-goatcounter="https://vbalulo.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="container header-inner">
+        <a href="index.html" class="logo">Valeriy <span>Balulo</span></a>
+        <div class="header-right">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="projects.html">Case Studies</a></li>
+                    <li><a href="ai-chat.html" class="active">Ask AI</a></li>
+                </ul>
+            </nav>
+            <div class="lang-switch">
+                <span class="lang-active">RU</span>
+                <span class="lang-divider">/</span>
+                <span class="lang-inactive">EN</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="section-hero">
+    <div class="container hero-grid">
+        <div class="hero-text">
+            <h1>
+                I build and scale<br />
+                <span class="highlight">fintech products</span>,<br />
+                that drive business growth
+            </h1>
+            <p>
+                10+ years in fintech, including 7+ years in senior product leadership roles. 
+		I lead the full product lifecycle for transaction products — from strategy and unit economics to launch and scale.
+            </p>
+            <a href="projects.html" class="cta-button">View Case Studies</a>
+        </div>
+        <div class="hero-photo">
+            <img src="assets/images/photo.jpg" alt="Valeriy Balulo" />
+        </div>
+    </div>
+</section>
+
+<!-- ===== ВИЗУАЛЬНЫЙ ЯКОРЬ ===== -->
+<section class="section-visual">
+    <div class="container visual-anchor">
+        <img src="assets/images/picture.png" alt="Payments" />
+    </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="section-process">
+    <div class="container process">
+        <h2>My Approach</h2>
+        <div class="sub">A systematic approach to buiding products</div>
+        <div class="steps">
+            <div class="step">
+                <div class="number">01</div>
+                <h3>Assessment</h3>
+                <p>I dive into the business context, analyze product and business metrics, and assess the team to identify the key growth opportunities.</p>
+            </div>
+            <div class="step">
+                <div class="number">02</div>
+                <h3>Strategy</h3>
+                <p>I develop a product strategy and roadmap, prioritizing opportunities based on data, customer value, and unit-economics.</p>
+            </div>
+            <div class="step">
+                <div class="number">03</div>
+                <h3>Launch</h3>
+                <p>I build cross-functional teams and take products from concept to MVP, focusing on fast validation and customer feedback.</p>
+            </div>
+            <div class="step">
+                <div class="number">04</div>
+                <h3>Scale</h3>
+                <p>I establish scalable processes, delegate operational work, and build products and teams that can grow without depending on me.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== EXPERIENCE (ГОРИЗОНТАЛЬНЫЙ) ===== -->
+<section class="section-career">
+    <div class="container career-timeline-horizontal">
+        <h2>Career Track</h2>
+        <p class="sub">Click on stage to explore</p>
+        <div class="timeline-horizontal-wrapper" id="careerTimeline">
+            <!-- Содержимое генерируется скриптом -->
+        </div>
+    </div>
+</section>
+
+<!-- ===== KEY RESULTS ===== -->
+<section class="section-featured">
+    <div class="container featured">
+        <h2>Key Results</h2>
+        <div class="sub">Key achievements in numbers</div>
+        <div class="featured-grid" id="featuredGrid">
+            <!-- Загружается из JS -->
+        </div>
+    </div>
+</section>
+
+<!-- ===== CONTACTS ===== -->
+<section class="section-contacts">
+    <div class="container contacts-block">
+        <h2>Contact me</h2>
+        <p class="contacts-subtitle">through any preferred channel</p>
+        <div class="contacts-grid">
+            <a href="https://t.me/Balulo" target="_blank" class="contact-card telegram">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"/>
+                </svg>
+                <span>Telegram</span>
+                <small>@Balulo</small>
+            </a>
+            <a href="https://linkedin.com/in/valeriy-balulo" target="_blank" class="contact-card linkedin">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                    <rect x="2" y="9" width="4" height="12"/>
+                    <circle cx="4" cy="4" r="2"/>
+                </svg>
+                <span>LinkedIn</span>
+                <small>valeriy-balulo</small>
+            </a>
+            <a href="mailto:vbalulo@yandex.ru" class="contact-card email">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="4" width="20" height="16" rx="2"/>
+                    <path d="M22 7L12 13L2 7"/>
+                </svg>
+                <span>Email</span>
+                <small>vbalulo@yandex.ru</small>
+            </a>
+            <a href="tel:+79265598823" class="contact-card phone">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.574 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                <span>Phone</span>
+                <small>+7 (926) 559-88-23</small>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ФУТЕР ===== -->
+<footer class="section-footer">
+    <div class="container footer-inner">
+        <div class="footer-copy">
+            Hand-coded with good vibes. <a href="https://t.me/Balulo" style="color:var(--accent);text-decoration:none;"> Ask me how. </a>
+            <br />
+        </div>
+    </div>
+</footer>
+
+<!-- ===== СКРИПТ ДЛЯ ИЗБРАННЫХ РЕЗУЛЬТАТОВ ===== -->
+<script>
+    const featuredData = [
+        {
+            number: '10x',
+            label: 'Building B2B Payment Acceptance from Scratch and Scaling It',
+            company: 'Rosbank · 2022–2024',
+            projectId: 'project-1'
+        },
+        {
+            number: '???',
+            label: 'Launching and Scaling QR Payments',
+            company: 'MTS-Bank · 2019–2020',
+            projectId: 'project-2'
+        },
+        {
+            number: '5 - 1.5 days',
+            label: 'Onboarding time',
+            company: 'RSHB · 2024',
+            projectId: 'project-3'
+        }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const grid = document.getElementById('featuredGrid');
+        grid.innerHTML = featuredData.map(item => `
+            <div class="featured-item">
+                <span class="featured-number">${item.number}</span>
+                <span class="featured-label">${item.label}</span>
+                <span class="featured-company">${item.company}</span>
+                <a href="project-detail.html?id=${item.projectId}" class="featured-link">Explore the cases →</a>
+            </div>
+        `).join('');
+    });
+</script>
+
+<!-- ===== СКРИПТ ДЛЯ КАРЬЕРНОГО ТРЕКА (ГОРИЗОНТАЛЬНЫЙ) ===== -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetch('data/companies.json')
+            .then(r => r.json())
+            .then(companies => {
+                // Сортируем: от старых к новым (по году начала)
+                const sorted = companies.sort((a, b) => {
+                    const getStart = (p) => {
+                        const parts = p.split('–');
+                        const start = parts[0].trim();
+                        return parseInt(start, 10);
+                    };
+                    return getStart(a.period) - getStart(b.period);
+                });
+
+                const container = document.getElementById('careerTimeline');
+                if (!container) return;
+
+                const html = `
+                    <div class="timeline-horizontal">
+                        ${sorted.map((company) => {
+                            const hasProjects = Boolean(company.projectId);
+                            return `
+                                <div class="timeline-node-h ${hasProjects ? 'has-projects' : ''}">
+                                    <div class="node-top">
+                                        <span class="timeline-marker-h"></span>
+                                        <span class="timeline-period-h">${company.period}</span>
+                                    </div>
+                                    <div class="timeline-content-h">
+                                        <h4>${company.name}</h4>
+                                        <div class="role-h">${company.role}</div>
+                                        <div class="intro-h">${company.intro}</div>
+                                        ${hasProjects ? 
+                                            `<a href="projects.html?company=${encodeURIComponent(company.name)}" class="timeline-link-h">Кейсы →</a>` :
+                                            `<span class="timeline-link-h placeholder">скоро</span>`
+                                        }
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+                container.innerHTML = html;
+            })
+            .catch(() => {
+                const container = document.getElementById('careerTimeline');
+                if (container) {
+                    container.innerHTML = '<p style="color:#999;">Career information could not be loaded.</p>';
+                }
+            });
+    });
+</script>
+
+</body>
+</html>
