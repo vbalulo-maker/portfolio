@@ -376,7 +376,7 @@
 <!-- ===== СКРИПТ ДЛЯ КАРЬЕРНОГО ТРЕКА (ГОРИЗОНТАЛЬНЫЙ) ===== -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        fetch('data/companies.json')
+        fetch('data/companies.en.json')
             .then(r => r.json())
             .then(companies => {
                 // Сортируем: от старых к новым (по году начала)
