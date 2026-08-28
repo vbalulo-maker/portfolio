@@ -24,7 +24,7 @@
     "name": "Rosbank",
     "role": "Head of Product",
     "period": "2022.08-2024.07",
-    "intro": "A systemically important bank and former Société Générale shareholder.",
+    "intro": "A systemically important bank and former Société Générale shareholder. In 2024, Rosbank merged with T-Bank",
     "description": "Built and launched payment acceptance and payout services for business customers from scratch. Introduced digital customer onboarding through the bank’s online banking platform.",
     "logo": "assets/images/logos/rosbank.png",
     "projectId": "project-1"
@@ -44,7 +44,8 @@
     "name": "Credit Europe Bank",
     "role": "Deputy Head of Acquiring",
     "period": "2005.09-2019.02",
-    "intro": "Launched installment payments and contactless payment acceptance across the acquiring network. Introduced the Interchange++ pricing model for key enterprise merchants.",
+    "intro": "A top-30 Russian bank with foreign capital and management.",
+    "description": "Launched installment payments and contactless payment acceptance across the acquiring network. Introduced the Interchange++ pricing model for key enterprise merchants.",
     "logo": "assets/images/logos/ceb.png",
     "projectId": "project-1"
   }
