@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кейс: Запуск эквайринга · Scandinavian Light</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Кейс: Запуск эквайринга с нуля · Валерий Балуло</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* ===== БАЗОВЫЕ СТИЛИ ===== */
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
             background: #e8e4de;
-            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -22,14 +18,13 @@
             gap: 32px;
         }
 
-        /* каждый слайд — точный А4 горизонтальный, фиксированная высота */
         .slide {
             width: 1120px;
-            height: 792px;
+            min-height: 792px;
             background: #F8F6F2;
             border-radius: 16px;
             padding: 40px 48px 36px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
             border: 1px solid #f0ece6;
             display: flex;
             flex-direction: column;
@@ -38,19 +33,15 @@
             position: relative;
         }
 
-        /* ===== общие элементы ===== */
+        /* ===== ОБЩИЕ ЭЛЕМЕНТЫ ===== */
         .slide-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 4px;
             border-bottom: 1px solid #e8e2da;
             padding-bottom: 12px;
-            flex-wrap: wrap;
-            gap: 8px;
             flex-shrink: 0;
         }
-
         .slide-tag {
             font-size: 12px;
             font-weight: 600;
@@ -61,20 +52,16 @@
             border-radius: 40px;
             text-transform: uppercase;
         }
-
         .slide-number {
             font-size: 13px;
             font-weight: 400;
             color: #8a7e72;
-            letter-spacing: 0.3px;
         }
-
         .slide-author {
             font-size: 14px;
             font-weight: 400;
             color: #5a4f44;
             margin-bottom: 6px;
-            padding-left: 2px;
             flex-shrink: 0;
         }
 
@@ -82,186 +69,86 @@
             font-size: 44px;
             font-weight: 700;
             letter-spacing: -0.02em;
-            color: #1A1A1A;
             line-height: 1.15;
             margin-bottom: 4px;
             flex-shrink: 0;
         }
-
         h2 {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 600;
             letter-spacing: -0.01em;
-            color: #1A1A1A;
-            margin-bottom: 12px;
-            line-height: 1.2;
+            margin-bottom: 8px;
             flex-shrink: 0;
         }
-
         h3 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
-            color: #1A1A1A;
-            margin-bottom: 8px;
-        }
-
-        /* увеличенные шрифты для первого слайда */
-        .slide-first h1 {
-            font-size: 66px; /* 44px * 1.5 = 66px */
-        }
-        .slide-first .description {
-            font-size: 30px; /* 20px * 1.5 = 30px */
-            padding: 16px 26px;
-            border-left-width: 5px;
-        }
-
-        /* слайд "контекст" — заголовок h1, контент h2 */
-        .slide-context h2 {
-            font-size: 44px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-        .slide-context h3 {
-            font-size: 32px;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-        }
-        .slide-context .list-dash li {
-            font-size: 20px;
-            padding: 8px 0 8px 30px;
-            background-size: 18px;
-        }
-
-        /* слайд "старт" — заголовок h1, контент h3 */
-        .slide-start h2 {
-            font-size: 44px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-        .slide-start .badge-light,
-        .slide-start .badge-accent {
-            font-size: 16px;
-            padding: 6px 18px;
-        }
-        .slide-start .col-card {
-            font-size: 18px;
-        }
-        .slide-start .col-card span {
-            font-size: 18px;
-        }
-
-        /* слайд "исследование" — заголовок h1 */
-        .slide-research h2 {
-            font-size: 44px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-        .slide-research .col-card-light {
-            font-size: 17px;
-        }
-        .slide-research .quote {
-            font-size: 18px;
-            padding: 14px 22px;
+            margin-bottom: 6px;
         }
 
         .description {
-            font-size: 20px;
+            font-size: 18px;
             color: #2c241c;
             font-weight: 400;
-            margin: 2px 0 18px 0;
+            margin: 6px 0 18px 0;
             border-left: 4px solid #C9A87C;
-            padding-left: 22px;
+            padding: 14px 22px;
             background: #f3efe9;
             border-radius: 0 10px 10px 0;
-            padding: 14px 22px;
             line-height: 1.45;
             flex-shrink: 0;
         }
 
-        .description-light {
-            font-size: 17px;
-            color: #2c241c;
-            font-weight: 400;
-            margin: 2px 0 14px 0;
-            line-height: 1.5;
-            flex-shrink: 0;
+        .badge-accent {
+            background: #C9A87C;
+            color: #1A1A1A;
+            font-weight: 500;
+            font-size: 12px;
+            padding: 4px 14px;
+            border-radius: 40px;
+            display: inline-block;
         }
-
-        /* ===== нижний блок с результатами (для 1-го слайда) ===== */
-        .result-block {
+        .badge-light {
             background: #ede8e0;
-            border-radius: 16px;
-            padding: 22px 32px;
-            margin-top: auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px 24px;
-            flex-shrink: 0;
-            border: 1px solid #ddd6cc;
-        }
-
-        .result-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .result-number {
-            font-size: 44px;
-            font-weight: 700;
             color: #1A1A1A;
-            letter-spacing: -0.02em;
-            line-height: 1;
-            white-space: nowrap;
+            font-weight: 500;
+            font-size: 12px;
+            padding: 4px 14px;
+            border-radius: 40px;
+            display: inline-block;
         }
 
-        .result-label {
-            font-size: 14px;
-            color: #3d342b;
-            font-weight: 400;
-            margin-top: 4px;
-            line-height: 1.3;
-        }
-
-        .result-number .arrow {
-            font-size: 32px;
-            font-weight: 600;
-            color: #1A1A1A;
-        }
-
-        /* ===== сетки и карточки ===== */
+        /* ===== СЕТКИ ===== */
         .two-col {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
             flex: 1;
         }
-
         .three-col {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 18px;
             flex: 1;
         }
-
         .col-card {
             background: #f3efe9;
             border-radius: 14px;
-            padding: 18px 22px;
+            padding: 20px 24px;
             border: 1px solid #e8e2da;
             display: flex;
             flex-direction: column;
         }
-
-        .col-card-light {
-            background: #f6f3ee;
-            border-radius: 14px;
-            padding: 16px 20px;
-            border: 1px solid #e8e2da;
-            display: flex;
-            flex-direction: column;
+        .col-card.dark {
+            background: #1A1A1A;
+            border-color: #2a2a2a;
+            color: #EAEAEA;
         }
+        .col-card.dark .badge-light {
+            background: #2a2a2a;
+            color: #d4d4d4;
+        }
+        .col-card.dark ul li { border-bottom-color: #333; }
 
         .list-dash {
             list-style: none;
@@ -277,24 +164,11 @@
         }
         .list-dash li:last-child { border-bottom: 0; }
 
-        .badge-accent {
-            background: #C9A87C;
-            color: #1A1A1A;
-            font-weight: 500;
-            font-size: 12px;
-            padding: 4px 14px;
-            border-radius: 40px;
-            display: inline-block;
-        }
-
-        .badge-light {
-            background: #ede8e0;
-            color: #1A1A1A;
-            font-weight: 500;
-            font-size: 12px;
-            padding: 4px 14px;
-            border-radius: 40px;
-            display: inline-block;
+        .flex-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+            align-items: center;
         }
 
         .divider {
@@ -304,460 +178,298 @@
             flex-shrink: 0;
         }
 
-        .quote {
-            font-style: italic;
-            color: #2c241c;
+        .result-block {
             background: #ede8e0;
-            padding: 12px 20px;
-            border-radius: 40px;
-            font-weight: 400;
-            font-size: 16px;
-            border-left: 4px solid #C9A87C;
-        }
-
-        .flex-wrap {
+            border-radius: 16px;
+            padding: 22px 32px;
+            margin-top: auto;
             display: flex;
             flex-wrap: wrap;
-            gap: 10px 18px;
+            justify-content: space-between;
             align-items: center;
+            gap: 16px 24px;
+            flex-shrink: 0;
+            border: 1px solid #ddd6cc;
+        }
+        .result-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .result-number {
+            font-size: 44px;
+            font-weight: 700;
+            color: #1A1A1A;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            white-space: nowrap;
+        }
+        .result-label {
+            font-size: 14px;
+            color: #3d342b;
+            font-weight: 400;
+            margin-top: 4px;
+            line-height: 1.3;
         }
 
-        .flex-grow {
-            flex: 1;
-        }
-
-        .mt-auto {
-            margin-top: auto;
-        }
-
-        .mt-1 { margin-top: 8px; }
-        .mb-1 { margin-bottom: 6px; }
-        .gap-1 { gap: 6px; }
-
-        /* ===== Scandinavian Noir (последний слайд) ===== */
+        /* ===== ФИНАЛЬНЫЙ СЛАЙД (SCANDINAVIAN NOIR) ===== */
         .slide-noir {
             background: #1A1A1A;
             border-color: #2a2a2a;
             color: #EAEAEA;
-        }
-        .slide-noir .slide-header {
-            border-bottom-color: #3a3a3a;
-        }
-        .slide-noir .slide-tag {
-            background: #2a2a2a;
-            color: #EAEAEA;
-        }
-        .slide-noir .slide-number {
-            color: #9a8e82;
-        }
-        .slide-noir h1 {
-            color: #EAEAEA;
-        }
-        .slide-noir h2 {
-            color: #EAEAEA;
-        }
-        .slide-noir h3 {
-            color: #EAEAEA;
-        }
-        .slide-noir .description {
-            background: #2a2a2a;
-            color: #d4d4d4;
-            border-left-color: #C9A87C;
-        }
-        .slide-noir .badge-accent {
-            background: #C9A87C;
-            color: #1A1A1A;
-        }
-        .slide-noir .badge-light {
-            background: #2a2a2a;
-            color: #d4d4d4;
-        }
-        .slide-noir .col-card {
-            background: #2a2a2a;
-            border-color: #3a3a3a;
-        }
-        .slide-noir .col-card-light {
-            background: #242424;
-            border-color: #3a3a3a;
-        }
-        .slide-noir .list-dash li {
-            border-bottom-color: #333;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%23C9A87C" stroke-width="2.5"><line x1="4" y1="12" x2="20" y2="12"/></svg>');
-        }
-        .slide-noir .result-block {
-            background: #2a2a2a;
-            border-color: #3a3a3a;
-        }
-        .slide-noir .result-number {
-            color: #EAEAEA;
-        }
-        .slide-noir .result-label {
-            color: #b0a89e;
-        }
-        .slide-noir .result-number .arrow {
-            color: #EAEAEA;
-        }
-        .slide-noir .divider {
-            background: #3a3a3a;
-        }
-        .slide-noir .quote {
-            background: #2a2a2a;
-            color: #d4d4d4;
-        }
-        .slide-noir .flex-wrap {
-            color: #d4d4d4;
-        }
-
-        /* ===== Telegram tooltip ===== */
-        .telegram-link {
-            position: relative;
-            cursor: pointer;
-            display: inline-block;
-        }
-        .telegram-link .tooltip {
-            visibility: hidden;
-            opacity: 0;
-            width: 260px;
-            background: #2a2a2a;
-            color: #EAEAEA;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            border-radius: 8px;
-            padding: 10px 14px;
-            position: absolute;
-            z-index: 10;
-            bottom: 130%;
-            left: 50%;
-            transform: translateX(-50%);
-            transition: opacity 0.3s;
-            font-weight: 400;
-            font-size: 14px;
-            border: 1px solid #C9A87C;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            pointer-events: none;
         }
-        .telegram-link .tooltip::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 8px;
-            border-style: solid;
-            border-color: #C9A87C transparent transparent transparent;
-        }
-        .telegram-link:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-        .telegram-link .tooltip a {
-            color: #C9A87C;
-            text-decoration: underline;
-            pointer-events: auto;
-        }
+        .slide-noir .slide-header { border-bottom-color: #3a3a3a; }
+        .slide-noir .slide-tag { background: #2a2a2a; color: #EAEAEA; }
+        .slide-noir .slide-number { color: #9a8e82; }
+        .slide-noir h1 { color: #EAEAEA; }
+        .slide-noir .badge-accent { background: #C9A87C; color: #1A1A1A; }
+        .slide-noir .badge-light { background: #2a2a2a; color: #d4d4d4; }
+        .slide-noir .col-card { background: #2a2a2a; border-color: #3a3a3a; }
 
-        /* ===== адаптив ===== */
+        /* ===== АДАПТИВ ===== */
         @media (max-width: 1180px) {
-            .slide {
-                width: 100%;
-                height: auto;
-                min-height: 600px;
-                padding: 28px 24px 24px;
-                border-radius: 16px;
-            }
-            .slide-first h1 { font-size: 48px; }
-            .slide-first .description { font-size: 22px; }
-            .slide-context h2 { font-size: 34px; }
-            .slide-context h3 { font-size: 26px; }
-            .slide-context .list-dash li { font-size: 17px; }
-            .slide-start h2 { font-size: 34px; }
-            .slide-research h2 { font-size: 34px; }
+            .slide { width: 100%; height: auto; min-height: 600px; padding: 28px 24px; border-radius: 16px; }
             h1 { font-size: 34px; }
-            h2 { font-size: 26px; }
-            .description { font-size: 17px; }
-            .two-col { grid-template-columns: 1fr; }
-            .three-col { grid-template-columns: 1fr; }
+            h2 { font-size: 24px; }
+            .description { font-size: 16px; }
+            .two-col, .three-col { grid-template-columns: 1fr; }
             .result-block { padding: 16px 20px; flex-wrap: wrap; }
             .result-number { font-size: 34px; }
+            .slide-noir { min-height: 400px; }
         }
-
         @media (max-width: 600px) {
             .slide { padding: 18px 14px; min-height: 400px; }
-            .slide-first h1 { font-size: 34px; }
-            .slide-first .description { font-size: 18px; padding: 10px 14px; }
-            .slide-context h2 { font-size: 26px; }
-            .slide-context h3 { font-size: 20px; }
-            .slide-context .list-dash li { font-size: 15px; }
-            .slide-start h2 { font-size: 26px; }
-            .slide-research h2 { font-size: 26px; }
             h1 { font-size: 26px; }
-            h2 { font-size: 22px; }
-            .description { font-size: 15px; padding: 10px 14px; }
+            h2 { font-size: 20px; }
+            .description { font-size: 14px; padding: 10px 14px; }
             .result-number { font-size: 28px; }
-            .slide-header { flex-direction: column; align-items: flex-start; }
+            .slide-header { flex-direction: column; align-items: flex-start; gap: 6px; }
             .result-block { flex-direction: column; align-items: flex-start; }
-            .telegram-link .tooltip {
-                width: 200px;
-                font-size: 12px;
-                bottom: 140%;
-            }
+            .col-card { padding: 16px 18px; }
         }
     </style>
 </head>
 <body>
 
     <!-- ============================================================ -->
-    <!-- СЛАЙД 1: Кейс · 1/8  (увеличенные шрифты) -->
-    <div class="slide slide-first">
+    <!-- СЛАЙД 1: РЕЗУЛЬТАТ (САМОЕ ВАЖНОЕ СВЕРХУ) -->
+    <!-- ============================================================ -->
+    <div class="slide">
         <div class="slide-header">
-            <span class="slide-tag">Кейс · продукт</span>
-            <span class="slide-number">1/8</span>
+            <span class="slide-tag">Кейс · Head of Product</span>
+            <span class="slide-number">1/6</span>
         </div>
-        <div class="slide-author">Подготовил Валерий Балуло @Balulo</div>
-        <h1>Запуск приёма платежей для бизнеса с нуля</h1>
+        <div class="slide-author">Валерий Балуло · 2022–2024</div>
+        <h1>Запуск эквайринга с нуля</h1>
         <div class="description">
-            Запуск собственного сервиса эквайринга в Росбанке: от реферальной модели к продукту полного цикла. Октябрь 2022 — Март 2024
+            Как мы перешли от реферальной модели к собственному цифровому продукту и за 12 месяцев привлекли 6 500 бизнес-клиентов
         </div>
+
         <div class="result-block">
             <div class="result-item">
                 <span class="result-number">6 500</span>
-                <span class="result-label">активных бизнес-клиентов за первые 12 мес.</span>
+                <span class="result-label">активных бизнес-клиентов за 12 месяцев</span>
             </div>
             <div class="result-item">
                 <span class="result-number">8%</span>
                 <span class="result-label">проникновение эквайринга в портфеле банка</span>
             </div>
             <div class="result-item">
-                <span class="result-number">2 <span class="arrow">→</span> 1</span>
-                <span class="result-label">единая точка входа для клиента</span>
+                <span class="result-number">3×</span>
+                <span class="result-label">рост маржинальности продукта</span>
+            </div>
+            <div class="result-item">
+                <span class="result-number">5 мес.</span>
+                <span class="result-label">окупаемость инвестиций в разработку</span>
             </div>
         </div>
     </div>
 
     <!-- ============================================================ -->
-    <!-- СЛАЙД 2: контекст · 2/8  (заголовок h1, контент h2) -->
-    <div class="slide slide-context">
+    <!-- СЛАЙД 2: КОНТЕКСТ И СТРАТЕГИЯ -->
+    <!-- ============================================================ -->
+    <div class="slide">
         <div class="slide-header">
             <span class="slide-tag">Контекст</span>
-            <span class="slide-number">2/8</span>
+            <span class="slide-number">2/6</span>
         </div>
-        <h2>От реферальной модели к продукту полного цикла</h2>
+        <h2>От реферальной модели к собственному продукту</h2>
         <div class="two-col" style="flex:1;">
             <div class="col-card">
                 <h3>Ситуация «До»</h3>
                 <ul class="list-dash">
-                    <li>Клиенты обслуживались через партнера (UCS) по реферальной схеме.</li>
-                    <li>Разрыв клиентского опыта: два договора, два окна поддержки, отсутствие контроля тарифов.</li>
-                    <li>Банк терял маржу и данные о транзакциях клиентов.</li>
+                    <li>Клиенты обслуживались через партнера (UCS) по реферальной схеме</li>
+                    <li>Разрыв клиентского опыта: два договора, два окна поддержки</li>
+                    <li>Банк терял маржу и не контролировал тарифы</li>
                 </ul>
+                <div style="margin-top:12px; padding-top:12px; border-top:1px solid #ddd6cc;">
+                    <span class="badge-light">Проблема</span> <strong>Банк недополучал маржу и данные о клиентах</strong>
+                </div>
             </div>
             <div class="col-card">
-                <h3>Цель</h3>
+                <h3>Стратегия Digital-First</h3>
                 <ul class="list-dash">
-                    <li>Создать собственный продукт «в одном окне» (Личный кабинет банка).</li>
-                    <li>Запустить MVP за 4 месяца.</li>
-                    <li>Единый клиентский путь, полный контроль тарифов и данных.</li>
+                    <li><strong>Единое окно:</strong> один договор, один ЛК, одна поддержка</li>
+                    <li><strong>100% онлайн:</strong> подключение без визита в офис</li>
+                    <li><strong>Контроль:</strong> тарифы, данные, клиентский опыт — всё под контролем банка</li>
                 </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- СЛАЙД 3: старт · 3/8  (увеличенные отступы между строками) -->
-    <div class="slide slide-start">
-        <div class="slide-header">
-            <span class="slide-tag">Старт</span>
-            <span class="slide-number">3/8</span>
-        </div>
-        <h2>Вызовы в условиях неопределенности</h2>
-        <div class="description-light" style="margin-bottom:12px; font-size:20px;">
-            <span class="badge-accent" style="font-size:16px;">Миссия</span> Построить продукт с нуля <strong>People · Process · Product</strong>
-        </div>
-        <div class="two-col" style="flex:1; gap:28px;">
-            <!-- левая колонка: срок, ресурсы, каналы -->
-            <div class="col-card" style="display:flex; flex-direction:column; gap:20px; padding:22px 26px;">
-                <div style="display:flex; align-items:center; gap:10px; font-size:18px;">
-                    <span class="badge-light" style="font-size:16px; flex-shrink:0;">⏳ Срок</span>
-                    <span style="font-weight:500; font-size:18px;">MVP через 4 месяца</span>
-                </div>
-                <div style="display:flex; align-items:center; gap:10px; font-size:18px;">
-                    <span class="badge-light" style="font-size:16px; flex-shrink:0;">🧑‍💻 Ресурсы</span>
-                    <span style="font-weight:500; font-size:18px;">Отсутствие выделенной команды разработки</span>
-                </div>
-                <div style="display:flex; align-items:center; gap:10px; font-size:18px;">
-                    <span class="badge-light" style="font-size:16px; flex-shrink:0;">🏦 Каналы</span>
-                    <span style="font-weight:500; font-size:18px;">Нежелание филиальной сети продавать новый продукт</span>
-                </div>
-            </div>
-            <!-- правая колонка: стратегия -->
-            <div class="col-card" style="display:flex; flex-direction:column; gap:20px; padding:22px 26px;">
-                <div style="display:flex; align-items:center; gap:10px; font-size:18px;">
-                    <span class="badge-accent" style="font-size:16px; flex-shrink:0;">Digital-First</span>
-                    <span style="font-weight:500; font-size:18px;">100% цифровой онбординг (без визитов в офис)</span>
-                </div>
-                <div style="display:flex; align-items:center; gap:10px; font-size:18px;">
-                    <span class="badge-accent" style="font-size:16px; flex-shrink:0;">Приоритизация RICE</span>
-                    <span style="font-weight:500; font-size:18px;">max ценность / min трудоёмкость</span>
-                </div>
-                <div style="display:flex; align-items:center; gap:10px; font-size:18px;">
-                    <span class="badge-accent" style="font-size:16px; flex-shrink:0;">Кросс-функциональность</span>
-                    <span style="font-weight:500; font-size:18px;">Analyst, Full-stack, FrontEnd-Dev, Backend-Dev, Android-Dev, QA, UX, Designer</span>
+                <div style="margin-top:12px; padding-top:12px; border-top:1px solid #ddd6cc;">
+                    <span class="badge-accent">Цель</span> <strong>MVP за 4 месяца, полный контроль над продуктом</strong>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- ============================================================ -->
-    <!-- СЛАЙД 4: исследование · 4/8  (заголовок h1) -->
-    <div class="slide slide-research">
+<!-- СЛАЙД 3: ВЫЗОВЫ И УПРАВЛЕНИЕ ИЗМЕНЕНИЯМИ -->
+<!-- ============================================================ -->
+<div class="slide">
+    <div class="slide-header">
+        <span class="slide-tag">Управление изменениями</span>
+        <span class="slide-number">3/6</span>
+    </div>
+    <h2>Как мы преодолели сопротивление</h2>
+    <div class="description" style="font-size:16px; padding:12px 20px; margin-bottom:12px;">
+        Ключевой вызов: традиционные каналы продаж не были заинтересованы в продвижении нового цифрового продукта
+    </div>
+    <div class="two-col" style="flex:1; gap:20px;">
+        <div class="col-card" style="border-left:4px solid #C9A87C;">
+            <h3>Что я сделал</h3>
+            <ul class="list-dash">
+                <li><strong>Вовлек руководителей:</strong> Провел встречи с главами каналов продаж — показал, как новый продукт поможет им выполнять планы за счет кросс-продаж и роста базы</li>
+                <li><strong>Изменил KPI:</strong> Добился, чтобы цифровые подключения начали приносить менеджерам бонусы — это перевернуло их отношение к продукту</li>
+                <li><strong>Пилот в отделениях:</strong> Запустили продукт в 5 отделениях, собрали успешные кейсы — после этого остальные подключились сами</li>
+            </ul>
+        </div>
+        <div class="col-card" style="border-left:4px solid #8aa67a;">
+            <h3>Что получилось</h3>
+            <ul class="list-dash">
+                <li>Каналы продаж начали активно продвигать продукт после первых успешных кейсов</li>
+                <li>Одновременно развили альтернативный канал подключения через интернет-банк — клиенты начали подключаться сами</li>
+                <li>Продукт стал "видимым" в цифровых каналах, и мы перестали зависеть от филиальной сети</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 4: ИССЛЕДОВАНИЯ И ПРОДУКТОВЫЕ РЕШЕНИЯ -->
+    <!-- ============================================================ -->
+    <div class="slide">
         <div class="slide-header">
-            <span class="slide-tag">Исследование</span>
-            <span class="slide-number">4/8</span>
+            <span class="slide-tag">Продуктовые решения</span>
+            <span class="slide-number">4/6</span>
         </div>
         <h2>Как мы нашли продукт, который нужен рынку</h2>
         <div class="three-col" style="flex:1;">
-            <div class="col-card-light">
-                <span class="badge-light" style="font-size:18px;">Аналитика</span>
-                <div style="margin-top:6px; font-size:18px;">Обращения клиентов в поддержку, транзакционные данные клиентов, анализ оттока и причин ухода</div>
-            </div>
-            <div class="col-card-light">
-                <span class="badge-light" style="font-size:18px;">CustDev</span>
-                <div style="margin-top:6px; font-size:18px;">Владельцы малого бизнеса: «два окна», сложность подключения</div>
-                <div class="quote" style="margin-top:10px; font-size:18px; padding:12px 18px;">«Мне нужно одно приложение для всего бизнеса, а не бегать между банком и процессингом»</div>
-            </div>
-            <div class="col-card-light">
-                <span class="badge-light" style="font-size:18px;">Бенчмаркинг</span>
-                <div style="margin-top:6px; font-size:18px;">Т-Банк, Точка, Альфа — лучшие практики</div>
-            </div>
-        </div>
-        <div style="background:#ede8e0; border-radius:12px; padding:12px 20px; margin-top:10px; border-left:4px solid #C9A87C; flex-shrink:0; font-size:17px;">
-            <strong>Ключевое решение:</strong> отказ от классической модели «Заявка в офисе» → полный цифровой путь.
-        </div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- СЛАЙД 5: Запуск MVP · 5/8 -->
-    <div class="slide">
-        <div class="slide-header">
-            <span class="slide-tag">Запуск</span>
-            <span class="slide-number">5/8</span>
-        </div>
-        <h1>Запуск MVP и работа с сопротивлением</h1>
-        <div class="two-col" style="flex:1;">
             <div class="col-card">
-                <h2 style="font-size:18px;">Команда</h2>
-                <ul class="list-dash">
-                    <li>Сформировал ядро команды, привлекая ресурсы из смежных направлений (Shared Resources).</li>
-                    <li><strong>Барьер:</strong> каналы продаж не хотели продавать новый продукт.</li>
-                </ul>
+                <span class="badge-light">Аналитика</span>
+                <div style="margin-top:8px; font-size:15px; line-height:1.5;">
+                    Обращения в поддержку, транзакционные данные, анализ оттока — выявили ключевые болевые точки клиентов
+                </div>
             </div>
             <div class="col-card">
-                <h3 style="font-size:18px;">Решение (Product-Led Growth)</h3>
-                <ul class="list-dash">
-                    <li>Упростили путь клиента до 3 кликов в приложении.</li>
-                    <li>Гибкая тарифная сетка и промо-условия для самоподключения.</li>
-                    <li>Сделали продукт «видимым» в цифровых каналах банка.</li>
-                </ul>
+                <span class="badge-light">CustDev</span>
+                <div style="margin-top:8px; font-size:15px; line-height:1.5;">
+                    Владельцы малого бизнеса: «два окна», сложность подключения, непонимание тарифов
+                </div>
+                <div style="background:#ede8e0; border-radius:40px; padding:8px 18px; margin-top:10px; font-style:italic; font-size:15px; border-left:4px solid #C9A87C;">
+                    «Мне нужно одно приложение для всего бизнеса, а не бегать между банком и процессингом»
+                </div>
+            </div>
+            <div class="col-card">
+                <span class="badge-light">Бенчмаркинг</span>
+                <div style="margin-top:8px; font-size:15px; line-height:1.5;">
+                    Изучили лучшие практики Т-Банка, Точки, Альфы — адаптировали под наш контекст
+                </div>
             </div>
         </div>
-        <div style="background:#ede8e0; border-radius:12px; padding:10px 20px; margin-top:8px; display:flex; flex-wrap:wrap; gap:6px 20px; align-items:center; flex-shrink:0;">
-            <span class="badge-accent">MVP за 4 месяца</span>
-            <span><strong>Воронка:</strong> Увидел → Нажал → Подписал → Работает</span>
-            <span class="badge-light">клиенты начали подключаться самостоятельно</span>
+        <div style="background:#ede8e0; border-radius:12px; padding:12px 20px; margin-top:10px; border-left:4px solid #C9A87C; flex-shrink:0; font-size:16px;">
+            <strong>Ключевое решение:</strong> отказ от классической модели «заявка в офисе» → полный цифровой путь. 
+            Упростили онбординг до 3 кликов в приложении.
         </div>
     </div>
 
     <!-- ============================================================ -->
-    <!-- СЛАЙД 6: Масштабирование · 6/8  (значения с новой строки) -->
+    <!-- СЛАЙД 5: МАСШТАБИРОВАНИЕ И UNIT-ЭКОНОМИКА -->
+    <!-- ============================================================ -->
     <div class="slide">
         <div class="slide-header">
-            <span class="slide-tag">Результат</span>
-            <span class="slide-number">6/8</span>
+            <span class="slide-tag">Результаты</span>
+            <span class="slide-number">5/6</span>
         </div>
-        <h1>Масштабирование и влияние на бизнес банка</h1>
-        <div style="display:flex; flex-direction:column; gap:16px; background:#f3efe9; border-radius:14px; padding:20px 28px; margin-bottom:12px; flex:1; justify-content:center;">
-            <div style="display:flex; flex-direction:column; align-items:flex-start;">
-                <span style="font-size:42px; font-weight:700; color:#1A1A1A; line-height:1.1;">6 500</span>
-                <span style="font-weight:400; font-size:16px; color:#3d342b;">активных клиентов за 12 мес.</span>
-            </div>
-            <div style="display:flex; flex-direction:column; align-items:flex-start;">
-                <span style="font-size:42px; font-weight:700; color:#1A1A1A; line-height:1.1;">8%</span>
-                <span style="font-weight:400; font-size:16px; color:#3d342b;">проникновение (рост 1,5% → 8%)</span>
-            </div>
-            <div style="display:flex; flex-direction:column; align-items:flex-start;">
-                <span style="font-size:42px; font-weight:700; color:#1A1A1A; line-height:1.1;">↑ LTV</span>
-                <span style="font-weight:400; font-size:16px; color:#3d342b;">клиенты с эквайрингом имеют выше ARPU</span>
-            </div>
-        </div>
-        <div class="divider"></div>
-        <div class="flex-wrap" style="gap:10px; flex-shrink:0;">
-            <span class="badge-accent">Бандл: Эквайринг + РКО + Онлайн-касса</span>
-            <span class="badge-accent">Полный контроль над клиентским опытом</span>
-            <span class="badge-accent">Рост кросс-продаж</span>
-        </div>
-        <div style="margin-top:10px; background:#ede8e0; border-radius:40px; padding:8px 22px; align-self:flex-start; border-left:4px solid #C9A87C; flex-shrink:0;">
-            Стратегический эффект: маржинальность и данные — под контролем банка
-        </div>
-    </div>
+        <h1>Масштабирование и влияние на бизнес</h1>
 
-    <!-- ============================================================ -->
-    <!-- СЛАЙД 7: Выводы · 7/8  (увеличенные отступы между пунктами) -->
-    <div class="slide">
-        <div class="slide-header">
-            <span class="slide-tag">Ретроспектива</span>
-            <span class="slide-number">7/8</span>
-        </div>
-        <h1>Что сработало, а что можно было сделать лучше</h1>
-        <div class="two-col" style="flex:1; gap:28px;">
-            <div class="col-card" style="border-left:4px solid #8aa67a; display:flex; flex-direction:column; gap:12px; padding:22px 26px;">
-                <h2 style="font-size:18px;">✅ Успехи</h2>
-                <ul class="list-dash" style="display:flex; flex-direction:column; gap:14px;">
-                    <li style="padding:6px 0 6px 28px; font-size:16px; line-height:1.5;">Digital-онбординг с первого дня — независимость от продаж.</li>
-                    <li style="padding:6px 0 6px 28px; font-size:16px; line-height:1.5;">Гибкое управление ресурсами: MVP без раздувания штата.</li>
-                    <li style="padding:6px 0 6px 28px; font-size:16px; line-height:1.5;">Продукт стал точкой роста для экосистемы МСБ.</li>
-                </ul>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; flex:1;">
+            <div style="display:flex; flex-direction:column; gap:14px;">
+                <div style="background:#f3efe9; border-radius:14px; padding:18px 22px;">
+                    <div style="font-size:32px; font-weight:700; color:#C9A87C;">6 500</div>
+                    <div style="font-size:14px; color:#3d342b;">активных клиентов за 12 месяцев</div>
+                </div>
+                <div style="background:#f3efe9; border-radius:14px; padding:18px 22px;">
+                    <div style="font-size:32px; font-weight:700; color:#C9A87C;">8%</div>
+                    <div style="font-size:14px; color:#3d342b;">проникновение (рост 1,5% → 8%)</div>
+                </div>
+                <div style="background:#f3efe9; border-radius:14px; padding:18px 22px;">
+                    <div style="font-size:32px; font-weight:700; color:#C9A87C;">3×</div>
+                    <div style="font-size:14px; color:#3d342b;">рост маржинальности продукта</div>
+                </div>
             </div>
-            <div class="col-card" style="border-left:4px solid #c9a87c; display:flex; flex-direction:column; gap:12px; padding:22px 26px;">
-                <h3 style="font-size:18px;">⚠️ Сложности и уроки</h3>
-                <ul class="list-dash" style="display:flex; flex-direction:column; gap:14px;">
-                    <li style="padding:6px 0 6px 28px; font-size:16px; line-height:1.5;"><strong>Вызов:</strong> сопротивление каналов продаж.</li>
-                    <li style="padding:6px 0 6px 28px; font-size:16px; line-height:1.5;"><strong>Урок:</strong> Product-Led Growth работает — клиенты сами находят удобный продукт.</li>
-                    <li style="padding:6px 0 6px 28px; font-size:16px; line-height:1.5;"><strong>Что улучшить:</strong> раньше вовлечь безопасность и комплаенс для ускорения согласований.</li>
+
+            <div style="background:#f3efe9; border-radius:14px; padding:20px 24px; display:flex; flex-direction:column; justify-content:center;">
+                <h3 style="margin-bottom:8px;">Unit-экономика</h3>
+                <ul class="list-dash" style="font-size:14px;">
+                    <li><strong>CAC ↓ 2×</strong> — за счет отказа от офисного онбординга</li>
+                    <li><strong>LTV ↑</strong> — через 6 месяцев превысил показатели старых клиентов</li>
+                    <li><strong>Окупаемость:</strong> 5 месяцев после запуска MVP</li>
+                    <li><strong>Бандлы:</strong> эквайринг + РКО + онлайн-касса + бизнес-карта</li>
                 </ul>
+                <div style="margin-top:12px; background:#ede8e0; border-radius:40px; padding:6px 18px; align-self:flex-start; font-size:13px; border-left:3px solid #C9A87C;">
+                    Стратегический эффект: маржинальность и данные — под контролем банка
+                </div>
             </div>
         </div>
     </div>
 
     <!-- ============================================================ -->
-    <!-- СЛАЙД 8: Финал · Scandinavian Noir · 8/8  (@Balulo — ссылка) -->
-    <div class="slide slide-noir" style="justify-content:center; align-items:center; text-align:center;">
+    <!-- СЛАЙД 6: ВЫВОДЫ И УРОКИ (СКАНДИНАВСКИЙ СТИЛЬ) -->
+    <!-- ============================================================ -->
+    <div class="slide slide-noir">
         <div class="slide-header" style="width:100%;">
-            <span class="slide-tag">Финал</span>
-            <span class="slide-number">8/8</span>
+            <span class="slide-tag">Ретроспектива</span>
+            <span class="slide-number">6/6</span>
         </div>
         <div style="max-width:600px; display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; padding:10px 0;">
-            <h1 style="font-size:42px; margin-bottom:6px;">Спасибо за внимание!</h1>
-            <div style="font-size:18px; color:#d4d4d4; font-weight:400; line-height:1.5; margin-bottom:16px;">
-                Готов ответить на вопросы о деталях запуска, unit-экономике и работе с командой.
+            <h1 style="font-size:36px; margin-bottom:12px;">Что сработало, а что можно улучшить</h1>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; width:100%; text-align:left;">
+                <div style="background:#2a2a2a; border-radius:14px; padding:18px 22px; border-left:4px solid #8aa67a;">
+                    <h3 style="color:#EAEAEA; font-size:16px;">✅ Ключевые успехи</h3>
+                    <ul class="list-dash" style="font-size:14px; color:#d4d4d4;">
+                        <li>Digital-онбординг с первого дня — независимость от продаж</li>
+                        <li>Гибкое управление ресурсами: MVP без раздувания штата</li>
+                        <li>Продукт стал точкой роста для экосистемы МСБ</li>
+                    </ul>
+                </div>
+                <div style="background:#2a2a2a; border-radius:14px; padding:18px 22px; border-left:4px solid #C9A87C;">
+                    <h3 style="color:#EAEAEA; font-size:16px;">📌 Уроки и точки роста</h3>
+                    <ul class="list-dash" style="font-size:14px; color:#d4d4d4;">
+                        <li>Раньше вовлекать безопасность и комплаенс</li>
+                        <li>Систематизировать обратную связь от клиентов</li>
+                        <li>Automation — следующий шаг для масштабирования</li>
+                    </ul>
+                </div>
             </div>
-            <div class="flex-wrap" style="justify-content:center; gap:14px; margin-bottom:10px;">
-                <span class="badge-accent" style="font-size:15px; padding:8px 24px; background:#C9A87C; color:#1A1A1A; border-radius:40px; font-weight:500;">Валерий Балуло</span>
-                <a href="https://t.me/Balulo" target="_blank" style="font-size:15px; padding:8px 24px; background:#C9A87C; color:#1A1A1A; border-radius:40px; font-weight:500; text-decoration:none; display:inline-block; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
-                    @Balulo
-                </a>
-            </div>
-            <div style="display:flex; flex-wrap:wrap; gap:12px 24px; justify-content:center; font-size:15px; color:#b0a89e;">
+
+            <div style="margin-top:20px; display:flex; flex-wrap:wrap; gap:12px 24px; justify-content:center; font-size:15px; color:#b0a89e;">
                 <span>📧 vbalulo@yandex.ru</span>
-                <span>🔗 <a href="http://linkedin.com/in/valeriy-balulo" target="_blank" style="color:#C9A87C; text-decoration:none; border-bottom:1px solid #C9A87C;">LinkedIn</a></span>
-            </div>
-            <div style="margin-top:14px; background:#2a2a2a; border-radius:40px; padding:6px 24px; display:inline-block; font-weight:400; font-size:14px; color:#9a8e82;">
+                <span>🔗 <a href="https://linkedin.com/in/valeriy-balulo" target="_blank" style="color:#C9A87C; text-decoration:none; border-bottom:1px solid #C9A87C;">LinkedIn</a></span>
+                <span>💬 <a href="https://t.me/Balulo" target="_blank" style="color:#C9A87C; text-decoration:none; border-bottom:1px solid #C9A87C;">@Balulo</a></span>
             </div>
         </div>
     </div>
-    </div> <!-- закрывающий div для последнего слайда -->
-
-
-</body>
-</html>
 
 </body>
 </html>
