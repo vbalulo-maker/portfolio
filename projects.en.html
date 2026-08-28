@@ -191,7 +191,7 @@
         const initialCompany = urlParams.get('company');
 
         // Загружаем компании
-        fetch('data/companies.json')
+        fetch('data/companies.en.json')
             .then(r => r.json())
             .then(companies => {
                 companies.forEach(c => { companiesMap[c.name] = c; });
@@ -199,7 +199,7 @@
             .catch(() => {});
 
         // Загружаем проекты
-        fetch('data/projects.json')
+        fetch('data/projects.en.json')
             .then(r => r.json())
             .then(projects => {
                 allProjects = projects;
