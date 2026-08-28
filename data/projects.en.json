@@ -57,22 +57,6 @@
   {
     "id": "project-5",
     "type": "strategy",
-    "title": "BNPL Market & Product Research",
-    "hasFullDetails": false,
-    "intro": "Conducted BNPL research, developing customer scenarios, a monetization model, and an assessment of credit risk.",
-    "description": "...",
-    "company": "Fintech Platform",
-    "year": "2026",
-    "role": "Head of Product",
-    "metrics": {
-      "...": "..."
-    },
-    "screenshots": ["images/ml1.png"],
-    "chartLabel": "..."
-  },
-  {
-    "id": "project-6",
-    "type": "strategy",
     "title": "PSP Integration & Partner Acquisition Channels",
     "hasFullDetails": false,
     "intro": "Developed partner acquisition channels and integrated with payment service providers (PSPs), expanding the merchant acquiring portfolio to 12,000 customers.",
@@ -87,7 +71,7 @@
     "chartLabel": "..."
   },
   {
-    "id": "project-7",
+    "id": "project-6",
     "type": "strategy",
     "title": "Launching B2B Transfers via the Faster Payments System",
     "hasFullDetails": false,
@@ -103,11 +87,11 @@
     "chartLabel": "..."
   },
   {
-    "id": "project-8",
+    "id": "project-7",
     "type": "strategy",
     "title": "Global Fintech Market Analysis",
     "hasFullDetails": false,
-    "intro": "Analyzed global fintech trends and identified growth opportunities in multibanking and AI agents.",
+    "intro": "As part of the preparation for the strategic session, I analyzed global fintech trends and identified growth opportunities in multibanking and AI agents.",
     "description": "...",
     "company": "Fintech Platform",
     "year": "2026",
@@ -119,7 +103,7 @@
     "chartLabel": "..."
   },
   {
-    "id": "project-9",
+    "id": "project-8",
     "type": "strategy",
     "title": "SoftPOS (Tap-to-Pay) Launch",
     "hasFullDetails": false,
@@ -135,7 +119,7 @@
     "chartLabel": "..."
   },
   {
-    "id": "project-10",
+    "id": "project-9",
     "type": "strategy",
     "title": "Interchange++",
     "hasFullDetails": false,
