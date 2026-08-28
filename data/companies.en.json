@@ -1,0 +1,51 @@
+[
+  {
+    "id": "company-1",
+    "name": "Fintech Platform",
+    "role": "Head of Product",
+    "period": "2025.08-2026.04",
+    "intro": "Consortium of Russia's largest banks (Sber, Alfa-Bank, T-Bank), pre-launch stage.",
+    "description": "My role was to build the foundation: develop the product strategy, shape product concepts, and prepare the groundwork for the future launch. This was a greenfield initiative, where the main deliverables were the strategy and a launch-ready product concept rather than a live product with performance metrics.",
+    "logo": "assets/images/logos/fp.png",
+    "projectId": "project-4"
+  },
+  {
+    "id": "company-2",
+    "name": "RSHB",
+    "role": "Chief Product Officer",
+    "period": "2024.07-2024.08",
+    "intro": "Russian Agricultural Bank is a systemically important, top-5 Russian bank",
+    "description": "Increased B2B customer onboarding conversion by 20% and reduced onboarding time by 30%. Launched pilots for Tap-to-Phone (SoftPOS) payment acceptance, B2B transfers via the Faster Payments System (SBP), and an initial AI-based churn prediction model.",
+    "logo": "assets/images/logos/rshb.svg",
+    "projectId": "project-3"
+  },
+  {
+    "id": "company-3",
+    "name": "Rosbank",
+    "role": "Head of Product",
+    "period": "2022.08-2024.07",
+    "intro": "A systemically important bank and former Société Générale shareholder.",
+    "description": "Built and launched payment acceptance and payout services for business customers from scratch. Introduced digital customer onboarding through the bank’s online banking platform.",
+    "logo": "assets/images/logos/rosbank.png",
+    "projectId": "project-1"
+  },
+  {
+    "id": "company-4",
+    "name": "MTS Bank",
+    "role": "Product Lead",
+    "period": "2019.03-2022.08",
+    "intro": "Part of the MTS Group and Sistema [AFKS:MOEX].",
+    "description": "Tripled the B2B customer base to 12,000 customers within 1.5 years. Increased acquiring profitability by 60% through e-commerce integrations and pricing optimization.",
+    "logo": "assets/images/logos/logo-mts.png",
+    "projectId": "project-1"
+  },
+  {
+    "id": "company-5",
+    "name": "Credit Europe Bank",
+    "role": "Deputy Head of Acquiring",
+    "period": "2005.09-2019.02",
+    "intro": "Launched installment payments and contactless payment acceptance across the acquiring network. Introduced the Interchange++ pricing model for key enterprise merchants.",
+    "logo": "assets/images/logos/ceb.png",
+    "projectId": "project-1"
+  }
+]
