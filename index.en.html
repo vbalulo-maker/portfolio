@@ -367,7 +367,7 @@
                 <span class="featured-number">${item.number}</span>
                 <span class="featured-label">${item.label}</span>
                 <span class="featured-company">${item.company}</span>
-                <a href="project-detail.html?id=${item.projectId}" class="featured-link">Explore the cases →</a>
+                <a href="project-detail.en.html?id=${item.projectId}" class="featured-link">Explore the cases →</a>
             </div>
         `).join('');
     });
@@ -407,8 +407,8 @@
                                         <div class="role-h">${company.role}</div>
                                         <div class="intro-h">${company.intro}</div>
                                         ${hasProjects ? 
-                                            `<a href="projects.html?company=${encodeURIComponent(company.name)}" class="timeline-link-h">Кейсы →</a>` :
-                                            `<span class="timeline-link-h placeholder">скоро</span>`
+                                            `<a href="projects.en.html?company=${encodeURIComponent(company.name)}" class="timeline-link-h">Case Studies →</a>` :
+                                            `<span class="timeline-link-h placeholder">Coming Soon</span>`
                                         }
                                     </div>
                                 </div>
