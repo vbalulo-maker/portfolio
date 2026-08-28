@@ -140,10 +140,19 @@
         const id = params.get('id');
         const container = document.getElementById('detailContent');
 
-        if (!id) {
-            container.innerHTML = '<p>Проект не найден.</p>';
-            return;
-        }
+if (!project || project.hasFullDetails !== true) {
+    container.innerHTML = `
+        <div style="text-align:center;padding:60px 20px;">
+            <span style="font-size:4rem;display:block;margin-bottom:16px;opacity:0.4;">🚧</span>
+            <h2 style="font-size:2rem;font-weight:600;margin-bottom:12px;">${project ? 'Кейс в разработке' : 'Кейс не найден'}</h2>
+            <p style="color:#666;max-width:400px;margin:0 auto 24px;">
+                ${project ? 'Я готовлю детальное описание этого проекта. А пока вы можете посмотреть другие кейсы.' : 'Запрашиваемый кейс не найден.'}
+            </p>
+            <a href="projects.html" style="color:var(--accent);text-decoration:none;font-weight:500;">← Назад к кейсам</a>
+        </div>
+    `;
+    return;
+}
 
         fetch('data/projects.json')
             .then(r => r.json())
