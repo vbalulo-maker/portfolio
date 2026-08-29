@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: Building Merchant Acquiring from Scratch· Valeriy Balulo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== БАЗОВЫЕ СТИЛИ ===== */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: #e8e4de;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 20px;
+            gap: 32px;
+        }
+
+        .slide {
+            width: 1120px;
+            min-height: 792px;
+            background: #F8F6F2;
+            border-radius: 16px;
+            padding: 40px 48px 36px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            border: 1px solid #f0ece6;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            color: #1A1A1A;
+            position: relative;
+        }
+
+        /* ===== ОБЩИЕ ЭЛЕМЕНТЫ ===== */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e8e2da;
+            padding-bottom: 12px;
+            flex-shrink: 0;
+        }
+        .slide-tag {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #1A1A1A;
+            background: #ede8e0;
+            padding: 5px 18px;
+            border-radius: 40px;
+            text-transform: uppercase;
+        }
+        .slide-number {
+            font-size: 13px;
+            font-weight: 400;
+            color: #8a7e72;
+        }
+        .slide-author {
+            font-size: 14px;
+            font-weight: 400;
+            color: #5a4f44;
+            margin-bottom: 6px;
+            flex-shrink: 0;
+        }
+
+        h1 {
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 4px;
+            flex-shrink: 0;
+        }
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 8px;
+            flex-shrink: 0;
+        }
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .description {
+            font-size: 18px;
+            color: #2c241c;
+            font-weight: 400;
+            margin: 6px 0 18px 0;
+            border-left: 4px solid #C9A87C;
+            padding: 14px 22px;
+            background: #f3efe9;
+            border-radius: 0 10px 10px 0;
+            line-height: 1.45;
+            flex-shrink: 0;
+        }
+
+        .badge-accent {
+            background: #C9A87C;
+            color: #1A1A1A;
+            font-weight: 500;
+            font-size: 12px;
+            padding: 4px 14px;
+            border-radius: 40px;
+            display: inline-block;
+        }
+        .badge-light {
+            background: #ede8e0;
+            color: #1A1A1A;
+            font-weight: 500;
+            font-size: 12px;
+            padding: 4px 14px;
+            border-radius: 40px;
+            display: inline-block;
+        }
+
+        /* ===== СЕТКИ ===== */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            flex: 1;
+        }
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px;
+            flex: 1;
+        }
+        .col-card {
+            background: #f3efe9;
+            border-radius: 14px;
+            padding: 20px 24px;
+            border: 1px solid #e8e2da;
+            display: flex;
+            flex-direction: column;
+        }
+        .col-card.dark {
+            background: #1A1A1A;
+            border-color: #2a2a2a;
+            color: #EAEAEA;
+        }
+        .col-card.dark .badge-light {
+            background: #2a2a2a;
+            color: #d4d4d4;
+        }
+        .col-card.dark ul li { border-bottom-color: #333; }
+
+        .list-dash {
+            list-style: none;
+            padding-left: 0;
+        }
+        .list-dash li {
+            padding: 5px 0 5px 22px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%23C9A87C" stroke-width="2.5"><line x1="4" y1="12" x2="20" y2="12"/></svg>') left center no-repeat;
+            background-size: 14px;
+            border-bottom: 1px solid #ede8e0;
+            font-weight: 400;
+            font-size: 14.5px;
+        }
+        .list-dash li:last-child { border-bottom: 0; }
+
+        .flex-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+            align-items: center;
+        }
+
+        .divider {
+            height: 1px;
+            background: #e0d9d0;
+            margin: 12px 0 14px;
+            flex-shrink: 0;
+        }
+
+        .result-block {
+            background: #ede8e0;
+            border-radius: 16px;
+            padding: 22px 32px;
+            margin-top: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px 24px;
+            flex-shrink: 0;
+            border: 1px solid #ddd6cc;
+        }
+        .result-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .result-number {
+            font-size: 44px;
+            font-weight: 700;
+            color: #1A1A1A;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            white-space: nowrap;
+        }
+        .result-label {
+            font-size: 14px;
+            color: #3d342b;
+            font-weight: 400;
+            margin-top: 4px;
+            line-height: 1.3;
+        }
+
+        /* ===== ФИНАЛЬНЫЙ СЛАЙД (SCANDINAVIAN NOIR) ===== */
+        .slide-noir {
+            background: #1A1A1A;
+            border-color: #2a2a2a;
+            color: #EAEAEA;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .slide-noir .slide-header { border-bottom-color: #3a3a3a; }
+        .slide-noir .slide-tag { background: #2a2a2a; color: #EAEAEA; }
+        .slide-noir .slide-number { color: #9a8e82; }
+        .slide-noir h1 { color: #EAEAEA; }
+        .slide-noir .badge-accent { background: #C9A87C; color: #1A1A1A; }
+        .slide-noir .badge-light { background: #2a2a2a; color: #d4d4d4; }
+        .slide-noir .col-card { background: #2a2a2a; border-color: #3a3a3a; }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 1180px) {
+            .slide { width: 100%; height: auto; min-height: 600px; padding: 28px 24px; border-radius: 16px; }
+            h1 { font-size: 34px; }
+            h2 { font-size: 24px; }
+            .description { font-size: 16px; }
+            .two-col, .three-col { grid-template-columns: 1fr; }
+            .result-block { padding: 16px 20px; flex-wrap: wrap; }
+            .result-number { font-size: 34px; }
+            .slide-noir { min-height: 400px; }
+        }
+        @media (max-width: 600px) {
+            .slide { padding: 18px 14px; min-height: 400px; }
+            h1 { font-size: 26px; }
+            h2 { font-size: 20px; }
+            .description { font-size: 14px; padding: 10px 14px; }
+            .result-number { font-size: 28px; }
+            .slide-header { flex-direction: column; align-items: flex-start; gap: 6px; }
+            .result-block { flex-direction: column; align-items: flex-start; }
+            .col-card { padding: 16px 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 1: РЕЗУЛЬТАТ (САМОЕ ВАЖНОЕ СВЕРХУ) -->
+    <!-- ============================================================ -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-tag">Case Study · Head of Product</span>
+            <span class="slide-number">1/6</span>
+        </div>
+        <div class="slide-author">Valeriy Balulo· 2022–2024</div>
+        <h1>From a referral model to a proprietary digital product</h1>
+        <div class="description">
+            We moved from a partner-based acquiring model to our own digital merchant acquiring product and acquired 6,500 active business customers within 12 months.
+        </div>
+
+        <div class="result-block">
+            <div class="result-item">
+                <span class="result-number">6 500</span>
+                <span class="result-label">Active business customers acquired within 12 months</span>
+            </div>
+            <div class="result-item">
+                <span class="result-number">8%</span>
+                <span class="result-label">Merchant acquiring penetration in the bank's customer portfolio</span>
+            </div>
+            <div class="result-item">
+                <span class="result-number">3×</span>
+                <span class="result-label">Increase in product margin</span>
+            </div>
+            <div class="result-item">
+                <span class="result-number">5 мес.</span>
+                <span class="result-label">Payback period for product development investment</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 2: КОНТЕКСТ И СТРАТЕГИЯ -->
+    <!-- ============================================================ -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-tag">Context</span>
+            <span class="slide-number">2/6</span>
+        </div>
+        <h1>From a Referral Model to Our Own Product</h1>
+        <div class="two-col" style="flex:1;">
+            <div class="col-card">
+                <h3>The situation</h3>
+                <ul class="list-dash">
+                    <li>Before the transformation, the bank's customers received acquiring services through a partner, UCS (formerly part of Global Payments Inc.), under a referral model.</li>
+                    <li>A fragmented customer experience: two contracts and two support channels</li>
+                    <li>The bank captured less margin from the acquiring business</li>
+                </ul>
+                <div style="margin-top:12px; padding-top:12px; border-top:1px solid #ddd6cc;">
+                    <span class="badge-light">Core problem:</span> <strong>the bank was losing both margin and valuable customer data.</strong>
+                </div>
+            </div>
+            <div class="col-card">
+                <h3>Digital-first strategy</h3>
+                <ul class="list-dash">
+                    <li><strong>One-stop experience</strong> One contract, one online account, and one support channel.</li>
+                    <li><strong>100% online onboarding</strong> Merchants could connect to acquiring without visiting a bank branch.</li>
+                    <li><strong>Full product control</strong> The bank controlled pricing, customer data, and the end-to-end customer experience.</li>
+                </ul>
+                <div style="margin-top:12px; padding-top:12px; border-top:1px solid #ddd6cc;">
+                    <span class="badge-accent">Target:</span> <strong>launch an MVP within four months and establish full control over the product.</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+<!-- СЛАЙД 3: ВЫЗОВЫ И УПРАВЛЕНИЕ ИЗМЕНЕНИЯМИ -->
+<!-- ============================================================ -->
+<div class="slide">
+    <div class="slide-header">
+        <span class="slide-tag">Managing Change</span>
+        <span class="slide-number">3/6</span>
+    </div>
+    <h1>How we overcame internal resistance</h1>
+    <div class="description" style="font-size:16px; padding:12px 20px; margin-bottom:12px;">
+        The key challenge was not technology. Traditional sales channels had little incentive to promote the new digital product.
+    </div>
+    <div class="two-col" style="flex:1; gap:20px;">
+        <div class="col-card" style="border-left:4px solid #C9A87C;">
+            <h3>What I did</h3>
+            <ul class="list-dash">
+                <li><strong>Engaged sales leadership</strong> I met with heads of the sales channels and demonstrated how the new product could help them achieve their targets through cross-selling and customer base growth.</li>
+                <li><strong>Aligned incentives</strong> I helped introduce incentives for digital onboarding, so managers received bonuses for customers connected through the new channel. This significantly changed their attitude toward the product.</li>
+                <li><strong>Ran a branch pilot</strong> We launched the product in five branches, collected the first success stories, and used them to demonstrate the value of the new approach. Other branches then started adopting the product themselves.</li>
+            </ul>
+        </div>
+        <div class="col-card" style="border-left:4px solid #8aa67a;">
+            <h3>What changed</h3>
+            <ul class="list-dash">
+                <li>Sales channels started actively promoting the product after the first successful cases.</li>
+                <li>We developed an additional acquisition channel through online banking, allowing merchants to onboard themselves.</li>
+                <li>The product became visible across digital channels, reducing our dependence on the branch network.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 4: ИССЛЕДОВАНИЯ И ПРОДУКТОВЫЕ РЕШЕНИЯ -->
+    <!-- ============================================================ -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-tag">Product Discovery & Decisions</span>
+            <span class="slide-number">4/6</span>
+        </div>
+        <h1>How we identified what merchants actually needed</h1>
+        <div class="three-col" style="flex:1;">
+            <div class="col-card">
+                <span class="badge-light">Data & analytics</span>
+                <div style="margin-top:8px; font-size:15px; line-height:1.5;">
+                    We analyzed support requests, transaction data, and customer churn to identify the main pain points in the existing experience.
+                </div>
+            </div>
+            <div class="col-card">
+                <span class="badge-light">CustDev</span>
+                <div style="margin-top:8px; font-size:15px; line-height:1.5;">
+                    Interviews with small business owners revealed three recurring problems: having to deal with two separate service interfaces, a complex onboarding process, poor understanding of pricing and tariffs
+                </div>
+                <div style="background:#ede8e0; border-radius:40px; padding:8px 18px; margin-top:10px; font-style:italic; font-size:15px; border-left:4px solid #C9A87C;">
+                    «I need one app for my entire business, not separate systems for the bank and the payment processor»
+                </div>
+            </div>
+            <div class="col-card">
+                <span class="badge-light">Benchmarking</span>
+                <div style="margin-top:8px; font-size:15px; line-height:1.5;">
+                    We studied leading practices from T-Bank, Tochka, and Alfa-Bank and adapted the relevant approaches to our business and technology environment.
+                </div>
+            </div>
+        </div>
+        <div style="background:#ede8e0; border-radius:12px; padding:12px 20px; margin-top:10px; border-left:4px solid #C9A87C; flex-shrink:0; font-size:16px;">
+            <strong>Key product decision</strong> We replaced the traditional branch-based application process with a fully digital customer journey.
+
+The onboarding process was reduced to a few steps in the app.
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 5: МАСШТАБИРОВАНИЕ И UNIT-ЭКОНОМИКА -->
+    <!-- ============================================================ -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-tag">Results</span>
+            <span class="slide-number">5/6</span>
+        </div>
+        <h1>Scaling & Business Impact</h1>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; flex:1;">
+            <div style="display:flex; flex-direction:column; gap:14px;">
+                <div style="background:#f3efe9; border-radius:14px; padding:18px 22px;">
+                    <div style="font-size:32px; font-weight:700; color:#C9A87C;">6 500</div>
+                    <div style="font-size:14px; color:#3d342b;">active customers in 12 months</div>
+                </div>
+                <div style="background:#f3efe9; border-radius:14px; padding:18px 22px;">
+                    <div style="font-size:32px; font-weight:700; color:#C9A87C;">8%</div>
+                    <div style="font-size:14px; color:#3d342b;">Merchant acquiring penetration in the bank's customer portfolio increased from 1.5% to 8%</div>
+                </div>
+                <div style="background:#f3efe9; border-radius:14px; padding:18px 22px;">
+                    <div style="font-size:32px; font-weight:700; color:#C9A87C;">3×</div>
+                    <div style="font-size:14px; color:#3d342b;">The new model significantly improved the economics of the acquiring business.</div>
+                </div>
+            </div>
+
+            <div style="background:#f3efe9; border-radius:14px; padding:20px 24px; display:flex; flex-direction:column; justify-content:center;">
+                <h3 style="margin-bottom:8px;">Unit economics</h3>
+                <ul class="list-dash" style="font-size:14px;">
+                    <li><strong>CAC ↓ 2×</strong> Lower customer acquisition costs after moving away from branch-based onboarding.</li>
+                    <li><strong>LTV ↑</strong> After six months, the LTV of newly acquired customers exceeded the level of the existing customer base.</li>
+                    <li><strong>5-month payback</strong> The investment in product development was recovered within five months after the MVP launch.</li>
+                    <li><strong>Product bundling</strong> We combined merchant acquiring with other business products: business current account, online cash register, business card</li>
+                </ul>
+                <div style="margin-top:12px; background:#ede8e0; border-radius:40px; padding:6px 18px; align-self:flex-start; font-size:13px; border-left:3px solid #C9A87C;">
+                    Strategic impact: the bank gained greater control over both product margin and customer data, while creating a scalable digital acquisition channel for SMB customers.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 6: ВЫВОДЫ И УРОКИ (СКАНДИНАВСКИЙ СТИЛЬ) -->
+    <!-- ============================================================ -->
+    <div class="slide slide-noir">
+        <div class="slide-header" style="width:100%;">
+            <span class="slide-tag">Retrospective</span>
+            <span class="slide-number">6/6</span>
+        </div>
+        <div style="max-width:600px; display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; padding:10px 0;">
+            <h1 style="font-size:36px; margin-bottom:12px;">What worked — and what could be improved</h1>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; width:100%; text-align:left;">
+                <div style="background:#2a2a2a; border-radius:14px; padding:18px 22px; border-left:4px solid #8aa67a;">
+                    <h3 style="color:#EAEAEA; font-size:16px;">✅ Key successes</h3>
+                    <ul class="list-dash" style="font-size:14px; color:#d4d4d4;">
+                        <li>Digital onboarding from day one: the product was not dependent on branch sales and could acquire merchants through digital channels.</li>
+                        <li>Lean resource management: We delivered the MVP without significantly expanding the team.</li>
+                        <li>A growth platform for SMB banking: Merchant acquiring became an entry point for deeper relationships with small and medium-sized businesses.</li>
+                    </ul>
+                </div>
+                <div style="background:#2a2a2a; border-radius:14px; padding:18px 22px; border-left:4px solid #C9A87C;">
+                    <h3 style="color:#EAEAEA; font-size:16px;">📌 Lessons & next opportunities</h3>
+                    <ul class="list-dash" style="font-size:14px; color:#d4d4d4;">
+                        <li>Systematize customer feedback: the next step was to build a more structured process for collecting and using customer feedback.</li>
+                        <li>Modern payment infrastructure matters: modern payment equipment can also strengthen the bank's value proposition and brand perception.</li>
+                        <li>Automate merchant settlements: further automation of settlement and reconciliation processes would be the next step toward scaling the operation.</li>
+                    </ul>
+                </div>
+            </div>
+
+<!-- ============================================================ -->
+    <!-- СЛАЙД 7: ЗАВЕРШЕНИЕ ПРОЕКТА -->
+    <!-- ============================================================ -->
+
+            <div class="slide" style="justify-content:center;">
+    <div class="slide-header">
+        <span class="slide-tag">Project Completion</span>
+        <span class="slide-number">7/7</span>
+    </div>
+    <div style="max-width:700px; margin:0 auto; text-align:center;">
+        <div style="font-size:48px; margin-bottom:16px;">🔄</div>
+        <h2 style="font-size:28px; margin-bottom:12px;">How the project ended</h2>
+        <div style="background:#f3efe9; border-radius:14px; padding:20px 28px; text-align:left; border-left:4px solid #C9A87C;">
+            <p style="font-size:16px; line-height:1.6; margin-bottom:12px;">
+                At the beginning of 2024, the shareholders decided to consolidate the banking assets. Business activity within my department was frozen, and the integration into T-Bank's structure began.
+            </p>
+            <p style="font-size:16px; line-height:1.6;">
+                <strong>My role during the transition:</strong> I managed the customer migration process and transferred product knowledge to the integration team, ensuring a smooth transition for business customers. The project was completed according to the integration plan.
+            </p>
+        </div>
+        <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center;">
+            <span class="badge-accent">Customer migration completed</span>
+            <span class="badge-light">Product knowledge transferred</span>
+            <span class="badge-light">Team integrated</span>
+        </div>
+        <div style="margin-top:20px; font-size:14px; color:#666;">
+            After completing the transition, I moved on to new product challenges.
+        </div>
+    </div>
+</div>
+
+            <div style="margin-top:20px; display:flex; flex-wrap:wrap; gap:12px 24px; justify-content:center; font-size:15px; color:#b0a89e;">
+                <span>📧 vbalulo@yandex.ru</span>
+                <span>🔗 <a href="https://linkedin.com/in/valeriy-balulo" target="_blank" style="color:#C9A87C; text-decoration:none; border-bottom:1px solid #C9A87C;">LinkedIn</a></span>
+                <span>💬 <a href="https://t.me/Balulo" target="_blank" style="color:#C9A87C; text-decoration:none; border-bottom:1px solid #C9A87C;">@Balulo</a></span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
