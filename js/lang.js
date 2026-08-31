@@ -46,42 +46,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function switchLanguage(lang) {
-        // Определяем текущую страницу
-        const currentPath = window.location.pathname;
-        const isIndex = currentPath.endsWith('index.html') || currentPath === '/' || currentPath.endsWith('/');
-        const isProjects = currentPath.includes('projects.html');
-        const isProjectDetail = currentPath.includes('project-detail.html');
-        const isAIChat = currentPath.includes('ai-chat.html');
-        
-        // Определяем базовое имя файла для перехода
-        let baseFile = '';
-        if (isIndex) baseFile = 'index';
-        else if (isProjects) baseFile = 'projects';
-        else if (isAIChat) baseFile = 'ai-chat';
-        else if (isProjectDetail) baseFile = 'project-detail';
-        else {
-            // Если страница не распознана — перезагружаем с параметром lang
-            const url = new URL(window.location.href);
-            url.searchParams.set('lang', lang);
-            window.location.href = url.href;
-            return;
-        }
-        
-        // Формируем новый URL
-        let newPath = '';
-        if (lang === 'en') {
-            newPath = baseFile + '.en.html';
-        } else {
-            newPath = baseFile + '.html';
-        }
-        
-        // Если мы на project-detail, сохраняем параметр id
-        if (isProjectDetail) {
-            const params = new URLSearchParams(window.location.search);
-            const id = params.get('id');
-            window.location.href = `${newPath}?id=${id}&lang=${lang}`;
-        } else {
-            window.location.href = newPath + '?lang=' + lang;
-        }
+    const currentPath = window.location.pathname;
+    const isEnglish = currentPath.includes('.en.html');
+    
+    // Если текущая страница уже на нужном языке, ничего не делаем
+    if ((lang === 'en' && isEnglish) || (lang === 'ru' && !isEnglish)) {
+        return;
     }
+    
+    // Определяем базовое имя файла
+    let baseFile = currentPath.split('/').pop();
+    if (baseFile.includes('.en.')) {
+        baseFile = baseFile.replace('.en.html', '.html');
+    } else {
+        baseFile = baseFile.replace('.html', '.en.html');
+    }
+    
+    // Сохраняем параметры URL (id, company)
+    const params = new URLSearchParams(window.location.search);
+    const queryString = params.toString() ? '?' + params.toString() : '';
+    
+    // Формируем новый URL
+    let newUrl = baseFile + queryString;
+    
+    // Добавляем параметр lang для единообразия
+    if (!queryString.includes('lang=')) {
+        newUrl += (queryString ? '&' : '?') + 'lang=' + lang;
+    }
+    
+    window.location.href = newUrl;
+}
 });
