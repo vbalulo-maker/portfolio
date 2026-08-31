@@ -10,8 +10,41 @@
     "role": "Head of Product",
     "presentationFile": "cases/project-1.html"
   },
+    {
+  "id": "project-2",
+  "type": "presentation",
+  "title": "Запуск и масштабирование QR-платежей",
+  "hasFullDetails": false,
+  "intro": "Как мы интегрировали новый платёжный метод в эквайринговую инфраструктуру банка.",
+  "company": "МТС-Банк",
+  "year": "2020-2021",
+  "role": "Product Lead",
+  "presentationFile": "cases/project-2.html"
+  },
+    {
+    "id": "project-3",
+    "type": "presentation",
+    "title": "Запуск партнёрских каналов и интеграция с PSP",
+    "hasFullDetails": true,
+    "intro": "Развил партнёрские каналы привлечения бизнеса, расширив портфель эквайринга до 12 тыс. клиентов.",
+    "company": "МТС-Банк",
+    "year": "2019-2022",
+    "role": "Product Lead",
+    "presentationFile": "cases/project-3.html"
+  },
+    {
+    "id": "project-4",
+  "type": "presentation",
+  "title": "Продуктовая стратегия Финтех-платформы",
+  "hasFullDetails": true,
+  "intro": "Разработал и защитил продуктовую стратегию для консорциума трех крупнейших банков, определив три приоритетных направления развития платформы альтернативных платежей.",
+  "company": "Финтех-Платформа",
+  "year": "2025-2026",
+  "role": "Head of Product",
+  "presentationFile": "cases/project-4.html"
+},
   {
-    "id": "project-2",
+    "id": "project-5",
     "type": "standard",
     "title": "Цифровой онбординг B2B-клиентов (РСХБ)",
     "hasFullDetails": false,
@@ -26,44 +59,6 @@
     },
     "screenshots": ["images/app1.png", "images/app2.png"],
     "chartLabel": "Сравнение времени выполнения задач"
-  },
-  {
-  "id": "project-3",
-  "type": "presentation",
-  "title": "Запуск и масштабирование QR-платежей",
-  "hasFullDetails": false,
-  "intro": "Как мы интегрировали новый платёжный метод в эквайринговую инфраструктуру банка.",
-  "company": "МТС-Банк",
-  "year": "2020-2021",
-  "role": "Product Lead",
-  "presentationFile": "cases/project-5.html"
-  },
-  {
-    "id": "project-4",
-  "type": "presentation",
-  "title": "Продуктовая стратегия Финтех-платформы",
-  "hasFullDetails": true,
-  "intro": "Разработал и защитил продуктовую стратегию для консорциума трех крупнейших банков, определив три приоритетных направления развития платформы альтернативных платежей.",
-  "company": "Финтех-Платформа",
-  "year": "2025-2026",
-  "role": "Head of Product",
-  "presentationFile": "cases/project-4.html"
-},
-  {
-    "id": "project-5",
-    "type": "strategy",
-    "title": "Запуск партнёрских каналов и интеграция с PSP",
-    "hasFullDetails": false,
-    "intro": "Развил партнёрские каналы привлечения бизнеса, расширив портфель эквайринга до 12 тыс. клиентов.",
-    "description": "...",
-    "company": "МТС-Банк",
-    "year": "2019-2022",
-    "role": "Product Lead",
-    "metrics": {
-      "...": "..."
-    },
-    "screenshots": ["images/ml1.png"],
-    "chartLabel": "..."
   },
   {
     "id": "project-6",
