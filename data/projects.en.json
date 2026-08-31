@@ -10,24 +10,7 @@
     "role": "Head of Product",
     "presentationFile": "cases/project-1.en.html"
   },
-  {
-    "id": "project-3",
-    "type": "standard",
-    "title": "Digital Onboarding for B2B Customers",
-    "hasFullDetails": false,
-    "intro": "Launched digital onboarding for B2B customers, reducing onboarding time by 30% and increasing conversion by 20%.",
-    "description": "As CPO for e-commerce and merchant acquiring, I led the B2B product strategy, owned the full product lifecycle, and managed a 30+ person cross-functional team.",
-    "company": "RSHB",
-    "year": "2024",
-    "role": "CPO",
-    "metrics": {
-      "Conversion": "+20%",
-      "Onboarding time": "5 days --> 1,5 days"
-    },
-    "screenshots": ["images/app1.png", "images/app2.png"],
-    "chartLabel": "Сравнение времени выполнения задач"
-  },
-  {
+    {
   "id": "project-2",
   "type": "presentation",
   "title": "Launching and Scaling QR Payments",
@@ -36,9 +19,20 @@
   "company": "MTS-Bank",
   "year": "2020-2021",
   "role": "Product Lead",
-  "presentationFile": "cases/project-5.html"
+  "presentationFile": "cases/project-2.en.html"
   },
-  {
+    {
+    "id": "project-3",
+    "type": "presentation",
+    "title": "PSP Integration & Partner Acquisition Channels",
+    "hasFullDetails": false,
+    "intro": "Developed partner acquisition channels and integrated with payment service providers (PSPs), expanding the merchant acquiring portfolio to 12,000 customers.",
+    "company": "MTS-Bank",
+    "year": "2019-2020",
+    "role": "Product Lead",
+    "presentationFile": "cases/project-3.en.html"
+  },
+    {
     "id": "project-4",
     "type": "strategy",
     "title": "Fintech Platform Product Strategy",
@@ -56,19 +50,20 @@
   },
   {
     "id": "project-5",
-    "type": "strategy",
-    "title": "PSP Integration & Partner Acquisition Channels",
+    "type": "standard",
+    "title": "Digital Onboarding for B2B Customers",
     "hasFullDetails": false,
-    "intro": "Developed partner acquisition channels and integrated with payment service providers (PSPs), expanding the merchant acquiring portfolio to 12,000 customers.",
-    "description": "...",
-    "company": "MTS-Bank",
-    "year": "2019-2020",
-    "role": "Product Lead",
+    "intro": "Launched digital onboarding for B2B customers, reducing onboarding time by 30% and increasing conversion by 20%.",
+    "description": "As CPO for e-commerce and merchant acquiring, I led the B2B product strategy, owned the full product lifecycle, and managed a 30+ person cross-functional team.",
+    "company": "RSHB",
+    "year": "2024",
+    "role": "CPO",
     "metrics": {
-      "...": "..."
+      "Conversion": "+20%",
+      "Onboarding time": "5 days --> 1,5 days"
     },
-    "screenshots": ["images/ml1.png"],
-    "chartLabel": "..."
+    "screenshots": ["images/app1.png", "images/app2.png"],
+    "chartLabel": "Сравнение времени выполнения задач"
   },
   {
     "id": "project-6",
@@ -123,7 +118,7 @@
     "type": "strategy",
     "title": "Interchange++",
     "hasFullDetails": false,
-    "intro": "Introduced the Interchange++ pricing model for key enterprise merchants, optimizing the economics and transparency of merchant acquiring..",
+    "intro": "Introduced the Interchange++ pricing model for key enterprise merchants (Tier 1-2), optimizing the economics and transparency of merchant acquiring..",
     "description": "...",
     "company": "Credit Europe Bank",
     "year": "2015-2016",
