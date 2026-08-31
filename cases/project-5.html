@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кейс: Запуск партнёрских каналов и PSP · Валерий Балуло</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== БАЗОВЫЕ СТИЛИ (как в project-1.html) ===== */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: #e8e4de;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 20px;
+            gap: 32px;
+        }
+
+        .slide {
+            width: 1120px;
+            min-height: 792px;
+            background: #F8F6F2;
+            border-radius: 16px;
+            padding: 40px 48px 36px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            border: 1px solid #f0ece6;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            color: #1A1A1A;
+            position: relative;
+        }
+
+        /* ===== ОБЩИЕ ЭЛЕМЕНТЫ ===== */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e8e2da;
+            padding-bottom: 12px;
+            flex-shrink: 0;
+        }
+        .slide-tag {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #1A1A1A;
+            background: #ede8e0;
+            padding: 5px 18px;
+            border-radius: 40px;
+            text-transform: uppercase;
+        }
+        .slide-number {
+            font-size: 13px;
+            font-weight: 400;
+            color: #8a7e72;
+        }
+        .slide-author {
+            font-size: 14px;
+            font-weight: 400;
+            color: #5a4f44;
+            margin-bottom: 6px;
+            flex-shrink: 0;
+        }
+
+        h1 {
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 4px;
+            flex-shrink: 0;
+        }
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 8px;
+            flex-shrink: 0;
+        }
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .description {
+            font-size: 18px;
+            color: #2c241c;
+            font-weight: 400;
+            margin: 6px 0 18px 0;
+            border-left: 4px solid #C9A87C;
+            padding: 14px 22px;
+            background: #f3efe9;
+            border-radius: 0 10px 10px 0;
+            line-height: 1.45;
+            flex-shrink: 0;
+        }
+
+        .badge-accent {
+            background: #C9A87C;
+            color: #1A1A1A;
+            font-weight: 500;
+            font-size: 12px;
+            padding: 4px 14px;
+            border-radius: 40px;
+            display: inline-block;
+        }
+        .badge-light {
+            background: #ede8e0;
+            color: #1A1A1A;
+            font-weight: 500;
+            font-size: 12px;
+            padding: 4px 14px;
+            border-radius: 40px;
+            display: inline-block;
+        }
+
+        /* ===== СЕТКИ ===== */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            flex: 1;
+        }
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px;
+            flex: 1;
+        }
+        .col-card {
+            background: #f3efe9;
+            border-radius: 14px;
+            padding: 20px 24px;
+            border: 1px solid #e8e2da;
+            display: flex;
+            flex-direction: column;
+        }
+        .col-card.dark {
+            background: #1A1A1A;
+            border-color: #2a2a2a;
+            color: #EAEAEA;
+        }
+        .col-card.dark .badge-light {
+            background: #2a2a2a;
+            color: #d4d4d4;
+        }
+        .col-card.dark ul li { border-bottom-color: #333; }
+
+        .list-dash {
+            list-style: none;
+            padding-left: 0;
+        }
+        .list-dash li {
+            padding: 5px 0 5px 22px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%23C9A87C" stroke-width="2.5"><line x1="4" y1="12" x2="20" y2="12"/></svg>') left center no-repeat;
+            background-size: 14px;
+            border-bottom: 1px solid #ede8e0;
+            font-weight: 400;
+            font-size: 14.5px;
+        }
+        .list-dash li:last-child { border-bottom: 0; }
+
+        .flex-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+            align-items: center;
+        }
+
+        .divider {
+            height: 1px;
+            background: #e0d9d0;
+            margin: 12px 0 14px;
+            flex-shrink: 0;
+        }
+
+        .result-block {
+            background: #ede8e0;
+            border-radius: 16px;
+            padding: 22px 32px;
+            margin-top: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px 24px;
+            flex-shrink: 0;
+            border: 1px solid #ddd6cc;
+        }
+        .result-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .result-number {
+            font-size: 44px;
+            font-weight: 700;
+            color: #1A1A1A;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            white-space: nowrap;
+        }
+        .result-label {
+            font-size: 14px;
+            color: #3d342b;
+            font-weight: 400;
+            margin-top: 4px;
+            line-height: 1.3;
+        }
+
+        /* ===== ФИНАЛЬНЫЙ СЛАЙД (SCANDINAVIAN NOIR) ===== */
+        .slide-noir {
+            background: #1A1A1A;
+            border-color: #2a2a2a;
+            color: #EAEAEA;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .slide-noir .slide-header { border-bottom-color: #3a3a3a; }
+        .slide-noir .slide-tag { background: #2a2a2a; color: #EAEAEA; }
+        .slide-noir .slide-number { color: #9a8e82; }
+        .slide-noir h1 { color: #EAEAEA; }
+        .slide-noir .badge-accent { background: #C9A87C; color: #1A1A1A; }
+        .slide-noir .badge-light { background: #2a2a2a; color: #d4d4d4; }
+        .slide-noir .col-card { background: #2a2a2a; border-color: #3a3a3a; }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 1180px) {
+            .slide { width: 100%; height: auto; min-height: 600px; padding: 28px 24px; border-radius: 16px; }
+            h1 { font-size: 34px; }
+            h2 { font-size: 24px; }
+            .description { font-size: 16px; }
+            .two-col, .three-col { grid-template-columns: 1fr; }
+            .result-block { padding: 16px 20px; flex-wrap: wrap; }
+            .result-number { font-size: 34px; }
+            .slide-noir { min-height: 400px; }
+        }
+        @media (max-width: 600px) {
+            .slide { padding: 18px 14px; min-height: 400px; }
+            h1 { font-size: 26px; }
+            h2 { font-size: 20px; }
+            .description { font-size: 14px; padding: 10px 14px; }
+            .result-number { font-size: 28px; }
+            .slide-header { flex-direction: column; align-items: flex-start; gap: 6px; }
+            .result-block { flex-direction: column; align-items: flex-start; }
+            .col-card { padding: 16px 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 1: РЕЗУЛЬТАТ -->
+    <!-- ============================================================ -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-tag">Кейс · Head of Product</span>
+            <span class="slide-number">1/6</span>
+        </div>
+        <div class="slide-author">Валерий Балуло · 2019–2022</div>
+        <h1>Запуск партнёрских каналов и PSP для B2B-эквайринга</h1>
+        <div class="description">
+            Расширил портфель бизнес-клиентов в 3 раза, подключив ключевых отраслевых PSP и выстроив эффективную партнерскую сеть
+        </div>
+
+        <div class="result-block">
+            <div class="result-item">
+                <span class="result-number">4 000 → 12 000</span>
+                <span class="result-label">активных B2B-клиентов за 3.5 года</span>
+            </div>
+            <div class="result-item">
+                <span class="result-number">+300%</span>
+                <span class="result-label">рост доходности эквайринга</span>
+            </div>
+            <div class="result-item">
+                <span class="result-number">3+</span>
+                <span class="result-label">крупных PSP-партнеров (Эвотор, Смартфин, ПримиКарту-INPAS)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 2: КОНТЕКСТ И ВЫЗОВЫ -->
+    <!-- ============================================================ -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-tag">Контекст</span>
+            <span class="slide-number">2/6</span>
+        </div>
+        <h2>От стабильности к масштабированию</h2>
+        <div class="two-col" style="flex:1;">
+            <div class="col-card">
+                <h3>Исходная ситуация</h3>
+                <ul class="list-dash">
+                    <li>Портфель: 4 000 бизнес-клиентов</li>
+                    <li>Основной канал — прямые продажи банка</li>
+                    <li>Ограниченный охват, высокий CAC</li>
+                </ul>
+                <div style="margin-top:12px; padding-top:12px; border-top:1px solid #ddd6cc;">
+                    <span class="badge-light">Задача</span> <strong>Увеличить портфель B2B-клиентов за счет партнерских каналов</strong>
+                </div>
+            </div>
+            <div class="col-card">
+                <h3>Ключевые вызовы</h3>
+                <ul class="list-dash">
+                    <li><strong>Техническая интеграция:</strong> сложная host2host интеграция с процессингами PSP</li>
+                    <li><strong>Онбординг:</strong> быстрая проверка и подключение клиентов от партнеров</li>
+                    <li><strong>Качество клиентов:</strong> LTV и кросс-продажи</li>
+                    <li><strong>Масштабирование проверки:</strong> ручная проверка 4 000 → 12 000 клиентов</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 3: СТРАТЕГИЯ И ПАРТНЕРЫ -->
+    <!-- ============================================================ -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-tag">Стратегия</span>
+            <span class="slide-number">3/6</span>
+        </div>
+        <h2>Как мы выбирали партнеров и выстраивали отношения</h2>
+        <div class="two-col" style="flex:1;">
+            <div class="col-card">
+                <h3>Критерии выбора PSP</h3>
+                <ul class="list-dash">
+                    <li><strong>Рыночная доля:</strong> лидеры рынка (Эвотор — №1)</li>
+                    <li><strong>Техническая совместимость:</strong> возможность host2host интеграции</li>
+                    <li><strong>Клиентская база:</strong> пересечение с целевым сегментом (МСБ)</li>
+                    <li><strong>Готовность к интеграции:</strong> наличие API и документации</li>
+                </ul>
+            </div>
+            <div class="col-card">
+                <h3>Ключевые партнеры</h3>
+                <ul class="list-dash">
+                    <li><strong>Эвотор</strong> — лидер рынка смарт-терминалов</li>
+                    <li><strong>Смартфин</strong> — SoftPOS и платежные решения</li>
+                    <li><strong>ПримиКарту-INPAS</strong> — поставщик оборудования и платёжных решений</li>
+                    <li><strong>Litebox (бывш. МТС-касса)</strong> — поставщик онлайн-касс для МСБ</li>
+                </ul>
+                <div style="margin-top:12px; padding-top:12px; border-top:1px solid #ddd6cc;">
+                    <span class="badge-accent">Результат</span> <strong>Эти партнеры принесли основную долю новых подключений</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 4: ДЕЙСТВИЯ И РЕШЕНИЯ -->
+    <!-- ============================================================ -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-tag">Действия</span>
+            <span class="slide-number">4/6</span>
+        </div>
+        <h2>Как мы решали вызовы</h2>
+        <div class="two-col" style="flex:1;">
+            <div class="col-card" style="border-left:4px solid #C9A87C;">
+                <h3>Техническая интеграция</h3>
+                <ul class="list-dash">
+                    <li>Привлекли департамент процессинга к совместной разработке спецификаций API</li>
+                    <li>Внедрили поэтапный подход: сначала MVP, затем доработки</li>
+                </ul>
+                <div style="margin-top:12px; padding-top:12px; border-top:1px solid #ddd6cc;">
+                    <span class="badge-light">Команда</span> <strong>Продакт-менеджер + бизнес-аналитик + менеджер по сопровождению</strong>
+                </div>
+            </div>
+            <div class="col-card" style="border-left:4px solid #8aa67a;">
+                <h3>Онбординг и масштабирование</h3>
+                <ul class="list-dash">
+                    <li><strong>Упростили проверку:</strong> внедрили API-обмен данными с PSP</li>
+                    <li><strong>Автоматизировали онбординг:</strong> данные клиента передаются напрямую от PSP, проверка происходит автоматически</li>
+                    <li><strong>Сократили время подключения:</strong> с нескольких дней до нескольких часов</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 5: ЭКОНОМИЧЕСКИЕ РЕЗУЛЬТАТЫ -->
+    <!-- ============================================================ -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-tag">Экономика</span>
+            <span class="slide-number">5/6</span>
+        </div>
+        <h1>Влияние на бизнес</h1>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; flex:1;">
+            <div style="display:flex; flex-direction:column; gap:14px;">
+                <div style="background:#f3efe9; border-radius:14px; padding:18px 22px;">
+                    <div style="font-size:32px; font-weight:700; color:#C9A87C;">4 000 → 12 000</div>
+                    <div style="font-size:14px; color:#3d342b;">рост портфеля B2B-клиентов</div>
+                </div>
+                <div style="background:#f3efe9; border-radius:14px; padding:18px 22px;">
+                    <div style="font-size:32px; font-weight:700; color:#C9A87C;">+300%</div>
+                    <div style="font-size:14px; color:#3d342b;">рост доходности эквайринга</div>
+                </div>
+                <div style="background:#f3efe9; border-radius:14px; padding:18px 22px;">
+                    <div style="font-size:32px; font-weight:700; color:#C9A87C;">↓ CAC</div>
+                    <div style="font-size:14px; color:#3d342b;">ниже, чем у прямых продаж банка</div>
+                </div>
+            </div>
+
+            <div style="background:#f3efe9; border-radius:14px; padding:20px 24px; display:flex; flex-direction:column; justify-content:center;">
+                <h3 style="margin-bottom:8px;">Ключевые эффекты</h3>
+                <ul class="list-dash" style="font-size:14px;">
+                    <li><strong>LTV ↑</strong> — клиенты от PSP показали LTV выше среднего за счет кросс-продаж</li>
+                    <li><strong>Кросс-продажи ↑</strong> — клиенты подключали другие продукты банка (РКО, зарплатные проекты)</li>
+                    <li><strong>Эффективность ↑</strong> — автоматизация онбординга сократила время подключения</li>
+                    <li><strong>Масштаб ↑</strong> — партнерская сеть обеспечила стабильный поток новых клиентов</li>
+                </ul>
+                <div style="margin-top:12px; background:#ede8e0; border-radius:40px; padding:6px 18px; align-self:flex-start; font-size:13px; border-left:3px solid #C9A87C;">
+                    Стратегический эффект: партнерские каналы стали основным источником новых клиентов для сегмента МСБ
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 6: ВЫВОДЫ И УРОКИ -->
+    <!-- ============================================================ -->
+    <div class="slide slide-noir">
+        <div class="slide-header" style="width:100%;">
+            <span class="slide-tag">Ретроспектива</span>
+            <span class="slide-number">6/6</span>
+        </div>
+        <div style="max-width:600px; display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; padding:10px 0;">
+            <h1 style="font-size:36px; margin-bottom:12px;">Что сработало, а что можно улучшить</h1>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; width:100%; text-align:left;">
+                <div style="background:#2a2a2a; border-radius:14px; padding:18px 22px; border-left:4px solid #8aa67a;">
+                    <h3 style="color:#EAEAEA; font-size:16px;">✅ Ключевые успехи</h3>
+                    <ul class="list-dash" style="font-size:14px; color:#d4d4d4;">
+                        <li>Выстроили партнерскую сеть с лидерами рынка</li>
+                        <li>Автоматизировали онбординг через API</li>
+                        <li>CAC ниже прямых продаж, LTV выше среднего</li>
+                        <li>Партнеры обеспечили 80% новых подключений</li>
+                    </ul>
+                </div>
+                <div style="background:#2a2a2a; border-radius:14px; padding:18px 22px; border-left:4px solid #C9A87C;">
+                    <h3 style="color:#EAEAEA; font-size:16px;">📌 Уроки и точки роста</h3>
+                    <ul class="list-dash" style="font-size:14px; color:#d4d4d4;">
+                        <li>Внедрить скоринг клиентов на этапе онбординга</li>
+                        <li>Автоматизировать отчетность по партнерам</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top:20px; display:flex; flex-wrap:wrap; gap:12px 24px; justify-content:center; font-size:15px; color:#b0a89e;">
+                <span>📧 vbalulo@yandex.ru</span>
+                <span>🔗 <a href="https://linkedin.com/in/valeriy-balulo" target="_blank" style="color:#C9A87C; text-decoration:none; border-bottom:1px solid #C9A87C;">LinkedIn</a></span>
+                <span>💬 <a href="https://t.me/Balulo" target="_blank" style="color:#C9A87C; text-decoration:none; border-bottom:1px solid #C9A87C;">@Balulo</a></span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
