@@ -14,7 +14,7 @@
   "id": "project-2",
   "type": "presentation",
   "title": "Launching and Scaling QR Payments",
-  "hasFullDetails": false,
+  "hasFullDetails": true,
   "intro": "Integrated a new payment method into the bank’s merchant acquiring infrastructure and scaled QR payment acceptance.",
   "company": "MTS-Bank",
   "year": "2020-2021",
