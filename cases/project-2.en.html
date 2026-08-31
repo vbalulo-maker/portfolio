@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: Launching and Scaling QR Payments · Valeriy Balulo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <style>
+        /* --- Сброс и базовые стили (с вашими цветами) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #F8F6F2;
+            color: #1A1A1A;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem 2rem;
+        }
+
+        /* --- Навигация --- */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #1A1A1A;
+            text-decoration: none;
+            font-weight: 500;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+        }
+
+        /* --- Заголовок --- */
+        .project-header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #F0EDE8;
+            padding-bottom: 2rem;
+        }
+
+        .project-header .company-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-header .company {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .project-header .role {
+            font-size: 0.9rem;
+            color: #1A1A1A;
+            opacity: 0.7;
+            font-weight: 400;
+        }
+
+        .project-header .period {
+            font-size: 0.9rem;
+            color: #1A1A1A;
+            opacity: 0.7;
+            background-color: #F0EDE8;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            margin-left: auto;
+        }
+
+        .project-header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 0.75rem 0 0.5rem 0;
+            letter-spacing: -0.02em;
+            color: #1A1A1A;
+        }
+
+        .project-header .subtitle {
+            font-size: 1.2rem;
+            color: #1A1A1A;
+            opacity: 0.8;
+            max-width: 80%;
+        }
+
+        /* --- Интро о компании --- */
+        .company-intro {
+            background-color: #F0EDE8;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+            color: #1A1A1A;
+            border-left: 4px solid #C9A87C;
+        }
+
+        /* --- Ключевые результаты (карточки целей) --- */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .result-card {
+            background: #F0EDE8;
+            padding: 1.5rem 1rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid #F0EDE8;
+            transition: transform 0.2s;
+        }
+
+        .result-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .result-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 0.25rem;
+        }
+
+        .result-description {
+            font-size: 0.9rem;
+            color: #1A1A1A;
+            opacity: 0.7;
+        }
+
+        /* --- Секции проектов (детали) --- */
+        .project-detail {
+            margin: 3rem 0;
+            padding-top: 2rem;
+            border-top: 1px solid #F0EDE8;
+        }
+
+        .project-detail:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .detail-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.75rem;
+        }
+
+        .detail-header h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .detail-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .detail-text {
+            flex: 2;
+            min-width: 280px;
+        }
+
+        .detail-text p {
+            margin-bottom: 0.75rem;
+            color: #1A1A1A;
+            opacity: 0.9;
+        }
+
+        .detail-text ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .detail-text li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+            color: #1A1A1A;
+            opacity: 0.9;
+        }
+
+        .detail-text li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #C9A87C;
+            font-weight: bold;
+        }
+
+        /* --- Блок сложностей --- */
+        .challenge-block {
+            background: #F0EDE8;
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            margin: 2.5rem 0;
+            border-left: 4px solid #C9A87C;
+        }
+
+        .challenge-block h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1A1A1A;
+        }
+
+        .challenge-block p {
+            color: #1A1A1A;
+            opacity: 0.9;
+        }
+
+        /* --- Команда --- */
+        .team-block {
+            background: #ffffff;
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            border: 1px solid #F0EDE8;
+            margin: 2rem 0;
+        }
+
+        .team-block p {
+            color: #1A1A1A;
+            opacity: 0.9;
+        }
+
+        .team-block strong {
+            color: #1A1A1A;
+        }
+
+        .inline-link {
+            color: #C9A87C;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom-color 0.2s;
+        }
+
+        .inline-link:hover {
+            border-bottom-color: #C9A87C;
+        }
+
+        /* --- Адаптивность --- */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .project-header h1 {
+                font-size: 2rem;
+            }
+
+            .project-header .subtitle {
+                max-width: 100%;
+            }
+
+            .detail-content {
+                flex-direction: column;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Навигация назад -->
+        <a href="/" class="back-link">← На главную</a>
+
+        <!-- ШАПКА ПРОЕКТА -->
+        <header class="project-header">
+            <div class="company-meta">
+                <span class="company">MTS-Bank</span>
+                <span class="role">Product Lead</span>
+                <span class="period">2020–2021</span>
+            </div>
+            <h1>Launching and Scaling QR Payments</h1>
+            <div class="subtitle">
+                Integrating a new payment method into the bank's acquiring infrastructure
+            </div>
+        </header>
+
+        <!-- ИНТРО О КОМПАНИИ -->
+        <div class="company-intro">
+            <strong>About Company:</strong> MTS-Bank(MBNK : MOEX) A univerasal bank that is part of the ecosystem of Russia's largest mobile operator.
+        </div>
+
+        <!-- КЛЮЧЕВЫЕ РЕЗУЛЬТАТЫ (ЦЕЛИ СБП) -->
+        <section>
+            <h2 style="font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; color: #1A1A1A;">Ключевые результаты</h2>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-label">20,000+ POS terminals</div>
+                    <div class="result-description">QR payment acceptance rolled out across the bank's entire POS network</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">Instant settlement</div>
+                    <div class="result-description">Funds could be credited to the merchant's bank account immediately</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">Lower transaction costs</div>
+                    <div class="result-description">The new payment method provided businesses with a more cost-efficient alternative to traditional card payments</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ДЕТАЛИ ПРОЕКТА: ИНТЕГРАЦИЯ -->
+        <section class="project-detail">
+            <div class="detail-header">
+                <h2>Integrating QR Payments into Merchant Acquiring</h2>
+            </div>
+            <div class="detail-content">
+                <div class="detail-text">
+                    <p>In 2020, the Bank of Russia and the National Payment Card System (NSPK) launched a new payment instrument within the Faster Payments System (SBP): C2B payments, allowing individuals to pay businesses by scanning a QR code.
+
+The goal was to make digital payment acceptance more accessible for businesses and reduce transaction costs.
+
+My responsibility was to integrate this new payment method into MTS Bank's merchant acquiring product and scale it across the bank's partner network.</p>
+                    <p><strong>My role:</strong></p>
+                    <ul>
+                        <li>Led the launch of SBP C2B as a new payment method for merchant acquiring customers.</li>
+                        <li>Integrating SBP into the existing payment infrastructure and product bundles.</li>
+                        <li>Defining the product scaling strategy, expanding the partner ecosystem, including PSPs and marketplaces.</li>
+                        <li>Owning the product P&L and unit economics, including LTV and CAC.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- БЛОК СЛОЖНОСТЕЙ -->
+        <div class="challenge-block">
+            <h3>Making QR payments work across the POS network</h3>
+            <p>The first major challenge was compatibility between SBP and the bank's existing POS terminals.
+
+The terminal estate included devices from different vendors and generations, which resulted in payment errors during the initial implementation.</p>
+        </div>
+
+        <!-- ДОПОЛНИТЕЛЬНЫЕ ИНИЦИАТИВЫ -->
+        <section class="project-detail">
+            <div class="detail-header">
+                <h2>Additional Scaling Through Partnerships</h2>
+            </div>
+            <div class="detail-content">
+                <div class="detail-text">
+                    <ul>
+                        <li>
+                            Integrate SBP into existing partner ecosystems. 
+                            Click <a href="project-detail.en.html?id=project-3" class="inline-link">here</a> for more details.
+                        </li>
+                        <li>We also integrated SBP QR payments into the bank's e-commerce payment module, enabling merchants to accept QR payments on their websites and mobile applications.</li>
+                        <li>I was responsible for the product's P&L and unit economics, including: LTV, CAC, product profitability, scaling economics.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- КОМАНДА -->
+        <div class="team-block">
+            <p><strong>Cross-Functional Leadership:</strong> The project required coordination across product, technology, operations, acquiring, and external partners.
+
+I led the cross-functional product team and coordinated the delivery of the new payment method across the relevant functions.
+
+I also presented and defended key initiatives at business committees, using business cases, unit economics, and growth potential to support investment and prioritization decisions.</p>
+        </div>
+
+    </div>
+    <!-- Конец container -->
+
+</body>
+</html>
