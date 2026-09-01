@@ -401,5 +401,99 @@
     });
 </script>
 <script src="js/lang.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // URL вашего Cloudflare Worker
+        const WORKER_URL = 'https://aichatforportfolio.vbalulo.workers.dev/';
+        
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatMessages = document.getElementById('chatMessages');
+
+        // Автоматический ресайз textarea
+        if (chatInput) {
+            chatInput.addEventListener('input', () => {
+                chatInput.style.height = 'auto';
+                chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
+            });
+        }
+
+        // Обработчик отправки сообщения
+        async function sendMessage() {
+            const question = chatInput.value.trim();
+            if (!question) return;
+
+            // Показываем вопрос пользователя
+            const userMessageHtml = `
+                <div style="align-self:flex-end;background:var(--accent);color:#fff;padding:12px 18px;border-radius:18px 18px 4px 18px;max-width:80%;margin-bottom:12px;">
+                    ${question}
+                </div>
+            `;
+            chatMessages.innerHTML = userMessageHtml + '<div id="loading" style="color:#999;">AI думает...</div>';
+            chatInput.value = '';
+            chatInput.style.height = 'auto';
+
+            try {
+                const response = await fetch(WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question }),
+                });
+
+                const data = await response.json();
+                const reply = data.reply || 'Извините, не удалось получить ответ.';
+
+                // Убираем индикатор загрузки и показываем ответ
+                const loadingEl = document.getElementById('loading');
+                if (loadingEl) loadingEl.remove();
+
+                const aiMessageHtml = `
+                    <div style="align-self:flex-start;background:#f3efe9;padding:12px 18px;border-radius:18px 18px 18px 4px;max-width:80%;">
+                        ${reply.replace(/\n/g, '<br>')}
+                    </div>
+                `;
+                chatMessages.innerHTML = userMessageHtml + aiMessageHtml;
+
+                // Убираем placeholder после первого сообщения
+                const placeholder = chatMessages.querySelector('.chat-placeholder');
+                if (placeholder) placeholder.style.display = 'none';
+
+            } catch (error) {
+                console.error('Ошибка:', error);
+                const loadingEl = document.getElementById('loading');
+                if (loadingEl) loadingEl.remove();
+                chatMessages.innerHTML = userMessageHtml + `
+                    <div style="align-self:flex-start;background:#fee;padding:12px 18px;border-radius:18px;max-width:80%;color:#c0392b;">
+                        Произошла ошибка. Попробуйте позже.
+                    </div>
+                `;
+            }
+        }
+
+        // Обработчики событий
+        if (sendBtn) {
+            sendBtn.addEventListener('click', sendMessage);
+        }
+        if (chatInput) {
+            chatInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        }
+
+        // Добавляем обработчик для примеров вопросов (быстрые действия)
+        document.querySelectorAll('.quick-action').forEach(el => {
+            el.addEventListener('click', () => {
+                const question = el.textContent.trim();
+                if (chatInput) {
+                    chatInput.value = question;
+                    sendMessage();
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
