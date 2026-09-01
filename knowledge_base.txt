@@ -205,6 +205,8 @@ AI-решение должно не заменять человека, а дел
 
 Кейсы: vbalulo-maker.github.io/portfolio/projects.html
 
+Скачать резюме (CV): https://vbalulo-maker.github.io/portfolio/Valeriy_Balulo_CV.pdf
+
 Подробные кейсы:
 
 Запуск эквайринга в Росбанке
