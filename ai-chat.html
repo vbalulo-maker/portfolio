@@ -52,22 +52,22 @@
             font-weight: 400;
         }
 
-        /* ===== ОБЛАСТЬ СООБЩЕНИЙ (ЗАГЛУШКА) ===== */
+        /* ===== ОБЛАСТЬ СООБЩЕНИЙ ===== */
         .chat-messages {
             flex: 1;
             padding: 32px 32px 16px;
             min-height: 280px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
             background: var(--bg-primary);
+            overflow-y: auto;
+            max-height: 400px;
         }
 
         .chat-placeholder {
             text-align: center;
             max-width: 440px;
+            margin: auto;
         }
         .chat-placeholder .icon {
             font-size: 3.6rem;
@@ -104,7 +104,7 @@
             font-size: 0.82rem;
             font-weight: 500;
             color: var(--text-primary);
-            cursor: default;
+            cursor: pointer;
             transition: var(--transition);
             user-select: none;
             white-space: nowrap;
@@ -113,15 +113,6 @@
             border-color: var(--accent);
             background: var(--bg-white);
             transform: translateY(-1px);
-        }
-        .quick-action.placeholder {
-            opacity: 0.6;
-        }
-        .quick-action.placeholder:hover {
-            opacity: 0.8;
-            border-color: var(--border-light);
-            transform: none;
-            background: var(--bg-soft);
         }
 
         /* ===== ПОЛЕ ВВОДА ===== */
@@ -172,25 +163,23 @@
             border: none;
             color: #fff;
             font-size: 1.2rem;
-            cursor: default;
+            cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0.5;
-            pointer-events: none;
         }
-        .chat-send-btn.active {
-            opacity: 1;
-            pointer-events: auto;
-            cursor: pointer;
-        }
-        .chat-send-btn.active:hover {
+        .chat-send-btn:hover {
             background: var(--accent-hover);
             transform: scale(1.04);
         }
+        .chat-send-btn:disabled {
+            opacity: 0.4;
+            cursor: default;
+            transform: none;
+        }
 
-        /* ===== ФУТЕР ЧАТА (подсказка) ===== */
+        /* ===== ФУТЕР ЧАТА ===== */
         .chat-footer {
             text-align: center;
             padding: 0 32px 20px;
@@ -215,6 +204,7 @@
             .chat-messages {
                 padding: 20px 20px 12px;
                 min-height: 200px;
+                max-height: 300px;
             }
             .quick-actions {
                 padding: 0 20px 12px;
@@ -260,44 +250,8 @@
                 font-size: 1.1rem;
             }
         }
-        /* ===== ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА ===== */
-.header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-}
-.lang-switch {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text-primary);
-    user-select: none;
-}
-.lang-active {
-    opacity: 1;
-    font-weight: 600;
-    color: var(--accent);
-    cursor: default;
-}
-.lang-inactive {
-    opacity: 0.4;
-    cursor: default;
-    transition: var(--transition);
-}
-.lang-inactive:hover {
-    opacity: 0.7;
-}
-.lang-divider {
-    opacity: 0.3;
-}
     </style>
+    <!-- GoatCounter -->
     <script data-goatcounter="https://vbalulo.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </head>
@@ -316,9 +270,9 @@
                 </ul>
             </nav>
             <div class="lang-switch">
-                <span class="lang-active">RU</span>
+                <span class="lang-active lang-ru">RU</span>
                 <span class="lang-divider">/</span>
-                <span class="lang-inactive">EN</span>
+                <span class="lang-inactive lang-en">EN</span>
             </div>
         </div>
     </div>
@@ -336,26 +290,24 @@
             </div>
         </div>
 
-        <!-- Область сообщений (заглушка) -->
+        <!-- Область сообщений -->
         <div class="chat-messages" id="chatMessages">
-            <div class="chat-placeholder">
+            <div class="chat-placeholder" id="placeholder">
                 <span class="icon">🤖</span>
-                <h3>Чат временно недоступен</h3>
+                <h3>Спросите о моем опыте</h3>
                 <p>
-                    Я самостоятельно проектирую AI-ассистента, чтобы он мог отвечать на ваши вопросы о моем опыте.
-                    <br /><br />
-                    А пока вы можете задать вопрос через <a href="https://t.me/Balulo" target="_blank" style="color:var(--accent);text-decoration:underline;">Telegram</a> или написать на <a href="mailto:vbalulo@yandex.ru" style="color:var(--accent);text-decoration:underline;">почту</a>.
+                    AI-ассистент ответит на вопросы о моем опыте, проектах и навыках на основе резюме и кейсов.
                 </p>
             </div>
         </div>
 
-        <!-- Быстрые действия (примеры вопросов) -->
-        <div class="quick-actions">
-            <span class="quick-action placeholder">Какой у Валерия опыт в запуске продуктов с нуля?</span>
-            <span class="quick-action placeholder">Как он руководит командой?</span>
-            <span class="quick-action placeholder">Покажи самый сильный кейс</span>
-            <span class="quick-action placeholder">Проверить на соответствие вашей вакансии</span>
-            <span class="quick-action placeholder">Скачать CV</span>
+        <!-- Быстрые действия -->
+        <div class="quick-actions" id="quickActions">
+            <span class="quick-action" data-question="Какой у Валерия опыт в запуске продуктов с нуля?">🚀 Опыт запуска продуктов</span>
+            <span class="quick-action" data-question="Как он руководит командой?">👥 Управление командой</span>
+            <span class="quick-action" data-question="Покажи самый сильный кейс">💪 Сильнейший кейс</span>
+            <span class="quick-action" data-question="Проверить на соответствие вашей вакансии">🎯 Соответствие вакансии</span>
+            <span class="quick-action" data-question="Скачать CV">📄 Скачать CV</span>
         </div>
 
         <!-- Поле ввода -->
@@ -364,16 +316,20 @@
                 <textarea
                     id="chatInput"
                     rows="1"
-                    placeholder="Задайте вопрос обо мне..."
-                    disabled
+                    placeholder="Спросите о моем опыте..."
                 ></textarea>
-                <button class="chat-send-btn" id="sendBtn" disabled>
+                <button class="chat-send-btn" id="sendBtn">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="22" y1="2" x2="11" y2="13" />
                         <polygon points="22 2 15 22 11 13 2 9 22 2" />
                     </svg>
                 </button>
             </div>
+        </div>
+
+        <!-- Футер чата -->
+        <div class="chat-footer">
+            AI отвечает на основе моего резюме, кейсов и фактов из портфолио
         </div>
 
     </div>
@@ -388,50 +344,81 @@
     </div>
 </footer>
 
-<!-- ===== НЕБОЛЬШОЙ СКРИПТ ДЛЯ АВТОРАЗМЕРА TEXTAREA ===== -->
+<!-- ===== СКРИПТ ДЛЯ РАБОТЫ ЧАТА ===== -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const textarea = document.getElementById('chatInput');
-        if (textarea) {
-            textarea.addEventListener('input', () => {
-                textarea.style.height = 'auto';
-                textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
-            });
-        }
-    });
-</script>
-<script src="js/lang.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // URL вашего Cloudflare Worker
-        const WORKER_URL = 'https://aichatforportfolio.vbalulo.workers.dev/';
-        
+        // URL вашего Cloudflare Worker — замените на свой!
+        const WORKER_URL = 'https://mute-sun-c74e.vbalulo.workers.dev';
+
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
         const chatMessages = document.getElementById('chatMessages');
+        const placeholder = document.getElementById('placeholder');
 
-        // Автоматический ресайз textarea
-        if (chatInput) {
-            chatInput.addEventListener('input', () => {
-                chatInput.style.height = 'auto';
-                chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
-            });
+        // Функция для добавления сообщения в чат
+        function addMessage(text, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                align-self: ${isUser ? 'flex-end' : 'flex-start'};
+                background: ${isUser ? 'var(--accent)' : '#f3efe9'};
+                color: ${isUser ? '#fff' : 'var(--text-primary)'};
+                padding: 12px 18px;
+                border-radius: ${isUser ? '18px 18px 4px 18px' : '18px 18px 18px 4px'};
+                max-width: 85%;
+                margin-bottom: 12px;
+                line-height: 1.6;
+                white-space: pre-wrap;
+                word-break: break-word;
+            `;
+            // Заменяем переносы строк на <br> для отображения
+            messageDiv.innerHTML = text.replace(/\n/g, '<br>');
+            return messageDiv;
         }
 
-        // Обработчик отправки сообщения
+        // Функция для показа индикатора "печатает"
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typingIndicator';
+            typingDiv.style.cssText = `
+                align-self: flex-start;
+                background: #f3efe9;
+                padding: 12px 18px;
+                border-radius: 18px 18px 18px 4px;
+                color: #999;
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            `;
+            typingDiv.textContent = 'AI печатает...';
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Функция для удаления индикатора
+        function removeTypingIndicator() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+
+        // Основная функция отправки сообщения
         async function sendMessage() {
             const question = chatInput.value.trim();
             if (!question) return;
 
-            // Показываем вопрос пользователя
-            const userMessageHtml = `
-                <div style="align-self:flex-end;background:var(--accent);color:#fff;padding:12px 18px;border-radius:18px 18px 4px 18px;max-width:80%;margin-bottom:12px;">
-                    ${question}
-                </div>
-            `;
-            chatMessages.innerHTML = userMessageHtml + '<div id="loading" style="color:#999;">AI думает...</div>';
+            // Прячем плейсхолдер
+            if (placeholder) placeholder.style.display = 'none';
+
+            // Добавляем сообщение пользователя
+            const userMsg = addMessage(question, true);
+            chatMessages.appendChild(userMsg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Очищаем поле ввода
             chatInput.value = '';
             chatInput.style.height = 'auto';
+            sendBtn.disabled = true;
+
+            // Показываем индикатор
+            showTypingIndicator();
 
             try {
                 const response = await fetch(WORKER_URL, {
@@ -440,60 +427,64 @@
                     body: JSON.stringify({ question }),
                 });
 
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
                 const data = await response.json();
-                const reply = data.reply || 'Извините, не удалось получить ответ.';
+                removeTypingIndicator();
 
-                // Убираем индикатор загрузки и показываем ответ
-                const loadingEl = document.getElementById('loading');
-                if (loadingEl) loadingEl.remove();
-
-                const aiMessageHtml = `
-                    <div style="align-self:flex-start;background:#f3efe9;padding:12px 18px;border-radius:18px 18px 18px 4px;max-width:80%;">
-                        ${reply.replace(/\n/g, '<br>')}
-                    </div>
-                `;
-                chatMessages.innerHTML = userMessageHtml + aiMessageHtml;
-
-                // Убираем placeholder после первого сообщения
-                const placeholder = chatMessages.querySelector('.chat-placeholder');
-                if (placeholder) placeholder.style.display = 'none';
+                if (data.error) {
+                    const errorMsg = addMessage(`❌ Ошибка: ${data.error}`, false);
+                    chatMessages.appendChild(errorMsg);
+                } else {
+                    const aiMsg = addMessage(data.reply || 'Извините, я не смог сформулировать ответ.', false);
+                    chatMessages.appendChild(aiMsg);
+                }
 
             } catch (error) {
+                removeTypingIndicator();
                 console.error('Ошибка:', error);
-                const loadingEl = document.getElementById('loading');
-                if (loadingEl) loadingEl.remove();
-                chatMessages.innerHTML = userMessageHtml + `
-                    <div style="align-self:flex-start;background:#fee;padding:12px 18px;border-radius:18px;max-width:80%;color:#c0392b;">
-                        Произошла ошибка. Попробуйте позже.
-                    </div>
-                `;
+                const errorMsg = addMessage('❌ Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте позже.', false);
+                chatMessages.appendChild(errorMsg);
             }
+
+            sendBtn.disabled = false;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
         // Обработчики событий
-        if (sendBtn) {
-            sendBtn.addEventListener('click', sendMessage);
-        }
-        if (chatInput) {
-            chatInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    sendMessage();
-                }
-            });
-        }
+        sendBtn.addEventListener('click', sendMessage);
 
-        // Добавляем обработчик для примеров вопросов (быстрые действия)
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Автоматический ресайз textarea
+        chatInput.addEventListener('input', () => {
+            chatInput.style.height = 'auto';
+            chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
+        });
+
+        // Быстрые действия (клик по примеру вопроса)
         document.querySelectorAll('.quick-action').forEach(el => {
             el.addEventListener('click', () => {
-                const question = el.textContent.trim();
-                if (chatInput) {
+                const question = el.dataset.question;
+                if (question) {
                     chatInput.value = question;
                     sendMessage();
                 }
             });
         });
+
+        // Фокус на поле ввода при загрузке
+        chatInput.focus();
     });
 </script>
+
+<script src="js/lang.js"></script>
 </body>
 </html>
