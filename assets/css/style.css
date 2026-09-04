@@ -547,56 +547,56 @@ nav a.active {
 }
 .education-slider {
     display: flex;
-    gap: 20px;
+    gap: 24px;
     transition: transform 0.6s ease-in-out;
     will-change: transform;
 }
 
-/* Карточка (в 1.5 раза меньше, чем в карьерном треке) */
+/* Карточка — шире и выше в 1.5 раза */
 .education-card {
-    flex: 0 0 180px;
-    max-width: 200px;
+    flex: 0 0 270px;   /* 180px * 1.5 = 270px */
+    max-width: 300px;   /* 200px * 1.5 = 300px */
     background: var(--bg-soft);
     border-radius: var(--radius);
     border: 1px solid var(--border-light);
-    padding: 16px 14px;
+    padding: 24px 20px;  /* больше отступов */
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    min-height: 120px;
+    min-height: 180px;   /* 120px * 1.5 = 180px */
     transition: var(--transition);
 }
 .education-card .edu-icon {
-    font-size: 1.6rem;
-    margin-bottom: 6px;
+    font-size: 2.4rem;   /* 1.6rem * 1.5 */
+    margin-bottom: 8px;
 }
 .education-card h3 {
-    font-size: 0.85rem;
+    font-size: 1.1rem;   /* 0.85rem + 2 шага (~0.25rem) */
     font-weight: 600;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
     color: var(--text-primary);
 }
 .education-card .edu-institution {
-    font-size: 0.75rem;
+    font-size: 0.95rem;  /* 0.75rem + 2 шага */
     font-weight: 500;
     color: var(--text-primary);
-    margin-bottom: 1px;
+    margin-bottom: 2px;
 }
 .education-card .edu-specialty {
-    font-size: 0.7rem;
+    font-size: 0.9rem;   /* 0.7rem + 2 шага */
     color: #555;
 }
 .education-card .edu-name {
-    font-size: 0.8rem;
+    font-size: 1rem;     /* 0.8rem + 2 шага */
     font-weight: 500;
     color: var(--text-primary);
 }
 .education-card .edu-year {
-    font-size: 0.65rem;
+    font-size: 0.85rem;  /* 0.65rem + 2 шага */
     color: var(--accent);
     font-weight: 600;
-    margin-top: 4px;
+    margin-top: 6px;
     letter-spacing: 0.02em;
 }
 .education-card:hover {
@@ -610,11 +610,11 @@ nav a.active {
     display: flex;
     justify-content: center;
     gap: 8px;
-    margin-top: 20px;
+    margin-top: 24px;
 }
 .slider-dots .dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: var(--border-light);
     border: none;
@@ -624,7 +624,7 @@ nav a.active {
 }
 .slider-dots .dot.active {
     background: var(--accent);
-    width: 20px;
+    width: 24px;
     border-radius: 4px;
 }
 .slider-dots .dot:hover {
@@ -632,12 +632,55 @@ nav a.active {
 }
 
 /* Адаптив */
+@media (max-width: 1024px) {
+    .education-card {
+        flex: 0 0 220px;
+        max-width: 250px;
+        min-height: 160px;
+        padding: 20px 16px;
+    }
+    .education-card .edu-icon {
+        font-size: 2rem;
+    }
+    .education-card h3 {
+        font-size: 1rem;
+    }
+}
 @media (max-width: 768px) {
     .education-card {
-        flex: 0 0 150px;
-        max-width: 170px;
+        flex: 0 0 180px;
+        max-width: 200px;
+        min-height: 140px;
+        padding: 16px 14px;
+    }
+    .education-card .edu-icon {
+        font-size: 1.6rem;
+    }
+    .education-card h3 {
+        font-size: 0.9rem;
+    }
+    .education-card .edu-institution {
+        font-size: 0.8rem;
+    }
+    .education-card .edu-specialty {
+        font-size: 0.75rem;
+    }
+    .education-card .edu-name {
+        font-size: 0.85rem;
+    }
+    .education-card .edu-year {
+        font-size: 0.75rem;
+    }
+    .education-block h2 {
+        font-size: 2.2rem;
+    }
+}
+@media (max-width: 480px) {
+    .education-card {
+        flex: 0 0 140px;
+        max-width: 160px;
+        min-height: 120px;
         padding: 12px 10px;
-        min-height: 100px;
     }
     .education-card .edu-icon {
         font-size: 1.3rem;
@@ -646,45 +689,15 @@ nav a.active {
         font-size: 0.75rem;
     }
     .education-card .edu-institution {
-        font-size: 0.65rem;
+        font-size: 0.7rem;
     }
     .education-card .edu-specialty {
-        font-size: 0.6rem;
+        font-size: 0.65rem;
     }
     .education-card .edu-name {
         font-size: 0.7rem;
     }
     .education-card .edu-year {
-        font-size: 0.6rem;
-    }
-    .education-block h2 {
-        font-size: 2.2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .education-card {
-        flex: 0 0 130px;
-        max-width: 150px;
-        padding: 10px 8px;
-        min-height: 90px;
-    }
-    .education-card .edu-icon {
-        font-size: 1.1rem;
-    }
-    .education-card h3 {
-        font-size: 0.7rem;
-    }
-    .education-card .edu-institution {
-        font-size: 0.6rem;
-    }
-    .education-card .edu-specialty {
-        font-size: 0.55rem;
-    }
-    .education-card .edu-name {
         font-size: 0.65rem;
-    }
-    .education-card .edu-year {
-        font-size: 0.55rem;
     }
 }
