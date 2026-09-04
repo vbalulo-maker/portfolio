@@ -264,13 +264,17 @@
     </div>
 </section>
 
-<!-- ===== КАРЬЕРНЫЙ ТРЕК ===== -->
+<!-- ===== КАРЬЕРНЫЙ ТРЕК (с автоматической прокруткой) ===== -->
 <section class="section-process fade-section">
     <div class="container career-timeline-horizontal">
         <h2>Карьерный трек</h2>
         <p class="sub">Кликните по этапу, чтобы увидеть проекты</p>
-        <div class="timeline-horizontal-wrapper" id="careerTimeline">
-            <!-- Содержимое генерируется скриптом -->
+
+        <div class="timeline-slider-wrapper">
+            <div class="timeline-slider" id="careerTimelineSlider">
+                <!-- Карточки загружаются из companies.json -->
+            </div>
+            <div class="slider-dots" id="careerDots"></div>
         </div>
     </div>
 </section>
@@ -388,9 +392,12 @@
     });
 </script>
 
-<!-- ===== СКРИПТ ДЛЯ КАРЬЕРНОГО ТРЕКА (ГОРИЗОНТАЛЬНЫЙ) ===== -->
+<!-- ===== СКРИПТ ДЛЯ КАРЬЕРНОГО ТРЕКА (слайдер) ===== -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        const slider = document.getElementById('careerTimelineSlider');
+        const dotsContainer = document.getElementById('careerDots');
+
         fetch('data/companies.json')
             .then(r => r.json())
             .then(companies => {
@@ -404,168 +411,132 @@
                     return getStart(a.period) - getStart(b.period);
                 });
 
-                const container = document.getElementById('careerTimeline');
-                if (!container) return;
-
-                // Добавляем карточки Career Break в нужных местах
-                const careerBreaks = [
-                    {
-                        name: 'Career Break',
-                        role: 'Консультации, поиск проектов, изучение AI',
-                        period: '2025.01–2025.07',
-                        intro: 'Консультации участников рынка, поиск стратегического проекта, работа над портфолио и изучение AI',
-                        isBreak: true
-                    },
-                    {
-                        name: 'Career Break',
-                        role: 'Активный поиск, изучение AI/ML',
-                        period: '2026.04–н.в.',
-                        intro: 'Активный поиск роли Head of Product / CPO в финтехе, работа над портфолио и изучение AI/ML-продуктов',
-                        isBreak: true
-                    }
-                ];
-
-                // Строим финальный список в правильном порядке
-                const companyMap = {};
-                sorted.forEach(c => { companyMap[c.id] = c; });
-
-                // Правильный порядок ID компаний
+                // Определяем порядок ID для компаний (без break'ов)
                 const order = ['company-5', 'company-4', 'company-3', 'company-2', 'company-1'];
-                const orderedCompanies = [];
-                order.forEach(id => {
-                    if (companyMap[id]) {
-                        orderedCompanies.push(companyMap[id]);
+                const companyMap = {};
+                const breaks = [];
+                sorted.forEach(c => {
+                    if (c.id.startsWith('break-')) {
+                        breaks.push(c);
+                    } else {
+                        companyMap[c.id] = c;
                     }
                 });
 
                 // Собираем финальный список
                 const allItems = [];
-                orderedCompanies.forEach((company, index) => {
-                    // Добавляем компанию
-                    allItems.push(company);
-                    
-                    // После РСХБ (company-2) вставляем первый Career Break
-                    if (company.id === 'company-2') {
-                        allItems.push(careerBreaks[0]);
-                    }
-                    // Перед Финтех-Платформой (company-1) вставляем второй Career Break
-                    if (company.id === 'company-1') {
-                        allItems.push(careerBreaks[1]);
-                    }
+                order.forEach(id => {
+                    if (companyMap[id]) allItems.push(companyMap[id]);
                 });
-
-                // Фиксируем порядок: если что-то пошло не так, добавляем в конец
-                if (!allItems.some(item => item.isBreak && item.period.includes('2025'))) {
-                    allItems.push(careerBreaks[0]);
+                // Вставляем break-1 после РСХБ (company-2)
+                const rshbIndex = allItems.findIndex(c => c.id === 'company-2');
+                if (rshbIndex !== -1 && breaks[0]) {
+                    allItems.splice(rshbIndex + 1, 0, breaks[0]);
                 }
-                if (!allItems.some(item => item.isBreak && item.period.includes('2026'))) {
-                    allItems.push(careerBreaks[1]);
-                }
-
-                // Определяем индексы карточек, которые должны быть видны по умолчанию
-                // Нужно: Росбанк (company-3), РСХБ (company-2), Career Break (2025), Финтех-Платформа (company-1)
-                const defaultVisibleNames = ['Росбанк', 'РСХБ', 'Career Break', 'Финтех-Платформа'];
-                
-                // Сначала находим индексы этих элементов
-                const defaultIndices = [];
-                allItems.forEach((item, index) => {
-                    if (item.name && defaultVisibleNames.includes(item.name)) {
-                        defaultIndices.push(index);
-                    }
-                });
-
-                // Берём минимальный и максимальный индекс, чтобы охватить все 4 карточки
-                const minDefaultIndex = Math.min(...defaultIndices);
-                const maxDefaultIndex = Math.max(...defaultIndices);
-
-                const html = `
-                    <div class="timeline-horizontal">
-                        ${allItems.map((item, index) => {
-                            const isBreak = item.isBreak || false;
-                            // Карточка видна по умолчанию, если её индекс между minDefaultIndex и maxDefaultIndex
-                            const isDefaultVisible = index >= minDefaultIndex && index <= maxDefaultIndex;
-                            const hasProjects = !isBreak && Boolean(item.projectId);
-                            
-                            return `
-                                <div class="timeline-node-h ${hasProjects ? 'has-projects' : ''} ${isDefaultVisible ? 'active-default' : ''}" 
-                                     data-index="${index}"
-                                     data-is-break="${isBreak}"
-                                     style="--node-index: ${index + 1};">
-                                    <div class="node-top">
-                                        <span class="timeline-marker-h"></span>
-                                        <span class="timeline-period-h">${item.period}</span>
-                                    </div>
-                                    <div class="timeline-content-h">
-                                        <h4>${isBreak ? item.name : item.name}</h4>
-                                        <div class="role-h">${item.role}</div>
-                                        <div class="intro-h">${item.intro}</div>
-                                        ${!isBreak && hasProjects ? 
-                                            `<a href="projects.html?company=${encodeURIComponent(item.name)}" class="timeline-link-h">Кейсы →</a>` :
-                                            !isBreak ? `<span class="timeline-link-h placeholder">скоро</span>` : ''
-                                        }
-                                    </div>
-                                </div>
-                            `;
-                        }).join('')}
-                    </div>
-                `;
-                container.innerHTML = html;
-
-                // Запускаем Scrollytelling: активируем скрытые карточки при скролле
-                const cards = container.querySelectorAll('.timeline-node-h');
-                const cardsArray = Array.from(cards);
-                const totalCards = cardsArray.length;
-
-                // Находим первую и последнюю карточку, которые нужно активировать
-                // Активные по умолчанию уже имеют класс active-default
-                // Остальные (слева и справа) должны активироваться
-
-                const scrollObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const card = entry.target;
-                            // Просто активируем карточку, если она не активна
-                            if (!card.classList.contains('active') && !card.classList.contains('active-default')) {
-                                card.classList.add('active');
-                            }
-                        }
-                    });
-                }, {
-                    threshold: 0.3,
-                    rootMargin: '0px 0px -50px 0px'
-                });
-
-                // Наблюдаем за всеми карточками, которые не активны по умолчанию
-                for (let i = 0; i < totalCards; i++) {
-                    if (!cardsArray[i].classList.contains('active-default')) {
-                        scrollObserver.observe(cardsArray[i]);
-                    }
+                // Вставляем break-2 перед Финтех-Платформой (company-1)
+                const fpIndex = allItems.findIndex(c => c.id === 'company-1');
+                if (fpIndex !== -1 && breaks[1]) {
+                    allItems.splice(fpIndex, 0, breaks[1]);
                 }
 
-                // Альтернативный триггер: при скролле контейнера
-                const wrapper = document.querySelector('.timeline-horizontal-wrapper');
-                if (wrapper) {
-                    wrapper.addEventListener('scroll', () => {
-                        const scrollLeft = wrapper.scrollLeft;
-                        const cardWidth = cardsArray[0]?.offsetWidth || 200;
-                        const gap = 16;
-                        const visibleIndex = Math.floor(scrollLeft / (cardWidth + gap));
-                        
-                        for (let i = 0; i <= visibleIndex + 1 && i < totalCards; i++) {
-                            const card = cardsArray[i];
-                            if (card && !card.classList.contains('active') && !card.classList.contains('active-default')) {
-                                card.classList.add('active');
-                            }
-                        }
-                    });
-                }
+                // Рендерим карточки
+                slider.innerHTML = allItems.map((item, index) => {
+                    const isBreak = item.isBreak || false;
+                    const hasProjects = !isBreak && Boolean(item.projectId);
+                    return `
+                        <div class="timeline-node-h ${hasProjects ? 'has-projects' : ''} ${isBreak ? 'break' : ''}" 
+                             data-is-break="${isBreak}"
+                             style="--node-index: ${index + 1};">
+                            <div class="node-top">
+                                <span class="timeline-marker-h"></span>
+                                <span class="timeline-period-h">${item.period}</span>
+                            </div>
+                            <div class="timeline-content-h">
+                                <h4>${item.name}</h4>
+                                <div class="role-h">${item.role}</div>
+                                <div class="intro-h">${item.intro}</div>
+                                ${!isBreak && hasProjects ? 
+                                    `<a href="projects.html?company=${encodeURIComponent(item.name)}" class="timeline-link-h">Кейсы →</a>` :
+                                    !isBreak ? `<span class="timeline-link-h placeholder">скоро</span>` : ''
+                                }
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                // Настраиваем слайдер
+                setupCareerSlider();
             })
             .catch(() => {
-                const container = document.getElementById('careerTimeline');
-                if (container) {
-                    container.innerHTML = '<p style="color:#999;">Не удалось загрузить данные о карьере.</p>';
-                }
+                slider.innerHTML = '<p style="color:#999;">Не удалось загрузить данные о карьере.</p>';
             });
+
+        function setupCareerSlider() {
+            const cards = slider.querySelectorAll('.timeline-node-h');
+            const totalCards = cards.length;
+            const visibleCards = window.innerWidth <= 480 ? 1 : (window.innerWidth <= 768 ? 2 : 3);
+            const totalSlides = Math.ceil(totalCards / visibleCards);
+
+            let currentIndex = 0;
+            let interval;
+
+            // Создаём точки
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.dataset.index = i;
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+
+            function goToSlide(index) {
+                currentIndex = Math.min(index, totalSlides - 1);
+                const cardWidth = cards[0]?.offsetWidth || 270;
+                const gap = 16;
+                const offset = currentIndex * (cardWidth + gap) * visibleCards;
+                slider.style.transform = `translateX(-${offset}px)`;
+                updateDots();
+            }
+
+            function updateDots() {
+                document.querySelectorAll('#careerDots .dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
+
+            function nextSlide() {
+                const next = (currentIndex + 1) % totalSlides;
+                goToSlide(next);
+            }
+
+            function startAutoPlay() {
+                interval = setInterval(nextSlide, 5000);
+            }
+
+            function stopAutoPlay() {
+                clearInterval(interval);
+            }
+
+            startAutoPlay();
+
+            const wrapper = document.querySelector('.timeline-slider-wrapper');
+            wrapper.addEventListener('mouseenter', stopAutoPlay);
+            wrapper.addEventListener('mouseleave', startAutoPlay);
+
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    const newVisible = window.innerWidth <= 480 ? 1 : (window.innerWidth <= 768 ? 2 : 3);
+                    const cardWidth = cards[0]?.offsetWidth || 270;
+                    const gap = 16;
+                    const offset = currentIndex * (cardWidth + gap) * newVisible;
+                    slider.style.transform = `translateX(-${offset}px)`;
+                }, 200);
+            });
+        }
     });
 </script>
 
