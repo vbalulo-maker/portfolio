@@ -294,65 +294,8 @@
 
         <div class="education-slider-wrapper">
             <div class="education-slider" id="educationSlider">
-                <!-- Карточка 1: Высшее образование -->
-                <div class="education-card">
-                    <div class="edu-icon">🎓</div>
-                    <h3>Высшее образование</h3>
-                    <p class="edu-institution">Московский Экономико-Финансовый Институт</p>
-                    <p class="edu-specialty">Специальность: Экономист</p>
-                    <p class="edu-year">2002–2007</p>
-                </div>
-
-                <!-- Карточка 2: Product Heroes -->
-                <div class="education-card">
-                    <div class="edu-icon">📊</div>
-                    <h3>Product Heroes</h3>
-                    <p class="edu-name">Product Metrics</p>
-                    <p class="edu-year">2023</p>
-                </div>
-
-                <!-- Карточка 3: Корпоративный университет -->
-                <div class="education-card">
-                    <div class="edu-icon">💾</div>
-                    <h3>Корпоративный университет</h3>
-                    <p class="edu-name">Основы SQL</p>
-                    <p class="edu-year">2023</p>
-                </div>
-
-                <!-- Карточка 4: Go Practice -->
-                <div class="education-card">
-                    <div class="edu-icon">🤖</div>
-                    <h3>Go Practice</h3>
-                    <p class="edu-name">Generative AI for PM</p>
-                    <p class="edu-year">2024</p>
-                </div>
-
-                <!-- Карточка 5: Coursera -->
-                <div class="education-card">
-                    <div class="edu-icon">⛓️</div>
-                    <h3>Coursera</h3>
-                    <p class="edu-name">Blockchain Basis</p>
-                    <p class="edu-year">2025</p>
-                </div>
-
-                <!-- Карточка 6: ProductDo ML -->
-                <div class="education-card">
-                    <div class="edu-icon">🧠</div>
-                    <h3>ProductDo</h3>
-                    <p class="edu-name">ML Foundations for PM</p>
-                    <p class="edu-year">2026</p>
-                </div>
-
-                <!-- Карточка 7: ProductDo LLM -->
-                <div class="education-card">
-                    <div class="edu-icon">⚡</div>
-                    <h3>ProductDo</h3>
-                    <p class="edu-name">Building LLM based products</p>
-                    <p class="edu-year">2026</p>
-                </div>
+                <!-- Карточки загружаются из education.json -->
             </div>
-
-            <!-- Индикаторы (точки) -->
             <div class="slider-dots" id="sliderDots"></div>
         </div>
     </div>
@@ -842,74 +785,112 @@
 
 <script src="js/lang.js"></script>
 
-    <!-- ===== СКРИПТ ДЛЯ АВТОМАТИЧЕСКОЙ ПРОКРУТКИ ОБРАЗОВАНИЯ ===== -->
+<!-- ===== СКРИПТ ДЛЯ АВТОМАТИЧЕСКОЙ ПРОКРУТКИ ОБРАЗОВАНИЯ ===== -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const slider = document.getElementById('educationSlider');
         const dotsContainer = document.getElementById('sliderDots');
-        const cards = slider.querySelectorAll('.education-card');
-        const totalCards = cards.length;
-        const visibleCards = window.innerWidth <= 480 ? 1 : (window.innerWidth <= 768 ? 2 : 3);
-        const totalSlides = Math.ceil(totalCards / visibleCards);
 
-        let currentIndex = 0;
-        let interval;
+        // Загружаем данные из education.json
+        fetch('data/education.json')
+            .then(r => r.json())
+            .then(items => {
+                // Рендерим карточки
+                slider.innerHTML = items.map(item => {
+                    let content = '';
+                    if (item.type === 'degree') {
+                        content = `
+                            <div class="edu-icon">${item.icon}</div>
+                            <h3>${item.title}</h3>
+                            <p class="edu-institution">${item.institution}</p>
+                            <p class="edu-specialty">Специальность: ${item.specialty}</p>
+                            <p class="edu-year">${item.year}</p>
+                        `;
+                    } else {
+                        content = `
+                            <div class="edu-icon">${item.icon}</div>
+                            <h3>${item.title}</h3>
+                            <p class="edu-name">${item.name}</p>
+                            <p class="edu-year">${item.year}</p>
+                        `;
+                    }
+                    return `<div class="education-card">${content}</div>`;
+                }).join('');
 
-        // Создаём точки
-        for (let i = 0; i < totalSlides; i++) {
-            const dot = document.createElement('button');
-            dot.classList.add('dot');
-            if (i === 0) dot.classList.add('active');
-            dot.dataset.index = i;
-            dot.addEventListener('click', () => goToSlide(i));
-            dotsContainer.appendChild(dot);
-        }
+                // Настраиваем слайдер после загрузки
+                setupSlider();
+            })
+            .catch(() => {
+                slider.innerHTML = '<p style="color:#999;">Не удалось загрузить данные об образовании.</p>';
+            });
 
-        function goToSlide(index) {
-            currentIndex = Math.min(index, totalSlides - 1);
-            const offset = currentIndex * (cards[0].offsetWidth + 20) * visibleCards;
-            slider.style.transform = `translateX(-${offset}px)`;
-            updateDots();
-        }
+        function setupSlider() {
+            const cards = slider.querySelectorAll('.education-card');
+            const totalCards = cards.length;
+            const visibleCards = window.innerWidth <= 480 ? 1 : (window.innerWidth <= 768 ? 2 : 3);
+            const totalSlides = Math.ceil(totalCards / visibleCards);
 
-        function updateDots() {
-            document.querySelectorAll('.dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentIndex);
+            let currentIndex = 0;
+            let interval;
+
+            // Создаём точки
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.dataset.index = i;
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+
+            function goToSlide(index) {
+                currentIndex = Math.min(index, totalSlides - 1);
+                const cardWidth = cards[0]?.offsetWidth || 270;
+                const gap = 24;
+                const offset = currentIndex * (cardWidth + gap) * visibleCards;
+                slider.style.transform = `translateX(-${offset}px)`;
+                updateDots();
+            }
+
+            function updateDots() {
+                document.querySelectorAll('.dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
+
+            function nextSlide() {
+                const next = (currentIndex + 1) % totalSlides;
+                goToSlide(next);
+            }
+
+            function startAutoPlay() {
+                interval = setInterval(nextSlide, 4000);
+            }
+
+            function stopAutoPlay() {
+                clearInterval(interval);
+            }
+
+            startAutoPlay();
+
+            const wrapper = document.querySelector('.education-slider-wrapper');
+            wrapper.addEventListener('mouseenter', stopAutoPlay);
+            wrapper.addEventListener('mouseleave', startAutoPlay);
+
+            // Обновляем при изменении размера окна
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    const newVisible = window.innerWidth <= 480 ? 1 : (window.innerWidth <= 768 ? 2 : 3);
+                    const cardWidth = cards[0]?.offsetWidth || 270;
+                    const gap = 24;
+                    const offset = currentIndex * (cardWidth + gap) * newVisible;
+                    slider.style.transform = `translateX(-${offset}px)`;
+                }, 200);
             });
         }
-
-        function nextSlide() {
-            const next = (currentIndex + 1) % totalSlides;
-            goToSlide(next);
-        }
-
-        function startAutoPlay() {
-            interval = setInterval(nextSlide, 4000); // меняется каждые 4 секунды
-        }
-
-        function stopAutoPlay() {
-            clearInterval(interval);
-        }
-
-        // Запускаем автопрокрутку
-        startAutoPlay();
-
-        // Останавливаем при наведении на слайдер
-        const wrapper = document.querySelector('.education-slider-wrapper');
-        wrapper.addEventListener('mouseenter', stopAutoPlay);
-        wrapper.addEventListener('mouseleave', startAutoPlay);
-
-        // Пересчёт при изменении размера окна
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                const newVisible = window.innerWidth <= 480 ? 1 : (window.innerWidth <= 768 ? 2 : 3);
-                // Пересчитываем offset
-                const offset = currentIndex * (cards[0].offsetWidth + 20) * newVisible;
-                slider.style.transform = `translateX(-${offset}px)`;
-            }, 200);
-        });
     });
 </script>
 
