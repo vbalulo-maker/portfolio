@@ -1,0 +1,59 @@
+[
+  {
+    "id": "edu-1",
+    "type": "degree",
+    "title": "Высшее образование",
+    "institution": "Московский Экономико-Финансовый Институт",
+    "specialty": "Экономист",
+    "year": "2002–2007"
+  },
+  {
+    "id": "edu-2",
+    "type": "course",
+    "title": "Корпоративный университет",
+    "name": "Школа владельцев продукта",
+    "year": "2021"
+  },
+  {
+    "id": "edu-3",
+    "type": "course",
+    "title": "Product Heroes",
+    "name": "how to make product and business decisions based on metrics",
+    "year": "2023"
+  },
+  {
+    "id": "edu-4",
+    "type": "course",
+    "title": "Корпоративный университет",
+    "name": "Основы SQL",
+    "year": "2023"
+  },
+  {
+    "id": "edu-5",
+    "type": "course",
+    "title": "Go Practice",
+    "name": "Generative AI for PM",
+    "year": "2024"
+  },
+  {
+    "id": "edu-6",
+    "type": "course",
+    "title": "Coursera",
+    "name": "Blockchain Basis",
+    "year": "2025"
+  },
+  {
+    "id": "edu-7",
+    "type": "course",
+    "title": "ProductDo",
+    "name": "ML Foundations for PM",
+    "year": "2026"
+  },
+  {
+    "id": "edu-8",
+    "type": "course",
+    "title": "ProductDo",
+    "name": "Building LLM based products",
+    "year": "2026"
+  }
+]
