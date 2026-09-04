@@ -521,3 +521,170 @@ nav a.active {
         font-size: 0.75rem;
     }
 }
+
+/* ===== ОБРАЗОВАНИЕ И РАЗВИТИЕ (автоматическая прокрутка) ===== */
+.section-education {
+    background: var(--bg-white);
+    padding: 60px 0;
+}
+.education-block h2 {
+    font-size: 2.8rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+}
+.education-block .sub {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+/* Слайдер */
+.education-slider-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+.education-slider {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.6s ease-in-out;
+    will-change: transform;
+}
+
+/* Карточка (в 1.5 раза меньше, чем в карьерном треке) */
+.education-card {
+    flex: 0 0 180px;
+    max-width: 200px;
+    background: var(--bg-soft);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-light);
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 120px;
+    transition: var(--transition);
+}
+.education-card .edu-icon {
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+}
+.education-card h3 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: var(--text-primary);
+}
+.education-card .edu-institution {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 1px;
+}
+.education-card .edu-specialty {
+    font-size: 0.7rem;
+    color: #555;
+}
+.education-card .edu-name {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+.education-card .edu-year {
+    font-size: 0.65rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+}
+.education-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+}
+
+/* Точки-индикаторы */
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+.slider-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border-light);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 0;
+}
+.slider-dots .dot.active {
+    background: var(--accent);
+    width: 20px;
+    border-radius: 4px;
+}
+.slider-dots .dot:hover {
+    background: var(--accent-hover);
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+    .education-card {
+        flex: 0 0 150px;
+        max-width: 170px;
+        padding: 12px 10px;
+        min-height: 100px;
+    }
+    .education-card .edu-icon {
+        font-size: 1.3rem;
+    }
+    .education-card h3 {
+        font-size: 0.75rem;
+    }
+    .education-card .edu-institution {
+        font-size: 0.65rem;
+    }
+    .education-card .edu-specialty {
+        font-size: 0.6rem;
+    }
+    .education-card .edu-name {
+        font-size: 0.7rem;
+    }
+    .education-card .edu-year {
+        font-size: 0.6rem;
+    }
+    .education-block h2 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .education-card {
+        flex: 0 0 130px;
+        max-width: 150px;
+        padding: 10px 8px;
+        min-height: 90px;
+    }
+    .education-card .edu-icon {
+        font-size: 1.1rem;
+    }
+    .education-card h3 {
+        font-size: 0.7rem;
+    }
+    .education-card .edu-institution {
+        font-size: 0.6rem;
+    }
+    .education-card .edu-specialty {
+        font-size: 0.55rem;
+    }
+    .education-card .edu-name {
+        font-size: 0.65rem;
+    }
+    .education-card .edu-year {
+        font-size: 0.55rem;
+    }
+}
