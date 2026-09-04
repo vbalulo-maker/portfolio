@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Valeriy Balulo · Head of Product in Fintech</title>
+    <title>Valeriy Balulo · Product Leader in Fintech</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <style>
@@ -188,26 +188,26 @@
 <!-- ===== HEADER ===== -->
 <header>
     <div class="container header-inner">
-        <a href="index.html" class="logo">Valeriy <span>Balulo</span></a>
+        <a href="index.en.html" class="logo">Valeriy <span>Balulo</span></a>
         <div class="header-right">
             <nav>
-    <ul>
-        <li><a href="index.en.html">Home</a></li>
-        <li><a href="projects.en.html">Case Studies</a></li>
-        <li><a href="ai-chat.en.html">Ask AI</a></li>
-    </ul>
-</nav>
+                <ul>
+                    <li><a href="index.en.html" class="active">Home</a></li>
+                    <li><a href="projects.en.html">Case Studies</a></li>
+                    <li><a href="ai-chat.en.html">Ask AI</a></li>
+                </ul>
+            </nav>
             <div class="lang-switch">
-                <span class="lang-active">RU</span>
+                <span class="lang-inactive lang-ru">RU</span>
                 <span class="lang-divider">/</span>
-                <span class="lang-inactive">EN</span>
+                <span class="lang-active lang-en">EN</span>
             </div>
         </div>
     </div>
 </header>
 
 <!-- ===== HERO ===== -->
-<section class="section-hero">
+<section class="section-hero fade-section">
     <div class="container hero-grid">
         <div class="hero-text">
             <h1>
@@ -217,7 +217,7 @@
             </h1>
             <p>
                 10+ years in fintech, including 7+ years in senior product leadership roles. 
-		I lead the full product lifecycle for transaction products — from strategy and unit economics to launch and scale.
+                I lead the full product lifecycle for transaction products — from strategy and unit economics to launch and scale.
             </p>
             <a href="projects.en.html" class="cta-button">View Case Studies</a>
         </div>
@@ -227,18 +227,18 @@
     </div>
 </section>
 
-<!-- ===== ВИЗУАЛЬНЫЙ ЯКОРЬ ===== -->
-<section class="section-visual">
+<!-- ===== VISUAL ANCHOR ===== -->
+<section class="section-visual fade-section">
     <div class="container visual-anchor">
-        <img src="assets/images/picture.png" alt="Payments" />
+        <img src="assets/images/picture.png" alt="Payments Expertise" />
     </div>
 </section>
 
-<!-- ===== PROCESS ===== -->
-<section class="section-process">
+<!-- ===== PROCESS (white background) ===== -->
+<section class="section-hero fade-section">
     <div class="container process">
         <h2>My Approach</h2>
-        <div class="sub">A systematic approach to buiding products</div>
+        <div class="sub">A systematic approach to building products</div>
         <div class="steps">
             <div class="step">
                 <div class="number">01</div>
@@ -264,33 +264,52 @@
     </div>
 </section>
 
-<!-- ===== EXPERIENCE (ГОРИЗОНТАЛЬНЫЙ) ===== -->
-<section class="section-career">
+<!-- ===== CAREER TRACK (auto-slider) ===== -->
+<section class="section-process fade-section">
     <div class="container career-timeline-horizontal">
         <h2>Career Track</h2>
-        <p class="sub">Click on stage to explore</p>
-        <div class="timeline-horizontal-wrapper" id="careerTimeline">
-            <!-- Содержимое генерируется скриптом -->
+        <p class="sub">Click on a stage to explore</p>
+
+        <div class="timeline-slider-wrapper">
+            <div class="timeline-slider" id="careerTimelineSlider">
+                <!-- Cards loaded from companies.en.json -->
+            </div>
+            <div class="slider-dots" id="careerDots"></div>
         </div>
     </div>
 </section>
 
 <!-- ===== KEY RESULTS ===== -->
-<section class="section-featured">
+<section class="section-featured fade-section">
     <div class="container featured">
         <h2>Key Results</h2>
         <div class="sub">Key achievements in numbers</div>
         <div class="featured-grid" id="featuredGrid">
-            <!-- Загружается из JS -->
+            <!-- Loaded from JS -->
+        </div>
+    </div>
+</section>
+
+<!-- ===== EDUCATION & DEVELOPMENT (auto-slider) ===== -->
+<section class="section-education fade-section">
+    <div class="container education-block">
+        <h2>Education & Development</h2>
+        <p class="sub">Foundation and continuous professional development</p>
+
+        <div class="education-slider-wrapper">
+            <div class="education-slider" id="educationSlider">
+                <!-- Cards loaded from education.en.json -->
+            </div>
+            <div class="slider-dots" id="sliderDots"></div>
         </div>
     </div>
 </section>
 
 <!-- ===== CONTACTS ===== -->
-<section class="section-contacts">
+<section class="section-contacts fade-section">
     <div class="container contacts-block">
         <h2>Contact me</h2>
-        <p class="contacts-subtitle">through any preferred channel</p>
+        <p class="contacts-subtitle">Through any preferred channel</p>
         <div class="contacts-grid">
             <a href="https://t.me/Balulo" target="_blank" class="contact-card telegram">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -327,17 +346,17 @@
     </div>
 </section>
 
-<!-- ===== ФУТЕР ===== -->
+<!-- ===== FOOTER ===== -->
 <footer class="section-footer">
     <div class="container footer-inner">
         <div class="footer-copy">
-            Hand-coded with good vibes. <a href="https://t.me/Balulo" style="color:var(--accent);text-decoration:none;"> Ask me how. </a>
+            Hand-coded with good vibes. <a href="https://t.me/Balulo" style="color:var(--accent);text-decoration:none;">Ask me how.</a>
             <br />
         </div>
     </div>
 </footer>
 
-<!-- ===== СКРИПТ ДЛЯ ИЗБРАННЫХ РЕЗУЛЬТАТОВ ===== -->
+<!-- ===== SCRIPT FOR KEY RESULTS ===== -->
 <script>
     const featuredData = [
         {
@@ -347,15 +366,15 @@
             projectId: 'project-1'
         },
         {
-            number: '3x',
-            label: 'Growing the acquiring portfolio',
-            company: 'MTS-Bank · 2019–2022',
+            number: '3.5 → 1.5 days',
+            label: 'Reduced onboarding time',
+            company: 'RSHB · 2024',
             projectId: 'project-2'
         },
         {
-            number: '3.5 --> 1.5 days',
-            label: 'Onboarding time',
-            company: 'RSHB · 2024',
+            number: '3x',
+            label: 'Expanded B2B client portfolio',
+            company: 'MTS-Bank · 2019–2022',
             projectId: 'project-3'
         }
     ];
@@ -367,19 +386,22 @@
                 <span class="featured-number">${item.number}</span>
                 <span class="featured-label">${item.label}</span>
                 <span class="featured-company">${item.company}</span>
-                <a href="project-detail.en.html?id=${item.projectId}" class="featured-link">Explore the cases →</a>
+                <a href="project-detail.en.html?id=${item.projectId}" class="featured-link">Explore →</a>
             </div>
         `).join('');
     });
 </script>
 
-<!-- ===== СКРИПТ ДЛЯ КАРЬЕРНОГО ТРЕКА (ГОРИЗОНТАЛЬНЫЙ) ===== -->
+<!-- ===== SCRIPT FOR CAREER TRACK (slider) ===== -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        const slider = document.getElementById('careerTimelineSlider');
+        const dotsContainer = document.getElementById('careerDots');
+
         fetch('data/companies.en.json')
             .then(r => r.json())
             .then(companies => {
-                // Сортируем: от старых к новым (по году начала)
+                // Sort: from oldest to newest (by start year)
                 const sorted = companies.sort((a, b) => {
                     const getStart = (p) => {
                         const parts = p.split('–');
@@ -389,43 +411,271 @@
                     return getStart(a.period) - getStart(b.period);
                 });
 
-                const container = document.getElementById('careerTimeline');
-                if (!container) return;
+                // Define order for companies (without breaks)
+                const order = ['company-5', 'company-4', 'company-3', 'company-2', 'company-1'];
+                const companyMap = {};
+                const breaks = [];
+                sorted.forEach(c => {
+                    if (c.id.startsWith('break-')) {
+                        breaks.push(c);
+                    } else {
+                        companyMap[c.id] = c;
+                    }
+                });
 
-                const html = `
-                    <div class="timeline-horizontal">
-                        ${sorted.map((company) => {
-                            const hasProjects = Boolean(company.projectId);
-                            return `
-                                <div class="timeline-node-h ${hasProjects ? 'has-projects' : ''}">
-                                    <div class="node-top">
-                                        <span class="timeline-marker-h"></span>
-                                        <span class="timeline-period-h">${company.period}</span>
-                                    </div>
-                                    <div class="timeline-content-h">
-                                        <h4>${company.name}</h4>
-                                        <div class="role-h">${company.role}</div>
-                                        <div class="intro-h">${company.intro}</div>
-                                        ${hasProjects ? 
-                                            `<a href="projects.en.html?company=${encodeURIComponent(company.name)}" class="timeline-link-h">Case Studies →</a>` :
-                                            `<span class="timeline-link-h placeholder">Coming Soon</span>`
-                                        }
-                                    </div>
-                                </div>
-                            `;
-                        }).join('')}
-                    </div>
-                `;
-                container.innerHTML = html;
+                // Build final list
+                const allItems = [];
+                order.forEach(id => {
+                    if (companyMap[id]) allItems.push(companyMap[id]);
+                });
+                // Insert break-1 after RSHB (company-2)
+                const rshbIndex = allItems.findIndex(c => c.id === 'company-2');
+                if (rshbIndex !== -1 && breaks[0]) {
+                    allItems.splice(rshbIndex + 1, 0, breaks[0]);
+                }
+                // Insert break-2 AFTER Fintech Platform (company-1)
+                const fpIndex = allItems.findIndex(c => c.id === 'company-1');
+                if (fpIndex !== -1 && breaks[1]) {
+                    allItems.splice(fpIndex + 1, 0, breaks[1]);
+                }
+
+                // Render cards
+                slider.innerHTML = allItems.map((item, index) => {
+                    const isBreak = item.isBreak || false;
+                    const hasProjects = !isBreak && Boolean(item.projectId);
+                    return `
+                        <div class="timeline-node-h ${hasProjects ? 'has-projects' : ''} ${isBreak ? 'break' : ''}" 
+                             data-is-break="${isBreak}"
+                             style="--node-index: ${index + 1};">
+                            <div class="node-top">
+                                <span class="timeline-marker-h"></span>
+                                <span class="timeline-period-h">${item.period}</span>
+                            </div>
+                            <div class="timeline-content-h">
+                                <h4>${item.name}</h4>
+                                <div class="role-h">${item.role}</div>
+                                <div class="intro-h">${item.intro}</div>
+                                ${!isBreak && hasProjects ? 
+                                    `<a href="projects.en.html?company=${encodeURIComponent(item.name)}" class="timeline-link-h">Case Studies →</a>` :
+                                    !isBreak ? `<span class="timeline-link-h placeholder">Coming Soon</span>` : ''
+                                }
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                setupCareerSlider();
             })
             .catch(() => {
-                const container = document.getElementById('careerTimeline');
-                if (container) {
-                    container.innerHTML = '<p style="color:#999;">Career information could not be loaded.</p>';
-                }
+                slider.innerHTML = '<p style="color:#999;">Could not load career data.</p>';
             });
+
+        function setupCareerSlider() {
+            const cards = slider.querySelectorAll('.timeline-node-h');
+            const totalCards = cards.length;
+            const visibleCards = window.innerWidth <= 480 ? 1 : (window.innerWidth <= 768 ? 2 : 3);
+            const totalSlides = Math.ceil(totalCards / visibleCards);
+
+            let currentIndex = 0;
+            let interval;
+
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.dataset.index = i;
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+
+            function goToSlide(index) {
+                currentIndex = Math.min(index, totalSlides - 1);
+                const cardWidth = cards[0]?.offsetWidth || 270;
+                const gap = 16;
+                const offset = currentIndex * (cardWidth + gap) * visibleCards;
+                slider.style.transform = `translateX(-${offset}px)`;
+                updateDots();
+            }
+
+            function updateDots() {
+                document.querySelectorAll('#careerDots .dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
+
+            function nextSlide() {
+                const next = (currentIndex + 1) % totalSlides;
+                goToSlide(next);
+            }
+
+            function startAutoPlay() {
+                interval = setInterval(nextSlide, 5000);
+            }
+
+            function stopAutoPlay() {
+                clearInterval(interval);
+            }
+
+            startAutoPlay();
+
+            const wrapper = document.querySelector('.timeline-slider-wrapper');
+            wrapper.addEventListener('mouseenter', stopAutoPlay);
+            wrapper.addEventListener('mouseleave', startAutoPlay);
+
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    const newVisible = window.innerWidth <= 480 ? 1 : (window.innerWidth <= 768 ? 2 : 3);
+                    const cardWidth = cards[0]?.offsetWidth || 270;
+                    const gap = 16;
+                    const offset = currentIndex * (cardWidth + gap) * newVisible;
+                    slider.style.transform = `translateX(-${offset}px)`;
+                }, 200);
+            });
+        }
     });
 </script>
+
+<!-- ===== SCRIPT FOR FADE ANIMATION ===== -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.fade-section').forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        const stepObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '0px 0px -30px 0px'
+        });
+
+        document.querySelectorAll('.step').forEach(step => {
+            stepObserver.observe(step);
+        });
+    });
+</script>
+
 <script src="js/lang.js"></script>
+
+<!-- ===== SCRIPT FOR EDUCATION SLIDER ===== -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const slider = document.getElementById('educationSlider');
+        const dotsContainer = document.getElementById('sliderDots');
+
+        fetch('data/education.en.json')
+            .then(r => r.json())
+            .then(items => {
+                slider.innerHTML = items.map(item => {
+                    let content = '';
+                    if (item.type === 'degree') {
+                        content = `
+                            <h3>${item.title}</h3>
+                            <p class="edu-institution">${item.institution}</p>
+                            <p class="edu-specialty">Specialty: ${item.specialty}</p>
+                            <p class="edu-year">${item.year}</p>
+                        `;
+                    } else {
+                        content = `
+                            <h3>${item.title}</h3>
+                            <p class="edu-name">${item.name}</p>
+                            <p class="edu-year">${item.year}</p>
+                        `;
+                    }
+                    return `<div class="education-card">${content}</div>`;
+                }).join('');
+
+                setupSlider();
+            })
+            .catch(() => {
+                slider.innerHTML = '<p style="color:#999;">Could not load education data.</p>';
+            });
+
+        function setupSlider() {
+            const cards = slider.querySelectorAll('.education-card');
+            const totalCards = cards.length;
+            const visibleCards = window.innerWidth <= 480 ? 1 : (window.innerWidth <= 768 ? 2 : 3);
+            const totalSlides = Math.ceil(totalCards / visibleCards);
+
+            let currentIndex = 0;
+            let interval;
+
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.dataset.index = i;
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+
+            function goToSlide(index) {
+                currentIndex = Math.min(index, totalSlides - 1);
+                const cardWidth = cards[0]?.offsetWidth || 270;
+                const gap = 24;
+                const offset = currentIndex * (cardWidth + gap) * visibleCards;
+                slider.style.transform = `translateX(-${offset}px)`;
+                updateDots();
+            }
+
+            function updateDots() {
+                document.querySelectorAll('.dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
+
+            function nextSlide() {
+                const next = (currentIndex + 1) % totalSlides;
+                goToSlide(next);
+            }
+
+            function startAutoPlay() {
+                interval = setInterval(nextSlide, 4000);
+            }
+
+            function stopAutoPlay() {
+                clearInterval(interval);
+            }
+
+            startAutoPlay();
+
+            const wrapper = document.querySelector('.education-slider-wrapper');
+            wrapper.addEventListener('mouseenter', stopAutoPlay);
+            wrapper.addEventListener('mouseleave', startAutoPlay);
+
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    const newVisible = window.innerWidth <= 480 ? 1 : (window.innerWidth <= 768 ? 2 : 3);
+                    const cardWidth = cards[0]?.offsetWidth || 270;
+                    const gap = 24;
+                    const offset = currentIndex * (cardWidth + gap) * newVisible;
+                    slider.style.transform = `translateX(-${offset}px)`;
+                }, 200);
+            });
+        }
+    });
+</script>
+
 </body>
 </html>
