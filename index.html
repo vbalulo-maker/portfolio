@@ -192,22 +192,22 @@
         <div class="header-right">
             <nav>
                 <ul>
-                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="index.html" class="active">Главная</a></li>
                     <li><a href="projects.html">Кейсы</a></li>
-                    <li><a href="ai-chat.html" class="active">Спросить AI</a></li>
+                    <li><a href="ai-chat.html">Спросить AI</a></li>
                 </ul>
             </nav>
             <div class="lang-switch">
-                <span class="lang-active">RU</span>
+                <span class="lang-active lang-ru">RU</span>
                 <span class="lang-divider">/</span>
-                <span class="lang-inactive">EN</span>
+                <span class="lang-inactive lang-en">EN</span>
             </div>
         </div>
     </div>
 </header>
 
 <!-- ===== HERO ===== -->
-<section class="section-hero">
+<section class="section-hero fade-section">
     <div class="container hero-grid">
         <div class="hero-text">
             <h1>
@@ -228,14 +228,14 @@
 </section>
 
 <!-- ===== ВИЗУАЛЬНЫЙ ЯКОРЬ ===== -->
-<section class="section-visual">
+<section class="section-visual fade-section">
     <div class="container visual-anchor">
         <img src="assets/images/picture.png" alt="Экспертиза в платежах" />
     </div>
 </section>
 
-<!-- ===== PROCESS ===== -->
-<section class="section-process">
+<!-- ===== PROCESS (теперь с фоном section-visual) ===== -->
+<section class="section-visual fade-section">
     <div class="container process">
         <h2>Как я работаю</h2>
         <div class="sub">Системный подход к созданию продуктов</div>
@@ -264,8 +264,8 @@
     </div>
 </section>
 
-<!-- ===== КАРЬЕРНЫЙ ТРЕК (ГОРИЗОНТАЛЬНЫЙ) ===== -->
-<section class="section-career">
+<!-- ===== КАРЬЕРНЫЙ ТРЕК (теперь с фоном section-process) ===== -->
+<section class="section-process fade-section">
     <div class="container career-timeline-horizontal">
         <h2>Карьерный трек</h2>
         <p class="sub">Кликните по этапу, чтобы увидеть проекты</p>
@@ -276,7 +276,7 @@
 </section>
 
 <!-- ===== ИЗБРАННЫЕ РЕЗУЛЬТАТЫ ===== -->
-<section class="section-featured">
+<section class="section-featured fade-section">
     <div class="container featured">
         <h2>Избранные результаты</h2>
         <div class="sub">Ключевые достижения в цифрах</div>
@@ -287,7 +287,7 @@
 </section>
 
 <!-- ===== КОНТАКТЫ ===== -->
-<section class="section-contacts">
+<section class="section-contacts fade-section">
     <div class="container contacts-block">
         <h2>Свяжитесь со мной</h2>
         <p class="contacts-subtitle">Любым удобным способом</p>
@@ -347,14 +347,14 @@
             projectId: 'project-1'
         },
         {
-            number: '3,5 --> 1,5  дня',
+            number: '3,5 → 1,5 дня',
             label: 'Сократил время подключения клиентов',
             company: 'РСХБ · 2024',
             projectId: 'project-2'
         },
         {
             number: '3x',
-            label: 'расширение портфеля B2B-клиентов',
+            label: 'Расширение портфеля B2B-клиентов',
             company: 'МТС-Банк · 2019–2022',
             projectId: 'project-3'
         }
@@ -370,6 +370,43 @@
                 <a href="project-detail.html?id=${item.projectId}" class="featured-link">Подробнее →</a>
             </div>
         `).join('');
+    });
+</script>
+
+<!-- ===== СКРИПТ ДЛЯ АНИМАЦИИ ПОЯВЛЕНИЯ ===== -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Наблюдатель для секций
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.fade-section').forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Наблюдатель для карточек "Как я работаю"
+        const stepObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '0px 0px -30px 0px'
+        });
+
+        document.querySelectorAll('.step').forEach(step => {
+            stepObserver.observe(step);
+        });
     });
 </script>
 
@@ -392,23 +429,79 @@
                 const container = document.getElementById('careerTimeline');
                 if (!container) return;
 
+                // Добавляем карточки Career Break
+                const careerBreaks = [
+                    {
+                        name: 'Career Break',
+                        role: 'Консультации, поиск проектов, изучение AI',
+                        period: '2025.01–2025.07',
+                        intro: 'Консультации участников рынка, поиск стратегического проекта, работа над портфолио и изучение AI',
+                        isBreak: true
+                    },
+                    {
+                        name: 'Career Break',
+                        role: 'Активный поиск, изучение AI/ML',
+                        period: '2026.04–н.в.',
+                        intro: 'Активный поиск роли Head of Product / CPO в финтехе, работа над портфолио и изучение AI/ML-продуктов',
+                        isBreak: true
+                    }
+                ];
+
+                // Вставляем Career Break между РСХБ и Финтех-Платформой
+                const allItems = [];
+                let insertedFirst = false;
+                let insertedSecond = false;
+
+                sorted.forEach((company, index) => {
+                    // После РСХБ (company-2) вставляем первый Career Break
+                    if (company.id === 'company-2' && !insertedFirst) {
+                        allItems.push(company);
+                        allItems.push(careerBreaks[0]);
+                        insertedFirst = true;
+                        return;
+                    }
+                    // Перед Финтех-Платформой (company-1) вставляем второй Career Break
+                    if (company.id === 'company-1' && !insertedSecond) {
+                        allItems.push(careerBreaks[1]);
+                        allItems.push(company);
+                        insertedSecond = true;
+                        return;
+                    }
+                    allItems.push(company);
+                });
+
+                // Если не вставились (на случай изменения данных), добавляем в конец
+                if (!insertedFirst) allItems.push(careerBreaks[0]);
+                if (!insertedSecond) allItems.push(careerBreaks[1]);
+
+                // Определяем, какие карточки показывать изначально (последние 4)
+                const totalItems = allItems.length;
+                const defaultVisible = 4;
+                const startIndex = Math.max(0, totalItems - defaultVisible);
+
                 const html = `
                     <div class="timeline-horizontal">
-                        ${sorted.map((company) => {
-                            const hasProjects = Boolean(company.projectId);
+                        ${allItems.map((item, index) => {
+                            const isBreak = item.isBreak || false;
+                            const isDefaultVisible = index >= startIndex;
+                            const hasProjects = !isBreak && Boolean(item.projectId);
+                            
                             return `
-                                <div class="timeline-node-h ${hasProjects ? 'has-projects' : ''}">
+                                <div class="timeline-node-h ${hasProjects ? 'has-projects' : ''} ${isDefaultVisible ? 'active-default' : ''}" 
+                                     data-index="${index}"
+                                     data-is-break="${isBreak}"
+                                     style="--node-index: ${index + 1};">
                                     <div class="node-top">
                                         <span class="timeline-marker-h"></span>
-                                        <span class="timeline-period-h">${company.period}</span>
+                                        <span class="timeline-period-h">${item.period}</span>
                                     </div>
                                     <div class="timeline-content-h">
-                                        <h4>${company.name}</h4>
-                                        <div class="role-h">${company.role}</div>
-                                        <div class="intro-h">${company.intro}</div>
-                                        ${hasProjects ? 
-                                            `<a href="projects.html?company=${encodeURIComponent(company.name)}" class="timeline-link-h">Кейсы →</a>` :
-                                            `<span class="timeline-link-h placeholder">скоро</span>`
+                                        <h4>${isBreak ? '🔹 ' + item.name : item.name}</h4>
+                                        <div class="role-h">${item.role}</div>
+                                        <div class="intro-h">${item.intro}</div>
+                                        ${!isBreak && hasProjects ? 
+                                            `<a href="projects.html?company=${encodeURIComponent(item.name)}" class="timeline-link-h">Кейсы →</a>` :
+                                            !isBreak ? `<span class="timeline-link-h placeholder">скоро</span>` : ''
                                         }
                                     </div>
                                 </div>
@@ -417,6 +510,74 @@
                     </div>
                 `;
                 container.innerHTML = html;
+
+                // Запускаем Scrollytelling: активируем карточки при скролле
+                const cards = container.querySelectorAll('.timeline-node-h');
+                const cardsArray = Array.from(cards);
+                const totalCards = cardsArray.length;
+
+                // Активируем карточки по одной при скролле вниз
+                let lastActiveIndex = startIndex;
+
+                const scrollObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const card = entry.target;
+                            const index = parseInt(card.dataset.index, 10);
+                            
+                            // Активируем карточки от текущей до последней
+                            for (let i = index; i <= totalCards - 1; i++) {
+                                const cardToActivate = cardsArray[i];
+                                if (cardToActivate && !cardToActivate.classList.contains('active')) {
+                                    cardToActivate.classList.add('active');
+                                    cardToActivate.classList.remove('active-default');
+                                }
+                            }
+                            
+                            // Обновляем последний активный индекс
+                            lastActiveIndex = Math.max(lastActiveIndex, index);
+                        }
+                    });
+                }, {
+                    threshold: 0.3,
+                    rootMargin: '0px 0px -50px 0px'
+                });
+
+                // Наблюдаем за карточками, начиная с первой неактивной
+                for (let i = 0; i < totalCards; i++) {
+                    if (!cardsArray[i].classList.contains('active-default')) {
+                        scrollObserver.observe(cardsArray[i]);
+                    }
+                }
+
+                // Если все карточки активны по умолчанию, добавляем наблюдатель на последнюю
+                if (cardsArray.every(c => c.classList.contains('active-default'))) {
+                    const lastCard = cardsArray[cardsArray.length - 1];
+                    if (lastCard) {
+                        // Убираем default, чтобы сработала анимация
+                        lastCard.classList.remove('active-default');
+                        scrollObserver.observe(lastCard);
+                    }
+                }
+
+                // Альтернативный триггер: при скролле контейнера
+                const wrapper = document.querySelector('.timeline-horizontal-wrapper');
+                if (wrapper) {
+                    wrapper.addEventListener('scroll', () => {
+                        const scrollLeft = wrapper.scrollLeft;
+                        const cardWidth = cardsArray[0]?.offsetWidth || 200;
+                        const gap = 16;
+                        const visibleIndex = Math.floor(scrollLeft / (cardWidth + gap));
+                        
+                        for (let i = 0; i <= visibleIndex + 1 && i < totalCards; i++) {
+                            const card = cardsArray[i];
+                            if (card && !card.classList.contains('active')) {
+                                card.classList.add('active');
+                                card.classList.remove('active-default');
+                            }
+                        }
+                    });
+                }
             })
             .catch(() => {
                 const container = document.getElementById('careerTimeline');
@@ -426,6 +587,7 @@
             });
     });
 </script>
+
 <script src="js/lang.js"></script>
 </body>
 </html>
