@@ -433,10 +433,10 @@
                 if (rshbIndex !== -1 && breaks[0]) {
                     allItems.splice(rshbIndex + 1, 0, breaks[0]);
                 }
-                // Вставляем break-2 перед Финтех-Платформой (company-1)
+                // Вставляем break-2 ПОСЛЕ Финтех-Платформы (company-1)
                 const fpIndex = allItems.findIndex(c => c.id === 'company-1');
                 if (fpIndex !== -1 && breaks[1]) {
-                    allItems.splice(fpIndex, 0, breaks[1]);
+                allItems.splice(fpIndex + 1, 0, breaks[1]);  // <--- ✅ Теперь break-2 вставляется ПОСЛЕ Финтех-Платформы
                 }
 
                 // Рендерим карточки
