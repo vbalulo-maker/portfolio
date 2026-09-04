@@ -48,5 +48,21 @@
     "description": "Launched installment payments and contactless payment acceptance across the acquiring network. Introduced the Interchange++ pricing model for key enterprise merchants.",
     "logo": "assets/images/logos/ceb.png",
     "projectId": "project-1"
+  },
+  {
+    "id": "break-1",
+    "name": "Career Break",
+    "role": "Consulting, project scouting, and AI research",
+    "period": "2025.01-2025.07",
+    "intro": "Industry consulting, strategic project scouting, portfolio development, and AI research",
+    "isBreak": true
+  },
+  {
+    "id": "break-2",
+    "name": "Career Break",
+    "role": "Active job search and AI/ML research",
+    "period": "2026.04-present",
+    "intro": "Actively seeking a Head of Product / CPO role in fintech, while developing portfolio and researching AI/ML-powered products",
+    "isBreak": true
   }
 ]
