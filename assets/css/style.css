@@ -564,7 +564,7 @@ nav a.active {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    min-height: 180px;   /* 120px * 1.5 = 180px */
+    min-height: 100px;   /* 120px * 1.5 = 180px */
     transition: var(--transition);
 }
 .education-card .edu-icon {
