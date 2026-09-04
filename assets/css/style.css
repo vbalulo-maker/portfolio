@@ -209,7 +209,7 @@ nav a.active {
     font-size: 0.85rem;
 }
 
-/* ===== КАРЬЕРНЫЙ ТРЕК ===== */
+/* ===== КАРЬЕРНЫЙ ТРЕК (слайдер) ===== */
 .section-career {
     background: var(--bg-white);
     padding: 60px 0 40px;
@@ -226,33 +226,18 @@ nav a.active {
     margin-bottom: 40px;
 }
 
-.timeline-horizontal-wrapper {
-    overflow-x: auto;
-    padding: 20px 0 10px;
-    margin: 0 -20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent) var(--bg-soft);
-}
-.timeline-horizontal-wrapper::-webkit-scrollbar {
-    height: 4px;
-}
-.timeline-horizontal-wrapper::-webkit-scrollbar-track {
-    background: var(--bg-soft);
-    border-radius: 4px;
-}
-.timeline-horizontal-wrapper::-webkit-scrollbar-thumb {
-    background: var(--accent);
-    border-radius: 4px;
+.timeline-slider-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
 }
 
-.timeline-horizontal {
+.timeline-slider {
     display: flex;
     gap: 16px;
-    min-width: min-content;
-    padding-bottom: 12px;
+    transition: transform 0.6s ease-in-out;
+    will-change: transform;
+    padding: 10px 0 20px;
 }
 
 .timeline-node-h {
@@ -268,29 +253,16 @@ nav a.active {
     position: relative;
     cursor: default;
     min-height: 160px;
-
-    /* Scrollytelling */
-    opacity: 0.3;
-    transform: scale(0.95);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.timeline-node-h.active-default {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.timeline-node-h.active {
-    opacity: 1;
-    transform: scale(1);
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .timeline-node-h:hover {
-    transform: translateY(-4px) scale(1);
+    transform: translateY(-4px);
     box-shadow: var(--shadow);
     border-color: var(--accent);
     background: var(--bg-soft);
 }
+
 .timeline-node-h .node-top {
     display: flex;
     align-items: center;
@@ -299,6 +271,7 @@ nav a.active {
     width: 100%;
     position: relative;
 }
+
 .timeline-node-h .node-top::after {
     content: '';
     position: absolute;
@@ -308,9 +281,11 @@ nav a.active {
     height: 2px;
     background: var(--border-light);
 }
+
 .timeline-node-h:last-child .node-top::after {
     display: none;
 }
+
 .timeline-marker-h {
     flex: 0 0 12px;
     width: 12px;
@@ -321,13 +296,16 @@ nav a.active {
     box-shadow: 0 0 0 2px var(--border-light);
     transition: var(--transition);
 }
+
 .timeline-node-h.has-projects .timeline-marker-h {
     background: var(--accent);
     box-shadow: 0 0 0 2px var(--accent);
 }
+
 .timeline-node-h:hover .timeline-marker-h {
     transform: scale(1.2);
 }
+
 .timeline-period-h {
     font-size: 0.65rem;
     font-weight: 600;
@@ -336,6 +314,7 @@ nav a.active {
     white-space: nowrap;
     margin-left: 4px;
 }
+
 .timeline-content-h h4 {
     font-size: 0.85rem;
     font-weight: 600;
@@ -343,6 +322,7 @@ nav a.active {
     line-height: 1.2;
     color: var(--text-primary);
 }
+
 .timeline-content-h .role-h {
     font-size: 0.7rem;
     color: #666;
@@ -350,6 +330,7 @@ nav a.active {
     margin-bottom: 4px;
     line-height: 1.2;
 }
+
 .timeline-content-h .intro-h {
     font-size: 0.7rem;
     color: #555;
@@ -360,6 +341,7 @@ nav a.active {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
 .timeline-link-h {
     font-size: 0.7rem;
     font-weight: 500;
@@ -369,16 +351,19 @@ nav a.active {
     border-bottom: 1px solid transparent;
     margin-top: auto;
 }
+
 .timeline-link-h:hover {
     color: var(--accent-hover);
     border-bottom-color: var(--accent);
 }
+
 .timeline-link-h.placeholder {
     color: #999;
     cursor: default;
     border-bottom: none;
     font-style: italic;
 }
+
 .timeline-link-h.placeholder:hover {
     color: #999;
     border-bottom: none;
@@ -439,11 +424,33 @@ nav a.active {
     display: none !important;
 }
 
-.timeline-node-h[data-is-break="true"].active,
-.timeline-node-h[data-is-break="true"].active-default {
-    opacity: 0.7 !important;
-    border-color: #e8e2da !important;
-    background: #faf8f5 !important;
+/* ===== ТОЧКИ ДЛЯ КАРЬЕРНОГО ТРЕКА ===== */
+#careerDots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+#careerDots .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border-light);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 0;
+}
+
+#careerDots .dot.active {
+    background: var(--accent);
+    width: 24px;
+    border-radius: 4px;
+}
+
+#careerDots .dot:hover {
+    background: var(--accent-hover);
 }
 
 /* ===== АНИМАЦИЯ ПОЯВЛЕНИЯ ===== */
@@ -470,58 +477,6 @@ nav a.active {
 .step:nth-child(3) { transition-delay: 0.4s; }
 .step:nth-child(4) { transition-delay: 0.55s; }
 
-/* ===== АДАПТИВ ===== */
-@media (max-width:1024px) {
-    .container { padding:0 30px; }
-}
-@media (max-width:768px) {
-    .container { padding:0 20px; }
-    .process h2, .featured h2 { font-size:2.2rem; }
-    .footer-inner { flex-direction:column; align-items:flex-start; gap:16px; }
-    .footer-contacts { flex-direction:column; gap:8px; }
-    .contacts-grid { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width:640px) {
-    .container { padding:0 16px; }
-    .process h2, .featured h2 { font-size:1.8rem; }
-    nav ul { gap:16px; }
-    nav a { font-size:0.85rem; }
-    .logo { font-size:1.2rem; }
-    .contacts-grid { grid-template-columns: 1fr; }
-    .contacts-block h2 { font-size: 2rem; }
-    .timeline-node-h {
-        flex: 0 0 160px;
-        min-height: 120px;
-        padding: 10px 8px;
-    }
-    .timeline-content-h h4 {
-        font-size: 0.7rem;
-    }
-    .timeline-content-h .role-h {
-        font-size: 0.6rem;
-    }
-    .timeline-content-h .intro-h {
-        font-size: 0.6rem;
-        -webkit-line-clamp: 2;
-    }
-    .timeline-period-h {
-        font-size: 0.55rem;
-    }
-    .timeline-node-h .node-top::after {
-        right: -16px;
-        width: 14px;
-    }
-    .section-career {
-        padding: 40px 0 20px;
-    }
-    .header-right {
-        gap: 16px;
-    }
-    .lang-switch {
-        font-size: 0.75rem;
-    }
-}
-
 /* ===== ОБРАЗОВАНИЕ И РАЗВИТИЕ (автоматическая прокрутка) ===== */
 .section-education {
     background: var(--bg-white);
@@ -539,12 +494,12 @@ nav a.active {
     margin-bottom: 40px;
 }
 
-/* Слайдер */
 .education-slider-wrapper {
     position: relative;
     overflow: hidden;
     border-radius: var(--radius);
 }
+
 .education-slider {
     display: flex;
     gap: 24px;
@@ -552,53 +507,54 @@ nav a.active {
     will-change: transform;
 }
 
-/* Карточка — шире и выше в 1.5 раза */
 .education-card {
-    flex: 0 0 270px;   /* 180px * 1.5 = 270px */
-    max-width: 300px;   /* 200px * 1.5 = 300px */
+    flex: 0 0 270px;
+    max-width: 300px;
     background: var(--bg-soft);
     border-radius: var(--radius);
     border: 1px solid var(--border-light);
-    padding: 24px 20px;  /* больше отступов */
+    padding: 24px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    min-height: 100px;   /* 120px * 1.5 = 180px */
+    min-height: 180px;
     transition: var(--transition);
 }
-.education-card .edu-icon {
-    font-size: 2.4rem;   /* 1.6rem * 1.5 */
-    margin-bottom: 8px;
-}
+
 .education-card h3 {
-    font-size: 1.1rem;   /* 0.85rem + 2 шага (~0.25rem) */
+    font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 4px;
     color: var(--text-primary);
 }
+
 .education-card .edu-institution {
-    font-size: 0.95rem;  /* 0.75rem + 2 шага */
+    font-size: 0.95rem;
     font-weight: 500;
     color: var(--text-primary);
     margin-bottom: 2px;
 }
+
 .education-card .edu-specialty {
-    font-size: 0.9rem;   /* 0.7rem + 2 шага */
+    font-size: 0.9rem;
     color: #555;
 }
+
 .education-card .edu-name {
-    font-size: 1rem;     /* 0.8rem + 2 шага */
+    font-size: 1rem;
     font-weight: 500;
     color: var(--text-primary);
 }
+
 .education-card .edu-year {
-    font-size: 0.85rem;  /* 0.65rem + 2 шага */
+    font-size: 0.85rem;
     color: var(--accent);
     font-weight: 600;
     margin-top: 6px;
     letter-spacing: 0.02em;
 }
+
 .education-card:hover {
     transform: translateY(-4px);
     border-color: var(--accent);
@@ -612,6 +568,7 @@ nav a.active {
     gap: 8px;
     margin-top: 24px;
 }
+
 .slider-dots .dot {
     width: 10px;
     height: 10px;
@@ -622,82 +579,77 @@ nav a.active {
     transition: var(--transition);
     padding: 0;
 }
+
 .slider-dots .dot.active {
     background: var(--accent);
     width: 24px;
     border-radius: 4px;
 }
+
 .slider-dots .dot:hover {
     background: var(--accent-hover);
 }
 
-/* Адаптив */
-@media (max-width: 1024px) {
+/* ===== АДАПТИВ ===== */
+@media (max-width:1024px) {
+    .container { padding:0 30px; }
     .education-card {
         flex: 0 0 220px;
         max-width: 250px;
         min-height: 160px;
         padding: 20px 16px;
     }
-    .education-card .edu-icon {
-        font-size: 2rem;
-    }
-    .education-card h3 {
-        font-size: 1rem;
-    }
+    .education-card h3 { font-size: 1rem; }
 }
-@media (max-width: 768px) {
+@media (max-width:768px) {
+    .container { padding:0 20px; }
+    .process h2, .featured h2 { font-size:2.2rem; }
+    .footer-inner { flex-direction:column; align-items:flex-start; gap:16px; }
+    .footer-contacts { flex-direction:column; gap:8px; }
+    .contacts-grid { grid-template-columns: 1fr 1fr; }
     .education-card {
         flex: 0 0 180px;
         max-width: 200px;
         min-height: 140px;
         padding: 16px 14px;
     }
-    .education-card .edu-icon {
-        font-size: 1.6rem;
-    }
-    .education-card h3 {
-        font-size: 0.9rem;
-    }
-    .education-card .edu-institution {
-        font-size: 0.8rem;
-    }
-    .education-card .edu-specialty {
-        font-size: 0.75rem;
-    }
-    .education-card .edu-name {
-        font-size: 0.85rem;
-    }
-    .education-card .edu-year {
-        font-size: 0.75rem;
-    }
-    .education-block h2 {
-        font-size: 2.2rem;
-    }
+    .education-card h3 { font-size: 0.9rem; }
+    .education-card .edu-institution { font-size: 0.8rem; }
+    .education-card .edu-specialty { font-size: 0.75rem; }
+    .education-card .edu-name { font-size: 0.85rem; }
+    .education-card .edu-year { font-size: 0.75rem; }
+    .education-block h2 { font-size: 2.2rem; }
 }
-@media (max-width: 480px) {
+@media (max-width:640px) {
+    .container { padding:0 16px; }
+    .process h2, .featured h2 { font-size:1.8rem; }
+    nav ul { gap:16px; }
+    nav a { font-size:0.85rem; }
+    .logo { font-size:1.2rem; }
+    .contacts-grid { grid-template-columns: 1fr; }
+    .contacts-block h2 { font-size: 2rem; }
+    .timeline-node-h {
+        flex: 0 0 160px;
+        min-height: 120px;
+        padding: 10px 8px;
+    }
+    .timeline-content-h h4 { font-size: 0.7rem; }
+    .timeline-content-h .role-h { font-size: 0.6rem; }
+    .timeline-content-h .intro-h { font-size: 0.6rem; -webkit-line-clamp: 2; }
+    .timeline-period-h { font-size: 0.55rem; }
+    .timeline-node-h .node-top::after { right: -16px; width: 14px; }
+    .section-career { padding: 40px 0 20px; }
+    .header-right { gap: 16px; }
+    .lang-switch { font-size: 0.75rem; }
     .education-card {
         flex: 0 0 140px;
         max-width: 160px;
         min-height: 120px;
         padding: 12px 10px;
     }
-    .education-card .edu-icon {
-        font-size: 1.3rem;
-    }
-    .education-card h3 {
-        font-size: 0.75rem;
-    }
-    .education-card .edu-institution {
-        font-size: 0.7rem;
-    }
-    .education-card .edu-specialty {
-        font-size: 0.65rem;
-    }
-    .education-card .edu-name {
-        font-size: 0.7rem;
-    }
-    .education-card .edu-year {
-        font-size: 0.65rem;
-    }
+    .education-card h3 { font-size: 0.75rem; }
+    .education-card .edu-institution { font-size: 0.7rem; }
+    .education-card .edu-specialty { font-size: 0.65rem; }
+    .education-card .edu-name { font-size: 0.7rem; }
+    .education-card .edu-year { font-size: 0.65rem; }
 }
