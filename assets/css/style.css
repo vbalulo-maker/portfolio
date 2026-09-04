@@ -154,7 +154,7 @@ nav a.active {
 }
 .footer-copy { opacity:0.5; font-size:0.85rem; }
 
-/* ===== КОНТАКТЫ (новая секция) ===== */
+/* ===== КОНТАКТЫ ===== */
 .section-contacts {
     background: var(--bg-secondary);
     color: var(--text-secondary);
@@ -209,7 +209,7 @@ nav a.active {
     font-size: 0.85rem;
 }
 
-/* ===== КАРЬЕРНЫЙ ТРЕК (ГОРИЗОНТАЛЬНЫЙ) ===== */
+/* ===== КАРЬЕРНЫЙ ТРЕК ===== */
 .section-career {
     background: var(--bg-white);
     padding: 60px 0 40px;
@@ -265,7 +265,6 @@ nav a.active {
     border-radius: var(--radius);
     border: 1px solid var(--border-light);
     background: var(--bg-white);
-    transition: all 0.3s ease;
     position: relative;
     cursor: default;
     min-height: 160px;
@@ -385,29 +384,57 @@ nav a.active {
     border-bottom: none;
 }
 
-/* ===== CAREER BREAK ===== */
+/* ===== CAREER BREAK (максимально незаметный) ===== */
 .timeline-node-h[data-is-break="true"] {
-    border-color: #ddd;
-    background: var(--bg-primary);
-    opacity: 0.7;
+    border-color: #eee !important;
+    background: var(--bg-primary) !important;
+    opacity: 0.4 !important;
+    transform: scale(0.95) !important;
+    box-shadow: none !important;
+    pointer-events: none !important;
+    cursor: default !important;
 }
 .timeline-node-h[data-is-break="true"] .timeline-marker-h {
-    background: #ccc;
-    box-shadow: 0 0 0 2px #ccc;
+    background: #e0e0e0 !important;
+    box-shadow: 0 0 0 2px #e0e0e0 !important;
+    border-color: var(--bg-primary) !important;
+}
+.timeline-node-h[data-is-break="true"] h4 {
+    color: #bbb !important;
+    font-weight: 400 !important;
+    font-size: 0.8rem !important;
 }
 .timeline-node-h[data-is-break="true"] .role-h {
-    color: #888;
-    font-style: italic;
+    color: #ccc !important;
+    font-style: italic !important;
+    font-weight: 300 !important;
+    font-size: 0.6rem !important;
 }
 .timeline-node-h[data-is-break="true"] .intro-h {
-    color: #777;
-    font-size: 0.65rem;
+    color: #d0d0d0 !important;
+    font-size: 0.55rem !important;
+    -webkit-line-clamp: 2 !important;
+}
+.timeline-node-h[data-is-break="true"] .timeline-period-h {
+    color: #ccc !important;
+}
+.timeline-node-h[data-is-break="true"] .node-top::after {
+    background: #eee !important;
+}
+.timeline-node-h[data-is-break="true"]:hover {
+    transform: scale(0.95) !important;
+    box-shadow: none !important;
+    border-color: #eee !important;
+    background: var(--bg-primary) !important;
+}
+.timeline-node-h[data-is-break="true"] .timeline-link-h {
+    display: none !important;
 }
 .timeline-node-h[data-is-break="true"].active,
 .timeline-node-h[data-is-break="true"].active-default {
-    opacity: 1;
-    border-color: var(--border-light);
-    background: var(--bg-white);
+    opacity: 0.4 !important;
+    border-color: #eee !important;
+    background: var(--bg-primary) !important;
 }
 
 /* ===== АНИМАЦИЯ ПОЯВЛЕНИЯ ===== */
@@ -454,7 +481,7 @@ nav a.active {
     .contacts-grid { grid-template-columns: 1fr; }
     .contacts-block h2 { font-size: 2rem; }
     .timeline-node-h {
-        flex: 0 0 130px;
+        flex: 0 0 160px;
         min-height: 120px;
         padding: 10px 8px;
     }
