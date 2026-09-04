@@ -70,6 +70,39 @@ nav a.active {
     color:var(--accent);
 }
 
+/* ===== ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА ===== */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+.lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    user-select: none;
+}
+.lang-active {
+    opacity: 1;
+    font-weight: 600;
+    color: var(--accent);
+    cursor: default;
+}
+.lang-inactive {
+    opacity: 0.4;
+    cursor: default;
+    transition: var(--transition);
+}
+.lang-inactive:hover {
+    opacity: 0.7;
+}
+.lang-divider {
+    opacity: 0.3;
+}
+
 /* ===== СЕКЦИИ ===== */
 .section-hero { background:var(--bg-white); padding:60px 0; }
 .section-visual { background:var(--bg-soft); padding:60px 0; }
@@ -120,24 +153,6 @@ nav a.active {
     color:var(--accent);
 }
 .footer-copy { opacity:0.5; font-size:0.85rem; }
-
-/* ===== АДАПТИВ ===== */
-@media (max-width:1024px) {
-    .container { padding:0 30px; }
-}
-@media (max-width:768px) {
-    .container { padding:0 20px; }
-    .process h2, .featured h2 { font-size:2.2rem; }
-    .footer-inner { flex-direction:column; align-items:flex-start; gap:16px; }
-    .footer-contacts { flex-direction:column; gap:8px; }
-}
-@media (max-width:480px) {
-    .container { padding:0 16px; }
-    .process h2, .featured h2 { font-size:1.8rem; }
-    nav ul { gap:16px; }
-    nav a { font-size:0.85rem; }
-    .logo { font-size:1.2rem; }
-}
 
 /* ===== КОНТАКТЫ (новая секция) ===== */
 .section-contacts {
@@ -193,13 +208,7 @@ nav a.active {
     opacity: 0.6;
     font-size: 0.85rem;
 }
-@media (max-width:640px) {
-    .contacts-block h2 { font-size: 2rem; }
-    .contacts-grid { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width:400px) {
-    .contacts-grid { grid-template-columns: 1fr; }
-}
+
 /* ===== КАРЬЕРНЫЙ ТРЕК (ГОРИЗОНТАЛЬНЫЙ) ===== */
 .section-career {
     background: var(--bg-white);
@@ -217,7 +226,6 @@ nav a.active {
     margin-bottom: 40px;
 }
 
-/* Горизонтальная лента */
 .timeline-horizontal-wrapper {
     overflow-x: auto;
     padding: 20px 0 10px;
@@ -240,7 +248,6 @@ nav a.active {
     border-radius: 4px;
 }
 
-/* Контейнер для узлов в строку */
 .timeline-horizontal {
     display: flex;
     gap: 16px;
@@ -248,7 +255,6 @@ nav a.active {
     padding-bottom: 12px;
 }
 
-/* Узел ленты (горизонтальный) */
 .timeline-node-h {
     flex: 0 0 180px;
     max-width: 200px;
@@ -263,15 +269,29 @@ nav a.active {
     position: relative;
     cursor: default;
     min-height: 160px;
+
+    /* Scrollytelling */
+    opacity: 0.3;
+    transform: scale(0.95);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+.timeline-node-h.active-default {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.timeline-node-h.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
 .timeline-node-h:hover {
-    transform: translateY(-4px);
+    transform: translateY(-4px) scale(1);
     box-shadow: var(--shadow);
     border-color: var(--accent);
     background: var(--bg-soft);
 }
-
-/* Маркер и линия сверху (горизонтальная) */
 .timeline-node-h .node-top {
     display: flex;
     align-items: center;
@@ -292,7 +312,6 @@ nav a.active {
 .timeline-node-h:last-child .node-top::after {
     display: none;
 }
-
 .timeline-marker-h {
     flex: 0 0 12px;
     width: 12px;
@@ -310,7 +329,6 @@ nav a.active {
 .timeline-node-h:hover .timeline-marker-h {
     transform: scale(1.2);
 }
-
 .timeline-period-h {
     font-size: 0.65rem;
     font-weight: 600;
@@ -319,8 +337,6 @@ nav a.active {
     white-space: nowrap;
     margin-left: 4px;
 }
-
-/* Контент узла (компактный) */
 .timeline-content-h h4 {
     font-size: 0.85rem;
     font-weight: 600;
@@ -369,61 +385,74 @@ nav a.active {
     border-bottom: none;
 }
 
-/* Адаптив для планшетов */
-@media (min-width: 1024px) {
-    .timeline-node-h {
-        flex: 0 0 200px;
-        max-width: 220px;
-        min-height: 170px;
-    }
-    .timeline-content-h h4 {
-        font-size: 0.95rem;
-    }
-    .timeline-content-h .role-h {
-        font-size: 0.75rem;
-    }
-    .timeline-content-h .intro-h {
-        font-size: 0.75rem;
-    }
-    .timeline-period-h {
-        font-size: 0.7rem;
-    }
+/* ===== CAREER BREAK ===== */
+.timeline-node-h[data-is-break="true"] {
+    border-color: #ddd;
+    background: var(--bg-primary);
+    opacity: 0.7;
+}
+.timeline-node-h[data-is-break="true"] .timeline-marker-h {
+    background: #ccc;
+    box-shadow: 0 0 0 2px #ccc;
+}
+.timeline-node-h[data-is-break="true"] .role-h {
+    color: #888;
+    font-style: italic;
+}
+.timeline-node-h[data-is-break="true"] .intro-h {
+    color: #777;
+    font-size: 0.65rem;
+}
+.timeline-node-h[data-is-break="true"].active,
+.timeline-node-h[data-is-break="true"].active-default {
+    opacity: 1;
+    border-color: var(--border-light);
+    background: var(--bg-white);
 }
 
-/* Адаптив для маленьких экранов (скролл) */
-@media (max-width: 768px) {
-    .career-timeline-horizontal .sub {
-        margin-bottom: 20px;
-    }
-    .timeline-horizontal-wrapper {
-        margin: 0 -16px;
-        padding: 10px 16px;
-    }
-    .timeline-node-h {
-        flex: 0 0 150px;
-        min-height: 140px;
-        padding: 12px 10px;
-    }
-    .timeline-content-h h4 {
-        font-size: 0.8rem;
-    }
-    .timeline-content-h .role-h {
-        font-size: 0.65rem;
-    }
-    .timeline-content-h .intro-h {
-        font-size: 0.65rem;
-        -webkit-line-clamp: 2;
-    }
-    .timeline-node-h .node-top::after {
-        right: -16px;
-        width: 14px;
-    }
-    .section-career {
-        padding: 40px 0 20px;
-    }
+/* ===== АНИМАЦИЯ ПОЯВЛЕНИЯ ===== */
+.fade-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
+.fade-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.step {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.step.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.step:nth-child(1) { transition-delay: 0.1s; }
+.step:nth-child(2) { transition-delay: 0.25s; }
+.step:nth-child(3) { transition-delay: 0.4s; }
+.step:nth-child(4) { transition-delay: 0.55s; }
 
-@media (max-width: 400px) {
+/* ===== АДАПТИВ ===== */
+@media (max-width:1024px) {
+    .container { padding:0 30px; }
+}
+@media (max-width:768px) {
+    .container { padding:0 20px; }
+    .process h2, .featured h2 { font-size:2.2rem; }
+    .footer-inner { flex-direction:column; align-items:flex-start; gap:16px; }
+    .footer-contacts { flex-direction:column; gap:8px; }
+    .contacts-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width:640px) {
+    .container { padding:0 16px; }
+    .process h2, .featured h2 { font-size:1.8rem; }
+    nav ul { gap:16px; }
+    nav a { font-size:0.85rem; }
+    .logo { font-size:1.2rem; }
+    .contacts-grid { grid-template-columns: 1fr; }
+    .contacts-block h2 { font-size: 2rem; }
     .timeline-node-h {
         flex: 0 0 130px;
         min-height: 120px;
@@ -442,54 +471,17 @@ nav a.active {
     .timeline-period-h {
         font-size: 0.55rem;
     }
-}
-/* ===== ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА ===== */
-.header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-}
-.lang-switch {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text-primary);
-    user-select: none;
-}
-.lang-active {
-    opacity: 1;
-    font-weight: 600;
-    color: var(--accent);
-    cursor: default;
-}
-.lang-inactive {
-    opacity: 0.4;
-    cursor: default;
-    transition: var(--transition);
-}
-.lang-inactive:hover {
-    opacity: 0.7;
-}
-.lang-divider {
-    opacity: 0.3;
-}
-
-/* Адаптив для переключателя */
-@media (max-width: 640px) {
+    .timeline-node-h .node-top::after {
+        right: -16px;
+        width: 14px;
+    }
+    .section-career {
+        padding: 40px 0 20px;
+    }
     .header-right {
         gap: 16px;
     }
     .lang-switch {
         font-size: 0.75rem;
-    }
-    nav ul {
-        gap: 12px;
     }
 }
