@@ -49,4 +49,20 @@
     "logo": "assets/images/logos/ceb.png",
     "projectId": "project-1"
   }
+  {
+    "id": "break-1",
+    "name": "Career Break",
+    "role": "Консультации, поиск проектов, изучение AI",
+    "period": "2025.01-2025.07",
+    "intro": "Консультации участников рынка, поиск стратегического проекта, работа над портфолио и изучение AI",
+    "isBreak": true
+  },
+  {
+    "id": "break-2",
+    "name": "Career Break",
+    "role": "Активный поиск, изучение AI/ML",
+    "period": "2026.04-н.в.",
+    "intro": "Активный поиск роли Head of Product / CPO в финтехе, работа над портфолио и изучение AI/ML-продуктов",
+    "isBreak": true
+  }
 ]
