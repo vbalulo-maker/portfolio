@@ -48,7 +48,7 @@
     "description": "Запускал рассрочку и бесконтактные  платежи в терминальной сети.\n Внедрял модель ценообразования Interchange++ для крупного бизнеса",
     "logo": "assets/images/logos/ceb.png",
     "projectId": "project-1"
-  }
+  },
   {
     "id": "break-1",
     "name": "Career Break",
