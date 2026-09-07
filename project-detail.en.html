@@ -171,199 +171,108 @@
                     return;
                 }
 
-// Тип presentation — встраиваем через iframe с контролами
+                // ТИП: PRESENTATION — загружаем содержимое напрямую без iframe
 if (project.type === 'presentation' && project.presentationFile) {
-    // Создаем контейнер для презентации с контролами
-    container.innerHTML = `
-        <div class="presentation-wrapper">
-            <div class="presentation-container">
-                <iframe id="presentationIframe" src="${project.presentationFile}" style="width:100%; min-height:600px; border:none; border-radius:16px;"></iframe>
-            </div>
-            <div class="presentation-controls">
-                <button class="slide-btn slide-prev" aria-label="Previous slide">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" role="graphics-symbol" aria-hidden="true">
-                        <path d="M7.825 11H19C19.2833 11 19.5208 11.0958 19.7125 11.2875C19.9042 11.4792 20 11.7167 20 12C20 12.2833 19.9042 12.5208 19.7125 12.7125C19.5208 12.9042 19.2833 13 19 13H7.825L12.725 17.9C12.925 18.1 13.0208 18.3333 13.0125 18.6C13.0042 18.8667 12.9 19.1 12.7 19.3C12.5 19.4833 12.2667 19.5792 12 19.5875C11.7333 19.5958 11.5 19.5 11.3 19.3L4.7 12.7C4.6 12.6 4.52917 12.4917 4.4875 12.375C4.44583 12.2583 4.425 12.1333 4.425 12C4.425 11.8667 4.44583 11.7417 4.4875 11.625C4.52917 11.5083 4.6 11.4 4.7 11.3L11.3 4.7C11.4833 4.51667 11.7125 4.425 11.9875 4.425C12.2625 4.425 12.5 4.51667 12.7 4.7C12.9 4.9 13 5.1375 13 5.4125C13 5.6875 12.9 5.925 12.7 6.125L7.825 11Z" fill="currentColor"/>
-                    </svg>
-                </button>
-                <span class="slide-counter" id="slideCounter">1 / 7</span>
-                <button class="slide-btn slide-next" aria-label="Next slide">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" role="graphics-symbol" aria-hidden="true">
-                        <path d="M16.175 13H5C4.71667 13 4.47917 12.9042 4.2875 12.7125C4.09583 12.5208 4 12.2833 4 12C4 11.7167 4.09583 11.4792 4.2875 11.2875C4.47917 11.0958 4.71667 11 5 11H16.175L11.275 6.09999C11.075 5.89999 10.9792 5.66665 10.9875 5.39999C10.9958 5.13332 11.1 4.89999 11.3 4.69999C11.5 4.51665 11.7333 4.42082 12 4.41249C12.2667 4.40415 12.5 4.49999 12.7 4.69999L19.3 11.3C19.4 11.4 19.4708 11.5083 19.5125 11.625C19.5542 11.7417 19.575 11.8667 19.575 12C19.575 12.1333 19.5542 12.2583 19.5125 12.375C19.4708 12.4917 19.4 12.6 19.3 12.7L12.7 19.3C12.5167 19.4833 12.2875 19.575 12.0125 19.575C11.7375 19.575 11.5 19.4833 11.3 19.3C11.1 19.1 11 18.8625 11 18.5875C11 18.3125 11.1 18.075 11.3 17.875L16.175 13Z" fill="currentColor"/>
-                    </svg>
-                </button>
-            </div>
-        </div>
-    `;
-
-    // Добавляем стили для контролов
-    const style = document.createElement('style');
-    style.textContent = `
-        .presentation-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .presentation-container {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            border-radius: 16px;
-        }
-        .presentation-container iframe {
-            width: 100%;
-            min-height: 600px;
-            border: none;
-            display: block;
-        }
-        .presentation-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            padding: 8px 0;
-        }
-        .slide-btn {
-            background: var(--bg-soft);
-            border: 1px solid var(--border-light);
-            border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--text-primary);
-        }
-        .slide-btn:hover {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
-        }
-        .slide-btn svg {
-            width: 20px;
-            height: 20px;
-        }
-        .slide-counter {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            opacity: 0.6;
-            min-width: 60px;
-            text-align: center;
-        }
-        @media (max-width: 768px) {
-            .presentation-container iframe {
-                min-height: 400px;
+    // Загружаем HTML-файл презентации
+    fetch(project.presentationFile)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Presentation not found');
             }
-            .slide-btn {
-                width: 38px;
-                height: 38px;
-            }
-            .slide-btn svg {
-                width: 16px;
-                height: 16px;
-            }
-        }
-    `;
-    document.head.appendChild(style);
+            return response.text();
+        })
+        .then(html => {
+            // Вставляем HTML презентации в контейнер
+            container.innerHTML = html;
 
-    // --- Логика переключения слайдов ---
-    const iframe = document.getElementById('presentationIframe');
-    const prevBtn = container.querySelector('.slide-prev');
-    const nextBtn = container.querySelector('.slide-next');
-    const counter = container.querySelector('.slide-counter');
+            // --- НАСТРАИВАЕМ АВТОМАТИЧЕСКУЮ ПРОКРУТКУ С КНОПКАМИ ---
+            const slides = container.querySelectorAll('.slide');
+            if (slides.length > 0) {
+                let currentIndex = 0;
+                const totalSlides = slides.length;
 
-    let currentSlide = 0;
-    let totalSlides = 0;
-    let slideInterval = null;
+                // Создаем контролы (кнопки и счетчик)
+                const controls = document.createElement('div');
+                controls.className = 'presentation-controls';
+                controls.innerHTML = `
+                    <button class="slide-btn slide-prev" aria-label="Previous slide">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" role="graphics-symbol" aria-hidden="true">
+                            <path d="M7.825 11H19C19.2833 11 19.5208 11.0958 19.7125 11.2875C19.9042 11.4792 20 11.7167 20 12C20 12.2833 19.9042 12.5208 19.7125 12.7125C19.5208 12.9042 19.2833 13 19 13H7.825L12.725 17.9C12.925 18.1 13.0208 18.3333 13.0125 18.6C13.0042 18.8667 12.9 19.1 12.7 19.3C12.5 19.4833 12.2667 19.5792 12 19.5875C11.7333 19.5958 11.5 19.5 11.3 19.3L4.7 12.7C4.6 12.6 4.52917 12.4917 4.4875 12.375C4.44583 12.2583 4.425 12.1333 4.425 12C4.425 11.8667 4.44583 11.7417 4.4875 11.625C4.52917 11.5083 4.6 11.4 4.7 11.3L11.3 4.7C11.4833 4.51667 11.7125 4.425 11.9875 4.425C12.2625 4.425 12.5 4.51667 12.7 4.7C12.9 4.9 13 5.1375 13 5.4125C13 5.6875 12.9 5.925 12.7 6.125L7.825 11Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <span class="slide-counter">${currentIndex + 1} / ${totalSlides}</span>
+                    <button class="slide-btn slide-next" aria-label="Next slide">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" role="graphics-symbol" aria-hidden="true">
+                            <path d="M16.175 13H5C4.71667 13 4.47917 12.9042 4.2875 12.7125C4.09583 12.5208 4 12.2833 4 12C4 11.7167 4.09583 11.4792 4.2875 11.2875C4.47917 11.0958 4.71667 11 5 11H16.175L11.275 6.09999C11.075 5.89999 10.9792 5.66665 10.9875 5.39999C10.9958 5.13332 11.1 4.89999 11.3 4.69999C11.5 4.51665 11.7333 4.42082 12 4.41249C12.2667 4.40415 12.5 4.49999 12.7 4.69999L19.3 11.3C19.4 11.4 19.4708 11.5083 19.5125 11.625C19.5542 11.7417 19.575 11.8667 19.575 12C19.575 12.1333 19.5542 12.2583 19.5125 12.375C19.4708 12.4917 19.4 12.6 19.3 12.7L12.7 19.3C12.5167 19.4833 12.2875 19.575 12.0125 19.575C11.7375 19.575 11.5 19.4833 11.3 19.3C11.1 19.1 11 18.8625 11 18.5875C11 18.3125 11.1 18.075 11.3 17.875L16.175 13Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                `;
 
-    // Функция для обновления счетчика
-    function updateCounter(index) {
-        if (counter) {
-            counter.textContent = `${index + 1} / ${totalSlides}`;
-        }
-    }
+                // Добавляем контролы в контейнер
+                container.appendChild(controls);
 
-    // Функция показа слайда
-    function showSlide(index) {
-        try {
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            const slides = iframeDoc.querySelectorAll('.slide');
-            if (slides.length === 0) return;
-            
-            slides.forEach((slide, i) => {
-                slide.style.display = i === index ? 'flex' : 'none';
-            });
-            currentSlide = index;
-            updateCounter(index);
-        } catch (error) {
-            // Если доступ к iframe запрещен — ничего не делаем
-            console.log('Cannot control iframe content.');
-        }
-    }
+                // Функция показа слайда
+                function showSlide(index) {
+                    slides.forEach((slide, i) => {
+                        slide.style.display = i === index ? 'flex' : 'none';
+                    });
+                    const counter = controls.querySelector('.slide-counter');
+                    if (counter) {
+                        counter.textContent = `${index + 1} / ${totalSlides}`;
+                    }
+                }
 
-    // Функция следующего слайда
-    function nextSlide() {
-        if (totalSlides === 0) return;
-        const next = (currentSlide + 1) % totalSlides;
-        showSlide(next);
-    }
-
-    // Функция предыдущего слайда
-    function prevSlide() {
-        if (totalSlides === 0) return;
-        const prev = (currentSlide - 1 + totalSlides) % totalSlides;
-        showSlide(prev);
-    }
-
-    // Запускаем после загрузки iframe
-    iframe.onload = function() {
-        try {
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            const slides = iframeDoc.querySelectorAll('.slide');
-            totalSlides = slides.length;
-            
-            if (totalSlides > 0) {
                 // Показываем первый слайд
                 showSlide(0);
-                
-                // Добавляем обработчики кнопок
-                if (prevBtn) prevBtn.addEventListener('click', () => {
+
+                // Функции для кнопок
+                const prevBtn = controls.querySelector('.slide-prev');
+                const nextBtn = controls.querySelector('.slide-next');
+
+                prevBtn.addEventListener('click', () => {
                     clearInterval(slideInterval);
-                    prevSlide();
-                });
-                if (nextBtn) nextBtn.addEventListener('click', () => {
-                    clearInterval(slideInterval);
-                    nextSlide();
+                    const prev = (currentIndex - 1 + totalSlides) % totalSlides;
+                    currentIndex = prev;
+                    showSlide(currentIndex);
                 });
 
-                // Автопрокрутка (каждые 5 секунд)
-                slideInterval = setInterval(nextSlide, 5000);
-
-                // Пауза при наведении на iframe
-                iframe.addEventListener('mouseenter', () => clearInterval(slideInterval));
-                iframe.addEventListener('mouseleave', () => {
-                    slideInterval = setInterval(nextSlide, 5000);
+                nextBtn.addEventListener('click', () => {
+                    clearInterval(slideInterval);
+                    const next = (currentIndex + 1) % totalSlides;
+                    currentIndex = next;
+                    showSlide(currentIndex);
                 });
-            } else {
-                // Если слайдов нет — скрываем контролы
-                const controls = container.querySelector('.presentation-controls');
-                if (controls) controls.style.display = 'none';
+
+                // Автопрокрутка
+                let slideInterval = setInterval(() => {
+                    const next = (currentIndex + 1) % totalSlides;
+                    currentIndex = next;
+                    showSlide(currentIndex);
+                }, 5000);
+
+                // Останавливаем автопрокрутку при наведении
+                const presentationContainer = container.querySelector('.slide')?.parentElement || container;
+                presentationContainer.addEventListener('mouseenter', () => {
+                    clearInterval(slideInterval);
+                });
+                presentationContainer.addEventListener('mouseleave', () => {
+                    slideInterval = setInterval(() => {
+                        const next = (currentIndex + 1) % totalSlides;
+                        currentIndex = next;
+                        showSlide(currentIndex);
+                    }, 5000);
+                });
             }
-        } catch (error) {
-            // Если доступ к iframe запрещен — скрываем контролы
-            const controls = container.querySelector('.presentation-controls');
-            if (controls) controls.style.display = 'none';
-            console.log('Cannot access iframe content (cross-origin). Controls disabled.');
-        }
-    };
-
-    // Если iframe уже загружен (кеш) — вызываем onload вручную
-    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-        iframe.onload();
-    }
-
+        })
+        .catch(error => {
+            console.error('Error loading presentation:', error);
+            container.innerHTML = `
+                <div style="text-align:center;padding:40px;">
+                    <p style="color:#999;">Presentation not found.</p>
+                    <a href="projects.en.html" style="color:var(--accent);">← Back to Case Studies</a>
+                </div>
+            `;
+        });
     return;
 }
                 
