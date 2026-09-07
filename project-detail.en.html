@@ -12,7 +12,7 @@
         html, body {
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Убираем прокрутку страницы */
+            overflow: hidden;
         }
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -22,7 +22,7 @@
             flex-direction: column;
         }
 
-        /* ===== TOP BAR (как в Monzo) ===== */
+        /* ===== TOP BAR ===== */
         .top-bar {
             position: fixed;
             top: 0;
@@ -32,34 +32,34 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 32px;
-            background: rgba(248, 246, 242, 0.9);
+            padding: 12px 24px;
+            background: rgba(248, 246, 242, 0.92);
             backdrop-filter: blur(8px);
             border-bottom: 1px solid #e8e2da;
+            flex-shrink: 0;
         }
         .top-bar .back-link {
             color: #1A1A1A;
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             opacity: 0.7;
             transition: opacity 0.2s;
         }
         .top-bar .back-link:hover {
             opacity: 1;
         }
-
         .top-bar .slide-controls {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
         }
         .top-bar .slide-btn {
             background: transparent;
             border: 1px solid #e8e2da;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -73,15 +73,15 @@
             color: #fff;
         }
         .top-bar .slide-btn svg {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
         }
         .top-bar .slide-counter {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
             color: #1A1A1A;
             opacity: 0.5;
-            min-width: 60px;
+            min-width: 50px;
             text-align: center;
         }
 
@@ -90,62 +90,76 @@
             flex: 1;
             display: flex;
             overflow: hidden;
-            margin-top: 72px; /* Отступ под верхней панелью */
+            margin-top: 60px;
+            height: calc(100vh - 60px);
         }
-        .slide {
+        #detailContent {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        /* Слайды внутри #detailContent */
+        #detailContent .slide {
             display: none;
             width: 100%;
-            height: calc(100vh - 72px);
-            padding: 40px 48px 36px;
-            background: #F8F6F2;
+            height: 100%;
+            padding: 20px 32px 20px;
             overflow-y: auto;
             flex-shrink: 0;
+            background: #F8F6F2;
+            box-sizing: border-box;
         }
-        .slide.active {
-            display: flex;
+        #detailContent .slide.active {
+            display: flex !important;
             flex-direction: column;
         }
 
         /* ===== АДАПТИВ ===== */
         @media (max-width: 768px) {
             .top-bar {
-                padding: 12px 16px;
+                padding: 8px 12px;
+            }
+            .top-bar .back-link {
+                font-size: 0.8rem;
             }
             .top-bar .slide-btn {
-                width: 34px;
-                height: 34px;
+                width: 30px;
+                height: 30px;
             }
             .top-bar .slide-btn svg {
                 width: 14px;
                 height: 14px;
             }
             .top-bar .slide-counter {
-                font-size: 0.75rem;
-                min-width: 44px;
-            }
-            .slide {
-                padding: 24px 20px 20px;
-                height: calc(100vh - 64px);
+                font-size: 0.7rem;
+                min-width: 40px;
             }
             .slides-wrapper {
-                margin-top: 64px;
+                margin-top: 48px;
+                height: calc(100vh - 48px);
+            }
+            #detailContent .slide {
+                padding: 12px 16px 16px;
             }
         }
         @media (max-width: 480px) {
             .top-bar {
-                padding: 8px 12px;
+                padding: 6px 8px;
                 flex-wrap: wrap;
-                gap: 8px;
+                gap: 4px;
             }
             .top-bar .back-link {
-                font-size: 0.8rem;
-            }
-            .slide {
-                padding: 16px 14px 14px;
-                height: calc(100vh - 56px);
+                font-size: 0.7rem;
             }
             .slides-wrapper {
-                margin-top: 56px;
+                margin-top: 44px;
+                height: calc(100vh - 44px);
+            }
+            #detailContent .slide {
+                padding: 8px 10px 12px;
             }
         }
     </style>
@@ -173,10 +187,8 @@
 </div>
 
 <!-- ===== СЛАЙДЫ ===== -->
-<div class="slides-wrapper" id="slidesWrapper">
-    <div id="detailContent" style="width:100%; height:100%;">
-        <!-- Слайды загружаются из JS -->
-    </div>
+<div class="slides-wrapper">
+    <div id="detailContent"></div>
 </div>
 
 <script>
@@ -191,10 +203,8 @@
                     <div>
                         <span style="font-size:4rem;display:block;margin-bottom:16px;opacity:0.4;">🔍</span>
                         <h2 style="font-size:2rem;font-weight:600;margin-bottom:12px;">Case study not found</h2>
-                        <p style="color:#666;max-width:400px;margin:0 auto 24px;">
-                            The requested case study could not be found.
-                        </p>
-                        <a href="projects.en.html" style="color:var(--accent);text-decoration:none;font-weight:500;">← Back to Case Studies</a>
+                        <p style="color:#666;max-width:400px;margin:0 auto 24px;">The requested case study could not be found.</p>
+                        <a href="projects.en.html" style="color:#C9A87C;text-decoration:none;font-weight:500;">← Back to Case Studies</a>
                     </div>
                 </div>
             `;
@@ -212,17 +222,15 @@
                             <div>
                                 <span style="font-size:4rem;display:block;margin-bottom:16px;opacity:0.4;">🚧</span>
                                 <h2 style="font-size:2rem;font-weight:600;margin-bottom:12px;">${project ? 'Case study in progress' : 'Case study not found'}</h2>
-                                <p style="color:#666;max-width:400px;margin:0 auto 24px;">
-                                    ${project ? 'I\'m preparing a detailed description of this project with metrics, insights, and visuals. In the meantime, feel free to explore other case studies.' : 'The requested case study was not found.'}
-                                </p>
-                                <a href="projects.en.html" style="color:var(--accent);text-decoration:none;font-weight:500;">← Back to Case Studies</a>
+                                <p style="color:#666;max-width:400px;margin:0 auto 24px;">${project ? 'I\'m preparing a detailed description of this project with metrics, insights, and visuals. In the meantime, feel free to explore other case studies.' : 'The requested case study was not found.'}</p>
+                                <a href="projects.en.html" style="color:#C9A87C;text-decoration:none;font-weight:500;">← Back to Case Studies</a>
                             </div>
                         </div>
                     `;
                     return;
                 }
 
-                // --- ЗАГРУЖАЕМ ПРЕЗЕНТАЦИЮ НАПРЯМУЮ ---
+                // --- ЗАГРУЖАЕМ ПРЕЗЕНТАЦИЮ ---
                 if (project.type === 'presentation' && project.presentationFile) {
                     fetch(project.presentationFile)
                         .then(response => {
@@ -230,28 +238,48 @@
                             return response.text();
                         })
                         .then(html => {
-                            // Вставляем HTML презентации
                             container.innerHTML = html;
 
                             // Находим все слайды
                             const slides = container.querySelectorAll('.slide');
-                            if (slides.length === 0) return;
+                            if (slides.length === 0) {
+                                // Если слайдов нет — показываем сообщение
+                                container.innerHTML = `
+                                    <div style="display:flex;align-items:center;justify-content:center;height:100%;text-align:center;padding:40px;">
+                                        <div>
+                                            <span style="font-size:4rem;display:block;margin-bottom:16px;opacity:0.4;">📄</span>
+                                            <h2 style="font-size:2rem;font-weight:600;margin-bottom:12px;">No slides found</h2>
+                                            <p style="color:#666;max-width:400px;margin:0 auto 24px;">The presentation does not contain any slides.</p>
+                                            <a href="projects.en.html" style="color:#C9A87C;text-decoration:none;font-weight:500;">← Back to Case Studies</a>
+                                        </div>
+                                    </div>
+                                `;
+                                return;
+                            }
 
                             let currentIndex = 0;
                             const totalSlides = slides.length;
 
-                            // Обновляем счетчик
+                            // Убираем все стили display у слайдов, чтобы скрипт управлял ими
+                            slides.forEach(slide => {
+                                slide.style.display = 'none';
+                            });
+
                             const counter = document.getElementById('slideCounter');
+
                             function updateCounter(index) {
                                 if (counter) {
                                     counter.textContent = `${index + 1} / ${totalSlides}`;
                                 }
                             }
 
-                            // Показываем слайд
                             function showSlide(index) {
                                 slides.forEach((slide, i) => {
-                                    slide.classList.toggle('active', i === index);
+                                    if (i === index) {
+                                        slide.style.display = 'flex';
+                                    } else {
+                                        slide.style.display = 'none';
+                                    }
                                 });
                                 currentIndex = index;
                                 updateCounter(index);
@@ -298,10 +326,12 @@
                                 });
                             }
 
-                            // Пауза при наведении на слайды
-                            const wrapper = document.getElementById('slidesWrapper');
-                            wrapper.addEventListener('mouseenter', stopAutoPlay);
-                            wrapper.addEventListener('mouseleave', startAutoPlay);
+                            // Пауза при наведении
+                            const wrapper = document.querySelector('.slides-wrapper');
+                            if (wrapper) {
+                                wrapper.addEventListener('mouseenter', stopAutoPlay);
+                                wrapper.addEventListener('mouseleave', startAutoPlay);
+                            }
 
                             // Запускаем автопрокрутку
                             startAutoPlay();
@@ -313,10 +343,8 @@
                                     <div>
                                         <span style="font-size:4rem;display:block;margin-bottom:16px;opacity:0.4;">📄</span>
                                         <h2 style="font-size:2rem;font-weight:600;margin-bottom:12px;">Presentation not found</h2>
-                                        <p style="color:#666;max-width:400px;margin:0 auto 24px;">
-                                            The presentation file could not be loaded.
-                                        </p>
-                                        <a href="projects.en.html" style="color:var(--accent);text-decoration:none;font-weight:500;">← Back to Case Studies</a>
+                                        <p style="color:#666;max-width:400px;margin:0 auto 24px;">The presentation file could not be loaded.</p>
+                                        <a href="projects.en.html" style="color:#C9A87C;text-decoration:none;font-weight:500;">← Back to Case Studies</a>
                                     </div>
                                 </div>
                             `;
@@ -324,11 +352,11 @@
                     return;
                 }
 
-                // --- ТИПЫ STANDARD И STRATEGY (без изменений) ---
+                // --- ТИПЫ STANDARD И STRATEGY ---
                 let html = `
-                    <div style="max-width:900px;margin:0 auto;padding:40px 20px;">
+                    <div style="max-width:900px;margin:0 auto;padding:40px 20px;height:100%;overflow-y:auto;">
                         <h1 style="font-size:2.4rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;">${project.title}</h1>
-                        <div class="meta" style="color:#666;font-size:0.95rem;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:16px;">
+                        <div style="color:#666;font-size:0.95rem;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:16px;">
                             <span style="background:#f3efe9;padding:2px 14px;border-radius:20px;">${project.company}</span>
                             <span style="background:#f3efe9;padding:2px 14px;border-radius:20px;">${project.role}</span>
                             <span style="background:#f3efe9;padding:2px 14px;border-radius:20px;">${project.year}</span>
@@ -336,7 +364,6 @@
                         <div style="font-size:1.1rem;line-height:1.7;color:#333;margin:20px 0 28px;border-left:4px solid #C9A87C;padding-left:20px;">${project.description || project.intro}</div>
                 `;
 
-                // Метрики
                 if (project.metrics && Object.keys(project.metrics).length > 0) {
                     html += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin:24px 0;">`;
                     for (const [key, val] of Object.entries(project.metrics)) {
@@ -350,7 +377,6 @@
                     html += `</div>`;
                 }
 
-                // Стратегия
                 if (project.type === 'strategy' && project.strategyBlocks?.length) {
                     html += `<h2 style="margin-top:28px;font-size:1.6rem;">Strategy & Research</h2>`;
                     project.strategyBlocks.forEach(block => {
@@ -364,7 +390,6 @@
                     });
                 }
 
-                // Результаты
                 if (project.results?.length) {
                     html += `<h2 style="margin-top:28px;font-size:1.6rem;">Key Results</h2><ul style="list-style:none;padding:0;">`;
                     project.results.forEach(r => {
@@ -373,7 +398,6 @@
                     html += `</ul>`;
                 }
 
-                // Скриншоты
                 if (project.screenshots?.length) {
                     html += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:20px;">`;
                     project.screenshots.forEach(s => {
@@ -392,7 +416,7 @@
                             <span style="font-size:4rem;display:block;margin-bottom:16px;opacity:0.4;">⚠️</span>
                             <h2 style="font-size:2rem;font-weight:600;margin-bottom:12px;">Could not load data</h2>
                             <p style="color:#666;max-width:400px;margin:0 auto 24px;">Please try again later.</p>
-                            <a href="projects.en.html" style="color:var(--accent);text-decoration:none;font-weight:500;">← Back to Case Studies</a>
+                            <a href="projects.en.html" style="color:#C9A87C;text-decoration:none;font-weight:500;">← Back to Case Studies</a>
                         </div>
                     </div>
                 `;
