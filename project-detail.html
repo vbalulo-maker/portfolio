@@ -7,109 +7,167 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <style>
-        .detail-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: var(--bg-white);
-            border-radius: var(--radius);
-            padding: 40px 48px;
-            box-shadow: var(--shadow);
-        }
-        .detail-container h1 {
-            font-size: 2.4rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
-        }
-        .detail-container .meta {
-            color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-        .detail-container .meta span { background: var(--bg-soft); padding: 2px 14px; border-radius: 20px; }
-        .detail-container .description {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: #333;
-            margin: 20px 0 28px;
-            border-left: 4px solid var(--accent);
-            padding-left: 20px;
-        }
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
-            gap: 16px;
-            margin: 24px 0;
-        }
-        .metric-card {
-            background: var(--bg-soft);
-            padding: 16px 20px;
-            border-radius: 12px;
-            border: 1px solid var(--border-light);
-            text-align: center;
-        }
-        .metric-card .value { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
-        .metric-card .label { font-size: 0.85rem; color: #555; margin-top: 4px; }
-        .detail-container .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-            text-decoration: none;
-            opacity: 0.7;
-            transition: var(--transition);
-        }
-        .detail-container .back-link:hover { opacity: 1; }
-        .strategy-block {
-            background: var(--bg-soft);
-            border-radius: 12px;
-            padding: 20px 24px;
-            margin: 16px 0;
-            border-left: 4px solid var(--accent);
-        }
-        .strategy-block h3 { margin-bottom: 6px; }
-        .strategy-block p { color: #555; }
-        .presentation-frame {
+        /* --- СБРАСЫВАЕМ ОТСТУПЫ ДЛЯ ПОЛНОЭКРАННОГО РЕЖИМА --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
             width: 100%;
-            min-height: 600px;
-            border: none;
-            border-radius: var(--radius);
-            margin-top: 16px;
+            height: 100%;
+            overflow: hidden;
         }
-        .error-message {
-            text-align: center;
-            padding: 60px 20px;
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #F8F6F2;
+            color: #1A1A1A;
+            display: flex;
+            flex-direction: column;
         }
-        .error-message .icon {
-            font-size: 4rem;
-            display: block;
-            margin-bottom: 16px;
-            opacity: 0.4;
+
+        /* ===== TOP BAR ===== */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            background: rgba(248, 246, 242, 0.92);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #e8e2da;
+            flex-shrink: 0;
         }
-        .error-message h2 {
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .error-message p {
-            color: #666;
-            max-width: 400px;
-            margin: 0 auto 24px;
-        }
-        .error-message a {
-            color: var(--accent);
+        .top-bar .back-link {
+            color: #1A1A1A;
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
         }
-        .error-message a:hover {
-            text-decoration: underline;
+        .top-bar .back-link:hover {
+            opacity: 1;
         }
-        @media (max-width:640px) {
-            .detail-container { padding: 20px 16px; }
-            .detail-container h1 { font-size: 1.8rem; }
-            .presentation-frame { min-height: 400px; }
+        .top-bar .slide-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .top-bar .slide-btn {
+            background: transparent;
+            border: 1px solid #e8e2da;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            color: #1A1A1A;
+        }
+        .top-bar .slide-btn:hover {
+            background: #C9A87C;
+            border-color: #C9A87C;
+            color: #fff;
+        }
+        .top-bar .slide-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+        .top-bar .slide-counter {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #1A1A1A;
+            opacity: 0.5;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        /* ===== СЛАЙДЫ ===== */
+        .slides-wrapper {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            margin-top: 60px;
+            height: calc(100vh - 60px);
+        }
+        #detailContent {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Слайды внутри #detailContent — масштабируем через transform */
+        #detailContent .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 20px 32px 20px;
+            overflow-y: auto;
+            flex-shrink: 0;
+            background: #F8F6F2;
+            box-sizing: border-box;
+            transform: scale(0.9);
+            transform-origin: center center;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+        #detailContent .slide.active {
+            display: flex !important;
+            flex-direction: column;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 768px) {
+            .top-bar {
+                padding: 8px 12px;
+            }
+            .top-bar .back-link {
+                font-size: 0.8rem;
+            }
+            .top-bar .slide-btn {
+                width: 30px;
+                height: 30px;
+            }
+            .top-bar .slide-btn svg {
+                width: 14px;
+                height: 14px;
+            }
+            .top-bar .slide-counter {
+                font-size: 0.7rem;
+                min-width: 40px;
+            }
+            .slides-wrapper {
+                margin-top: 48px;
+                height: calc(100vh - 48px);
+            }
+            #detailContent .slide {
+                padding: 12px 16px 16px;
+                transform: scale(0.85);
+            }
+        }
+        @media (max-width: 480px) {
+            .top-bar {
+                padding: 6px 8px;
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+            .top-bar .back-link {
+                font-size: 0.7rem;
+            }
+            .slides-wrapper {
+                margin-top: 44px;
+                height: calc(100vh - 44px);
+            }
+            #detailContent .slide {
+                padding: 8px 10px 12px;
+                transform: scale(0.8);
+            }
         }
     </style>
     <script data-goatcounter="https://vbalulo.goatcounter.com/count"
@@ -117,157 +175,230 @@
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
-<header>
-    <div class="container header-inner">
-        <a href="index.html" class="logo">Валерий <span>Балуло</span></a>
-        <div class="header-right">
-            <nav>
-                <ul>
-                    <li><a href="index.html">Главная</a></li>
-                    <li><a href="projects.html">Кейсы</a></li>
-                    <li><a href="ai-chat.html">Спросить AI</a></li>
-                </ul>
-            </nav>
-            <div class="lang-switch">
-                <span class="lang-active lang-ru">RU</span>
-                <span class="lang-divider">/</span>
-                <span class="lang-inactive lang-en">EN</span>
-            </div>
-        </div>
+<!-- ===== TOP BAR ===== -->
+<div class="top-bar">
+    <a href="projects.html" class="back-link">← Назад к кейсам</a>
+    <div class="slide-controls">
+        <button class="slide-btn slide-prev" aria-label="Предыдущий слайд">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" role="graphics-symbol" aria-hidden="true">
+                <path d="M7.825 11H19C19.2833 11 19.5208 11.0958 19.7125 11.2875C19.9042 11.4792 20 11.7167 20 12C20 12.2833 19.9042 12.5208 19.7125 12.7125C19.5208 12.9042 19.2833 13 19 13H7.825L12.725 17.9C12.925 18.1 13.0208 18.3333 13.0125 18.6C13.0042 18.8667 12.9 19.1 12.7 19.3C12.5 19.4833 12.2667 19.5792 12 19.5875C11.7333 19.5958 11.5 19.5 11.3 19.3L4.7 12.7C4.6 12.6 4.52917 12.4917 4.4875 12.375C4.44583 12.2583 4.425 12.1333 4.425 12C4.425 11.8667 4.44583 11.7417 4.4875 11.625C4.52917 11.5083 4.6 11.4 4.7 11.3L11.3 4.7C11.4833 4.51667 11.7125 4.425 11.9875 4.425C12.2625 4.425 12.5 4.51667 12.7 4.7C12.9 4.9 13 5.1375 13 5.4125C13 5.6875 12.9 5.925 12.7 6.125L7.825 11Z" fill="currentColor"/>
+            </svg>
+        </button>
+        <span class="slide-counter" id="slideCounter">1 / 7</span>
+        <button class="slide-btn slide-next" aria-label="Следующий слайд">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" role="graphics-symbol" aria-hidden="true">
+                <path d="M16.175 13H5C4.71667 13 4.47917 12.9042 4.2875 12.7125C4.09583 12.5208 4 12.2833 4 12C4 11.7167 4.09583 11.4792 4.2875 11.2875C4.47917 11.0958 4.71667 11 5 11H16.175L11.275 6.09999C11.075 5.89999 10.9792 5.66665 10.9875 5.39999C10.9958 5.13332 11.1 4.89999 11.3 4.69999C11.5 4.51665 11.7333 4.42082 12 4.41249C12.2667 4.40415 12.5 4.49999 12.7 4.69999L19.3 11.3C19.4 11.4 19.4708 11.5083 19.5125 11.625C19.5542 11.7417 19.575 11.8667 19.575 12C19.575 12.1333 19.5542 12.2583 19.5125 12.375C19.4708 12.4917 19.4 12.6 19.3 12.7L12.7 19.3C12.5167 19.4833 12.2875 19.575 12.0125 19.575C11.7375 19.575 11.5 19.4833 11.3 19.3C11.1 19.1 11 18.8625 11 18.5875C11 18.3125 11.1 18.075 11.3 17.875L16.175 13Z" fill="currentColor"/>
+            </svg>
+        </button>
     </div>
-</header>
+</div>
 
-<!-- ===== CONTENT ===== -->
-<section class="section-hero" style="padding-top:20px;">
-    <div class="container">
-        <div class="detail-container" id="detailContainer">
-            <a href="projects.html" class="back-link">← Назад к кейсам</a>
-            <div id="detailContent">
-                <!-- Загружается из JS -->
-                <div style="text-align:center;padding:40px 20px;color:#999;">
-                    Загрузка...
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ===== ФУТЕР ===== -->
-<footer class="section-footer">
-    <div class="container footer-inner">
-        <div class="footer-copy">
-            Завайбкодил сам. Если интересно как — <a href="https://t.me/Balulo" style="color:var(--accent);text-decoration:none;">спроси меня</a>
-            <br />
-        </div>
-    </div>
-</footer>
+<!-- ===== СЛАЙДЫ ===== -->
+<div class="slides-wrapper">
+    <div id="detailContent"></div>
+</div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const container = document.getElementById('detailContent');
+    document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
-        const projectId = params.get('id');
+        const id = params.get('id');
+        const container = document.getElementById('detailContent');
 
-        // Функция для отображения ошибки
-        function showError(icon, title, message) {
+        if (!id) {
             container.innerHTML = `
-                <div class="error-message">
-                    <span class="icon">${icon}</span>
-                    <h2>${title}</h2>
-                    <p>${message}</p>
-                    <a href="projects.html">← Назад к кейсам</a>
+                <div style="display:flex;align-items:center;justify-content:center;height:100%;text-align:center;padding:40px;">
+                    <div>
+                        <span style="font-size:4rem;display:block;margin-bottom:16px;opacity:0.4;">🔍</span>
+                        <h2 style="font-size:2rem;font-weight:600;margin-bottom:12px;">Кейс не найден</h2>
+                        <p style="color:#666;max-width:400px;margin:0 auto 24px;">Запрашиваемый кейс не найден.</p>
+                        <a href="projects.html" style="color:#C9A87C;text-decoration:none;font-weight:500;">← Назад к кейсам</a>
+                    </div>
                 </div>
             `;
-        }
-
-        // Проверяем, есть ли ID
-        if (!projectId) {
-            showError('🔍', 'Кейс не найден', 'Не указан идентификатор проекта.');
             return;
         }
 
-        // Загружаем данные
         fetch('data/projects.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
+            .then(r => r.json())
             .then(projects => {
-                // Ищем проект по ID
-                const project = projects.find(p => p.id === projectId);
+                const project = projects.find(p => p.id === id);
 
-                if (!project) {
-                    showError('🔍', 'Кейс не найден', `Проект с ID "${projectId}" не найден в базе данных.`);
+                if (!project || project.hasFullDetails !== true) {
+                    container.innerHTML = `
+                        <div style="display:flex;align-items:center;justify-content:center;height:100%;text-align:center;padding:40px;">
+                            <div>
+                                <span style="font-size:4rem;display:block;margin-bottom:16px;opacity:0.4;">🚧</span>
+                                <h2 style="font-size:2rem;font-weight:600;margin-bottom:12px;">${project ? 'Кейс в разработке' : 'Кейс не найден'}</h2>
+                                <p style="color:#666;max-width:400px;margin:0 auto 24px;">${project ? 'Я готовлю детальное описание этого проекта с метриками, инсайтами и визуальными материалами. А пока вы можете посмотреть другие кейсы.' : 'Запрашиваемый кейс не найден.'}</p>
+                                <a href="projects.html" style="color:#C9A87C;text-decoration:none;font-weight:500;">← Назад к кейсам</a>
+                            </div>
+                        </div>
+                    `;
                     return;
                 }
 
-                // Проверяем, есть ли полные детали
-                if (project.hasFullDetails !== true) {
-                    showError('🚧', 'Кейс в разработке', 'Я готовлю детальное описание этого проекта с метриками, инсайтами и визуальными материалами. А пока вы можете посмотреть другие кейсы.');
-                    return;
-                }
-
-                // --- ТИП: PRESENTATION (встраиваем HTML) ---
+                // --- ЗАГРУЖАЕМ ПРЕЗЕНТАЦИЮ ---
                 if (project.type === 'presentation' && project.presentationFile) {
-                    // Проверяем, загружается ли файл
-                    const iframe = document.createElement('iframe');
-                    iframe.className = 'presentation-frame';
-                    iframe.src = project.presentationFile;
-                    iframe.onload = function() {
-                        console.log('Презентация загружена:', project.presentationFile);
-                    };
-                    iframe.onerror = function() {
-                        console.error('Ошибка загрузки презентации:', project.presentationFile);
-                        showError('📄', 'Презентация не найдена', `Файл "${project.presentationFile}" не обнаружен. Проверьте, что он существует.`);
-                    };
-                    container.innerHTML = '';
-                    container.appendChild(iframe);
+                    fetch(project.presentationFile)
+                        .then(response => {
+                            if (!response.ok) throw new Error('Презентация не найдена');
+                            return response.text();
+                        })
+                        .then(html => {
+                            container.innerHTML = html;
+
+                            // Находим все слайды
+                            const slides = container.querySelectorAll('.slide');
+                            if (slides.length === 0) {
+                                // Если слайдов нет — показываем сообщение
+                                container.innerHTML = `
+                                    <div style="display:flex;align-items:center;justify-content:center;height:100%;text-align:center;padding:40px;">
+                                        <div>
+                                            <span style="font-size:4rem;display:block;margin-bottom:16px;opacity:0.4;">📄</span>
+                                            <h2 style="font-size:2rem;font-weight:600;margin-bottom:12px;">Слайды не найдены</h2>
+                                            <p style="color:#666;max-width:400px;margin:0 auto 24px;">Презентация не содержит слайдов.</p>
+                                            <a href="projects.html" style="color:#C9A87C;text-decoration:none;font-weight:500;">← Назад к кейсам</a>
+                                        </div>
+                                    </div>
+                                `;
+                                return;
+                            }
+
+                            let currentIndex = 0;
+                            const totalSlides = slides.length;
+
+                            // Убираем все стили display у слайдов, чтобы скрипт управлял ими
+                            slides.forEach(slide => {
+                                slide.style.display = 'none';
+                            });
+
+                            const counter = document.getElementById('slideCounter');
+
+                            function updateCounter(index) {
+                                if (counter) {
+                                    counter.textContent = `${index + 1} / ${totalSlides}`;
+                                }
+                            }
+
+                            function showSlide(index) {
+                                slides.forEach((slide, i) => {
+                                    if (i === index) {
+                                        slide.style.display = 'flex';
+                                        slide.classList.add('active');
+                                    } else {
+                                        slide.style.display = 'none';
+                                        slide.classList.remove('active');
+                                    }
+                                });
+                                currentIndex = index;
+                                updateCounter(index);
+                            }
+
+                            // Показываем первый слайд
+                            showSlide(0);
+
+                            // Кнопки
+                            const prevBtn = document.querySelector('.slide-prev');
+                            const nextBtn = document.querySelector('.slide-next');
+
+                            let slideInterval = null;
+
+                            function startAutoPlay() {
+                                if (slideInterval) clearInterval(slideInterval);
+                                slideInterval = setInterval(() => {
+                                    const next = (currentIndex + 1) % totalSlides;
+                                    showSlide(next);
+                                }, 10000);
+                            }
+
+                            function stopAutoPlay() {
+                                if (slideInterval) {
+                                    clearInterval(slideInterval);
+                                    slideInterval = null;
+                                }
+                            }
+
+                            if (prevBtn) {
+                                prevBtn.addEventListener('click', () => {
+                                    stopAutoPlay();
+                                    const prev = (currentIndex - 1 + totalSlides) % totalSlides;
+                                    showSlide(prev);
+                                    startAutoPlay();
+                                });
+                            }
+                            if (nextBtn) {
+                                nextBtn.addEventListener('click', () => {
+                                    stopAutoPlay();
+                                    const next = (currentIndex + 1) % totalSlides;
+                                    showSlide(next);
+                                    startAutoPlay();
+                                });
+                            }
+
+                            // Пауза при наведении
+                            const wrapper = document.querySelector('.slides-wrapper');
+                            if (wrapper) {
+                                wrapper.addEventListener('mouseenter', stopAutoPlay);
+                                wrapper.addEventListener('mouseleave', startAutoPlay);
+                            }
+
+                            // Запускаем автопрокрутку
+                            startAutoPlay();
+                        })
+                        .catch(error => {
+                            console.error('Ошибка загрузки презентации:', error);
+                            container.innerHTML = `
+                                <div style="display:flex;align-items:center;justify-content:center;height:100%;text-align:center;padding:40px;">
+                                    <div>
+                                        <span style="font-size:4rem;display:block;margin-bottom:16px;opacity:0.4;">📄</span>
+                                        <h2 style="font-size:2rem;font-weight:600;margin-bottom:12px;">Презентация не найдена</h2>
+                                        <p style="color:#666;max-width:400px;margin:0 auto 24px;">Не удалось загрузить файл презентации.</p>
+                                        <a href="projects.html" style="color:#C9A87C;text-decoration:none;font-weight:500;">← Назад к кейсам</a>
+                                    </div>
+                                </div>
+                            `;
+                        });
                     return;
                 }
 
-                // --- ТИПЫ: STANDARD и STRATEGY ---
+                // --- ТИПЫ STANDARD И STRATEGY ---
                 let html = `
-                    <h1>${project.title}</h1>
-                    <div class="meta">
-                        <span>${project.company || ''}</span>
-                        <span>${project.role || ''}</span>
-                        <span>${project.year || ''}</span>
-                    </div>
-                    <div class="description">${project.description || project.intro || ''}</div>
+                    <div style="max-width:900px;margin:0 auto;padding:40px 20px;height:100%;overflow-y:auto;">
+                        <h1 style="font-size:2.4rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;">${project.title}</h1>
+                        <div style="color:#666;font-size:0.95rem;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:16px;">
+                            <span style="background:#f3efe9;padding:2px 14px;border-radius:20px;">${project.company}</span>
+                            <span style="background:#f3efe9;padding:2px 14px;border-radius:20px;">${project.role}</span>
+                            <span style="background:#f3efe9;padding:2px 14px;border-radius:20px;">${project.year}</span>
+                        </div>
+                        <div style="font-size:1.1rem;line-height:1.7;color:#333;margin:20px 0 28px;border-left:4px solid #C9A87C;padding-left:20px;">${project.description || project.intro}</div>
                 `;
 
-                // Метрики
                 if (project.metrics && Object.keys(project.metrics).length > 0) {
-                    html += `<div class="metrics-grid">`;
+                    html += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin:24px 0;">`;
                     for (const [key, val] of Object.entries(project.metrics)) {
                         html += `
-                            <div class="metric-card">
-                                <div class="value">${val}</div>
-                                <div class="label">${key}</div>
+                            <div style="background:#f3efe9;padding:16px 20px;border-radius:12px;border:1px solid #e8e2da;text-align:center;">
+                                <div style="font-size:1.6rem;font-weight:700;color:#C9A87C;">${val}</div>
+                                <div style="font-size:0.85rem;color:#555;margin-top:4px;">${key}</div>
                             </div>
                         `;
                     }
                     html += `</div>`;
                 }
 
-                // Стратегия
                 if (project.type === 'strategy' && project.strategyBlocks?.length) {
                     html += `<h2 style="margin-top:28px;font-size:1.6rem;">Стратегия и исследования</h2>`;
                     project.strategyBlocks.forEach(block => {
                         html += `
-                            <div class="strategy-block">
-                                <h3>${block.title || ''}</h3>
-                                <p>${block.description || ''}</p>
+                            <div style="background:#f3efe9;border-radius:12px;padding:20px 24px;margin:16px 0;border-left:4px solid #C9A87C;">
+                                <h3 style="margin-bottom:6px;">${block.title || ''}</h3>
+                                <p style="color:#555;">${block.description || ''}</p>
                                 ${block.image ? `<img src="${block.image}" alt="${block.title}" style="max-width:100%;border-radius:8px;margin-top:8px;" />` : ''}
                             </div>
                         `;
                     });
                 }
 
-                // Результаты
                 if (project.results?.length) {
                     html += `<h2 style="margin-top:28px;font-size:1.6rem;">Ключевые результаты</h2><ul style="list-style:none;padding:0;">`;
                     project.results.forEach(r => {
@@ -276,28 +407,31 @@
                     html += `</ul>`;
                 }
 
-                // Скриншоты
                 if (project.screenshots?.length) {
                     html += `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:20px;">`;
                     project.screenshots.forEach(s => {
-                        html += `<img src="${s}" alt="Скриншот" style="width:100%;border-radius:8px;border:1px solid var(--border-light);" />`;
+                        html += `<img src="${s}" alt="Скриншот" style="width:100%;border-radius:8px;border:1px solid #e8e2da;" />`;
                     });
                     html += `</div>`;
                 }
 
+                html += `</div>`;
                 container.innerHTML = html;
             })
-            .catch(error => {
-                console.error('Ошибка загрузки данных:', error);
-                showError(
-                    '⚠️',
-                    'Ошибка загрузки',
-                    'Не удалось загрузить данные о проекте. Пожалуйста, попробуйте обновить страницу или проверьте консоль браузера для деталей.'
-                );
+            .catch(() => {
+                container.innerHTML = `
+                    <div style="display:flex;align-items:center;justify-content:center;height:100%;text-align:center;padding:40px;">
+                        <div>
+                            <span style="font-size:4rem;display:block;margin-bottom:16px;opacity:0.4;">⚠️</span>
+                            <h2 style="font-size:2rem;font-weight:600;margin-bottom:12px;">Не удалось загрузить данные</h2>
+                            <p style="color:#666;max-width:400px;margin:0 auto 24px;">Пожалуйста, попробуйте позже.</p>
+                            <a href="projects.html" style="color:#C9A87C;text-decoration:none;font-weight:500;">← Назад к кейсам</a>
+                        </div>
+                    </div>
+                `;
             });
     });
 </script>
 
-<script src="js/lang.js"></script>
 </body>
 </html>
