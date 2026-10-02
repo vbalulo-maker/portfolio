@@ -440,7 +440,7 @@
                 // Рендерим карточки
                 slider.innerHTML = allItems.map((item, index) => {
                     const isBreak = item.isBreak || false;
-                    const hasProjects = !isBreak && Boolean(item.projectId);
+                    const hasProjects = Boolean(item.projectId);
                     return `
                         <div class="timeline-node-h ${hasProjects ? 'has-projects' : ''} ${isBreak ? 'break' : ''}" 
                              data-is-break="${isBreak}"
