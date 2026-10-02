@@ -1,5 +1,16 @@
 [
   {
+  "id": "project-ai-daily-banking",
+  "type": "presentation",
+  "title": "AI-помощник для Daily Banking",
+  "hasFullDetails": true,
+  "intro": "Спроектировал и собрал концепт-прототип AI-ассистента, который оркеструет банковские сервисы: понимает намерение клиента, вызывает инструменты и передаёт операцию на подтверждение.",
+  "company": "Career Break",
+  "year": "2026",
+  "role": "Product Lead / Maker",
+  "presentationFile": "cases/project-ai-daily-banking.html"
+}
+  {
     "id": "project-1",
     "type": "presentation",
     "title": "Запуск приёма платежей для бизнеса с нуля и масштабирование",
