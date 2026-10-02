@@ -419,10 +419,6 @@ nav a.active {
     background: #faf8f5 !important;
 }
 
-.timeline-node-h[data-is-break="true"] .timeline-link-h {
-    display: none !important;
-}
-
 /* ===== ТОЧКИ ДЛЯ КАРЬЕРНОГО ТРЕКА ===== */
 #careerDots {
     display: flex;
