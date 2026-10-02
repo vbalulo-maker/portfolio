@@ -13,7 +13,7 @@
     "id": "company-2",
     "name": "RSHB",
     "role": "Chief Product Officer",
-    "period": "2024.07-2024.08",
+    "period": "2024.07-2025.07",
     "intro": "Russian Agricultural Bank is a systemically important, top-5 Russian bank",
     "description": "Increased B2B customer onboarding conversion by 20% and reduced onboarding time by 30%. Launched pilots for Tap-to-Phone (SoftPOS) payment acceptance, B2B transfers via the Faster Payments System (SBP), and an initial AI-based churn prediction model.",
     "logo": "assets/images/logos/rshb.svg",
@@ -48,14 +48,6 @@
     "description": "Launched installment payments and contactless payment acceptance across the acquiring network. Introduced the Interchange++ pricing model for key enterprise merchants.",
     "logo": "assets/images/logos/ceb.png",
     "projectId": "project-1"
-  },
-  {
-    "id": "break-1",
-    "name": "Career Break",
-    "role": "Consulting, project scouting, and AI research",
-    "period": "2025.01-2025.07",
-    "intro": "Industry consulting, strategic project scouting, portfolio development, and AI research",
-    "isBreak": true
   },
   {
     "id": "break-2",
