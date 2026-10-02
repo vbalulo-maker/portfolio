@@ -369,56 +369,6 @@ nav a.active {
     border-bottom: none;
 }
 
-/* ===== CAREER BREAK (чуть бледнее карточек компаний) ===== */
-.timeline-node-h[data-is-break="true"] {
-    border-color: #e8e2da !important;
-    background: #faf8f5 !important;
-    opacity: 0.7 !important;
-    transform: scale(0.97) !important;
-    box-shadow: none !important;
-    cursor: default !important;
-}
-
-.timeline-node-h[data-is-break="true"] .timeline-marker-h {
-    background: #d5d0c8 !important;
-    box-shadow: 0 0 0 2px #d5d0c8 !important;
-    border-color: #faf8f5 !important;
-}
-
-.timeline-node-h[data-is-break="true"] h4 {
-    color: #aaa !important;
-    font-weight: 500 !important;
-    font-size: 0.8rem !important;
-}
-
-.timeline-node-h[data-is-break="true"] .role-h {
-    color: #bbb !important;
-    font-style: italic !important;
-    font-weight: 400 !important;
-    font-size: 0.65rem !important;
-}
-
-.timeline-node-h[data-is-break="true"] .intro-h {
-    color: #c0c0c0 !important;
-    font-size: 0.6rem !important;
-    -webkit-line-clamp: 2 !important;
-}
-
-.timeline-node-h[data-is-break="true"] .timeline-period-h {
-    color: #c0c0c0 !important;
-}
-
-.timeline-node-h[data-is-break="true"] .node-top::after {
-    background: #e8e2da !important;
-}
-
-.timeline-node-h[data-is-break="true"]:hover {
-    transform: scale(0.97) !important;
-    box-shadow: none !important;
-    border-color: #e8e2da !important;
-    background: #faf8f5 !important;
-}
-
 /* ===== ТОЧКИ ДЛЯ КАРЬЕРНОГО ТРЕКА ===== */
 #careerDots {
     display: flex;
