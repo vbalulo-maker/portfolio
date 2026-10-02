@@ -1,5 +1,16 @@
 [
   {
+    "id": "project-ai-daily-banking",
+    "type": "presentation",
+    "title": "AI Assistant for Daily Banking",
+    "hasFullDetails": true,
+    "intro": "Designed and built a concept prototype of an AI assistant that orchestrates banking services: understands the customer's intent, calls the right tools, and hands the operation over for confirmation.",
+    "company": "Career Break",
+    "year": "2026",
+    "role": "Product Lead / Maker",
+    "presentationFile": "cases/project-ai-daily-banking.html"
+  }
+  {
     "id": "project-1",
     "type": "presentation",
     "title": "Building B2B Payment Acceptance from Scratch and Scaling It",
