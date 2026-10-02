@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кейс: AI-помощник для Daily Banking · Валерий Балуло</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== БАЗОВЫЕ СТИЛИ ===== */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: #e8e4de;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 20px;
+            gap: 32px;
+        }
+
+        .slide {
+            width: 1120px;
+            min-height: 792px;
+            background: #F8F6F2;
+            border-radius: 16px;
+            padding: 40px 48px 36px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            border: 1px solid #f0ece6;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            color: #1A1A1A;
+            position: relative;
+        }
+
+        /* ===== ОБЩИЕ ЭЛЕМЕНТЫ ===== */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e8e2da;
+            padding-bottom: 12px;
+            flex-shrink: 0;
+        }
+        .slide-tag {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #1A1A1A;
+            background: #ede8e0;
+            padding: 5px 18px;
+            border-radius: 40px;
+            text-transform: uppercase;
+        }
+        .slide-number {
+            font-size: 13px;
+            font-weight: 400;
+            color: #8a7e72;
+        }
+
+        h1 {
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 4px;
+            flex-shrink: 0;
+        }
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 8px;
+            flex-shrink: 0;
+        }
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .description {
+            font-size: 18px;
+            color: #2c241c;
+            font-weight: 400;
+            margin: 6px 0 18px 0;
+            border-left: 4px solid #C9A87C;
+            padding: 14px 22px;
+            background: #f3efe9;
+            border-radius: 0 10px 10px 0;
+            line-height: 1.45;
+            flex-shrink: 0;
+        }
+
+        .badge-accent {
+            background: #C9A87C;
+            color: #1A1A1A;
+            font-weight: 500;
+            font-size: 12px;
+            padding: 4px 14px;
+            border-radius: 40px;
+            display: inline-block;
+        }
+        .badge-light {
+            background: #ede8e0;
+            color: #1A1A1A;
+            font-weight: 500;
+            font-size: 12px;
+            padding: 4px 14px;
+            border-radius: 40px;
+            display: inline-block;
+        }
+
+        /* ===== СЕТКИ ===== */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            flex: 1;
+        }
+        .col-card {
+            background: #f3efe9;
+            border-radius: 14px;
+            padding: 20px 24px;
+            border: 1px solid #e8e2da;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .list-dash {
+            list-style: none;
+            padding-left: 0;
+        }
+        .list-dash li {
+            padding: 5px 0 5px 22px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%23C9A87C" stroke-width="2.5"><line x1="4" y1="12" x2="20" y2="12"/></svg>') left center no-repeat;
+            background-size: 14px;
+            border-bottom: 1px solid #ede8e0;
+            font-weight: 400;
+            font-size: 14.5px;
+        }
+        .list-dash li:last-child { border-bottom: 0; }
+
+        /* ===== ФИНАЛЬНЫЙ СЛАЙД (SCANDINAVIAN NOIR) ===== */
+        .slide-noir {
+            background: #1A1A1A;
+            border-color: #2a2a2a;
+            color: #EAEAEA;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .slide-noir .slide-header { border-bottom-color: #3a3a3a; }
+        .slide-noir .slide-tag { background: #2a2a2a; color: #EAEAEA; }
+        .slide-noir .slide-number { color: #9a8e82; }
+        .slide-noir h1 { color: #EAEAEA; }
+        .slide-noir .badge-accent { background: #C9A87C; color: #1A1A1A; }
+        .slide-noir .badge-light { background: #2a2a2a; color: #d4d4d4; }
+        .slide-noir .col-card { background: #2a2a2a; border-color: #3a3a3a; }
+
+        /* ===== СКРИНШОТЫ ===== */
+        .screenshot-block {
+            background: #f3efe9;
+            border-radius: 14px;
+            border: 1px solid #e8e2da;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            overflow: hidden;
+        }
+        .screenshot-block img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: block;
+        }
+        .screenshot-caption {
+            font-size: 12px;
+            color: #7a6e62;
+            font-style: italic;
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        /* Скриншот архитектуры — вертикальный, ограничиваем по высоте */
+        .screenshot-vertical {
+            max-height: 420px;
+            width: auto;
+            margin: 0 auto;
+        }
+
+        /* ===== ССЫЛКИ ===== */
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 15px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        .link-btn-primary {
+            background: #C9A87C;
+            color: #1A1A1A;
+        }
+        .link-btn-primary:hover {
+            background: #b8976a;
+            transform: translateY(-2px);
+        }
+        .link-btn-outline {
+            background: transparent;
+            color: #C9A87C;
+            border-color: #C9A87C;
+        }
+        .link-btn-outline:hover {
+            background: #C9A87C;
+            color: #1A1A1A;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 1180px) {
+            .slide { width: 100%; height: auto; min-height: 600px; padding: 28px 24px; border-radius: 16px; }
+            h1 { font-size: 34px; }
+            h2 { font-size: 24px; }
+            .description { font-size: 16px; }
+            .two-col { grid-template-columns: 1fr; }
+            .screenshot-vertical { max-height: 320px; }
+            .slide-noir { min-height: 400px; }
+        }
+        @media (max-width: 600px) {
+            .slide { padding: 18px 14px; min-height: 400px; }
+            h1 { font-size: 26px; }
+            h2 { font-size: 20px; }
+            .description { font-size: 14px; padding: 10px 14px; }
+            .slide-header { flex-direction: column; align-items: flex-start; gap: 6px; }
+            .col-card { padding: 16px 18px; }
+            .screenshot-vertical { max-height: 240px; }
+            .link-btn { font-size: 13px; padding: 10px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 1: ПРОБЛЕМА И ИССЛЕДОВАТЕЛЬСКИЙ ВОПРОС -->
+    <!-- ============================================================ -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-tag">Кейс · AI Product · Career Break</span>
+            <span class="slide-number">1/4</span>
+        </div>
+        <h1>AI-помощник для Daily Banking</h1>
+        <div class="description">
+            Спроектировал и собрал концепт-прототип AI-ассистента, который не просто отвечает на вопросы, а оркеструет банковские сервисы: понимает намерение клиента, вызывает нужные инструменты и передаёт операцию на подтверждение.
+        </div>
+
+        <div class="two-col" style="flex:1;">
+            <div class="col-card">
+                <h3>Проблема</h3>
+                <ul class="list-dash">
+                    <li>Клиенты не понимают, что происходит с их деньгами</li>
+                    <li>Приложения перегружены функциями</li>
+                    <li>Поиск нужного действия — это навигация по меню, а не диалог</li>
+                    <li>Существующие AI-ассистенты отвечают, но не выполняют операции</li>
+                </ul>
+                <div style="margin-top:12px; padding-top:12px; border-top:1px solid #ddd6cc;">
+                    <span class="badge-light">Контекст</span> <strong>Разрыв между "AI отвечает" и "AI делает"</strong>
+                </div>
+            </div>
+            <div class="col-card">
+                <h3>Исследовательский вопрос</h3>
+                <ul class="list-dash">
+                    <li>Могу ли я спроектировать и собрать AI-ассистента, который оркеструет банковские сервисы?</li>
+                    <li>Понимает намерение клиента</li>
+                    <li>Вызывает нужные инструменты</li>
+                    <li>Готовит операцию и передаёт клиенту на подтверждение</li>
+                    <li>Без прямого доступа AI к банковским системам</li>
+                </ul>
+                <div style="margin-top:12px; padding-top:12px; border-top:1px solid #ddd6cc;">
+                    <span class="badge-accent">Фокус</span> <strong>Оркестрация, а не авторизация</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 2: КЛЮЧЕВЫЕ ПРОДУКТОВЫЕ РЕШЕНИЯ + СКРИНШОТЫ -->
+    <!-- ============================================================ -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-tag">Продуктовые решения</span>
+            <span class="slide-number">2/4</span>
+        </div>
+        <h2>Что отличает этот подход</h2>
+        <div class="two-col" style="flex:1; gap:24px;">
+            <!-- Левая колонка: карточки решений -->
+            <div style="display:flex; flex-direction:column; gap:14px;">
+                <div class="col-card" style="border-left:4px solid #C9A87C; padding:16px 20px;">
+                    <h3 style="font-size:16px;">AI не авторизует финансовые операции</h3>
+                    <p style="font-size:14px; color:#555; line-height:1.4;">Для переводов и платежей ассистент готовит операцию и останавливается на подтверждении клиента. В продакшене — банковская авторизация.</p>
+                </div>
+                <div class="col-card" style="border-left:4px solid #8aa67a; padding:16px 20px;">
+                    <h3 style="font-size:16px;">AI — не single point of failure</h3>
+                    <p style="font-size:14px; color:#555; line-height:1.4;">Если ассистент не справляется, он не бросает клиента: предлагает альтернативы и подключает специалиста с именем, ролью и тикетом.</p>
+                </div>
+                <div class="col-card" style="border-left:4px solid #C9A87C; padding:16px 20px;">
+                    <h3 style="font-size:16px;">RAG на базе знаний банка</h3>
+                    <p style="font-size:14px; color:#555; line-height:1.4;">Ассистент ссылается на реальные правила, а не выдумывает ответы. В прототипе — 44 чанка банковских правил в D1.</p>
+                </div>
+                <div class="col-card" style="border-left:4px solid #8aa67a; padding:16px 20px;">
+                    <h3 style="font-size:16px;">KPI: Task Completion Rate</h3>
+                    <p style="font-size:14px; color:#555; line-height:1.4;">Primary outcome — завершение задачи. Guardrails: Safety, Cost, Latency, Customer effort. Не DAU ассистента.</p>
+                </div>
+            </div>
+
+            <!-- Правая колонка: скриншоты -->
+            <div style="display:flex; flex-direction:column; gap:14px;">
+                <!-- Скриншот 1: главный экран диалога + CONFIRMATION -->
+                <div class="screenshot-block" style="flex:1;">
+                    <img src="assets/images/ai-assistant/dialog.png" alt="Диалог с AI-ассистентом и блок подтверждения операции" />
+                    <div class="screenshot-caption">Ассистент проверяет счёт, готовит операцию и запрашивает подтверждение</div>
+                </div>
+                <!-- Скриншот 2: статусы подготовки/авторизации/выполнения -->
+                <div class="screenshot-block" style="flex:0 0 auto;">
+                    <img src="assets/images/ai-assistant/confirmation.png" alt="Статусы операции: Preparing, Authorizing, Executing" />
+                    <div class="screenshot-caption">Прозрачные статусы: клиент видит каждый шаг операции</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 3: АРХИТЕКТУРА И ТЕХНОЛОГИИ -->
+    <!-- ============================================================ -->
+    <div class="slide">
+        <div class="slide-header">
+            <span class="slide-tag">Архитектура и технологии</span>
+            <span class="slide-number">3/4</span>
+        </div>
+        <h2>Как это собрано</h2>
+        <div class="two-col" style="flex:1; gap:32px;">
+            <!-- Левая колонка: схема архитектуры -->
+            <div class="screenshot-block" style="flex:1; justify-content:center;">
+                <img src="assets/images/ai-assistant/architecture.png" alt="Схема архитектуры AI-ассистента" class="screenshot-vertical" />
+                <div class="screenshot-caption">Customer → Intent → AI Orchestrator → Validation → Confirmation → Banking APIs</div>
+            </div>
+
+            <!-- Правая колонка: технологии и принципы -->
+            <div style="display:flex; flex-direction:column; gap:16px;">
+                <div class="col-card" style="flex:1;">
+                    <h3>Стек</h3>
+                    <ul class="list-dash" style="font-size:15px;">
+                        <li><strong>Frontend:</strong> React</li>
+                        <li><strong>Backend:</strong> Cloudflare Workers</li>
+                        <li><strong>LLM:</strong> DeepSeek</li>
+                        <li><strong>Embeddings:</strong> Workers AI</li>
+                        <li><strong>Архитектура:</strong> RAG</li>
+                        <li><strong>База знаний:</strong> Cloudflare D1 (44 чанка банковских правил)</li>
+                    </ul>
+                </div>
+                <div class="col-card" style="border-left:4px solid #C9A87C;">
+                    <h3>Принципы дизайна</h3>
+                    <ul class="list-dash" style="font-size:14px;">
+                        <li>AI оркеструет, но не авторизует</li>
+                        <li>RAG вместо галлюцинаций</li>
+                        <li>Fallback на человека с тикетом</li>
+                        <li>Guardrails: Safety, Cost, Latency</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- СЛАЙД 4: ЧТО ДЕМОНСТРИРУЕТ + ССЫЛКИ -->
+    <!-- ============================================================ -->
+    <div class="slide slide-noir">
+        <div class="slide-header" style="width:100%;">
+            <span class="slide-tag">Что это демонстрирует</span>
+            <span class="slide-number">4/4</span>
+        </div>
+        <div style="max-width:900px; display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; padding:10px 0;">
+            <h1 style="font-size:32px; margin-bottom:16px;">Что этот проект говорит обо мне</h1>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; width:100%; text-align:left; margin-bottom:20px;">
+                <div style="background:#2a2a2a; border-radius:14px; padding:16px 20px; border-left:4px solid #C9A87C;">
+                    <h3 style="color:#EAEAEA; font-size:15px;">🧠 Продуктовое мышление</h3>
+                    <ul class="list-dash" style="font-size:13px; color:#d4d4d4;">
+                        <li>Спроектировал архитектуру под бизнес-требования</li>
+                        <li>Определил guardrails и KPI</li>
+                        <li>Продумал fallback-сценарии</li>
+                    </ul>
+                </div>
+                <div style="background:#2a2a2a; border-radius:14px; padding:16px 20px; border-left:4px solid #8aa67a;">
+                    <h3 style="color:#EAEAEA; font-size:15px;">⚙️ AI/ML-экспертиза</h3>
+                    <ul class="list-dash" style="font-size:13px; color:#d4d4d4;">
+                        <li>Практический опыт с RAG и LLM</li>
+                        <li>Понимание ограничений моделей</li>
+                        <li>Работа с embeddings и векторным поиском</li>
+                    </ul>
+                </div>
+                <div style="background:#2a2a2a; border-radius:14px; padding:16px 20px; border-left:4px solid #8aa67a;">
+                    <h3 style="color:#EAEAEA; font-size:15px;">🚀 Hands-on подход</h3>
+                    <ul class="list-dash" style="font-size:13px; color:#d4d4d4;">
+                        <li>Собрал работающий прототип сам</li>
+                        <li>Использовал AI для ускорения итераций</li>
+                        <li>Довёл идею до реализации</li>
+                    </ul>
+                </div>
+                <div style="background:#2a2a2a; border-radius:14px; padding:16px 20px; border-left:4px solid #C9A87C;">
+                    <h3 style="color:#EAEAEA; font-size:15px;">🏦 Понимание банковского контекста</h3>
+                    <ul class="list-dash" style="font-size:13px; color:#d4d4d4;">
+                        <li>Разделение оркестрации и авторизации</li>
+                        <li>Compliance-ориентированный дизайн</li>
+                        <li>Интеграция с существующими сервисами</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Блок с финальным скриншотом успешной операции -->
+            <div style="background:#2a2a2a; border-radius:14px; padding:16px 24px; width:100%; margin-bottom:20px; display:flex; align-items:center; gap:20px; border-left:4px solid #8aa67a;">
+                <img src="assets/images/ai-assistant/transaction.png" alt="Операция выполнена. Transaction ID" style="max-height:50px; border-radius:6px;" />
+                <div style="text-align:left;">
+                    <div style="font-size:14px; color:#EAEAEA; font-weight:500;">Финальный результат</div>
+                    <div style="font-size:13px; color:#b0a89e;">Клиент видит подтверждение с уникальным Transaction ID</div>
+                </div>
+            </div>
+
+            <!-- Ссылки -->
+            <div style="display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-bottom:20px;">
+                <a href="https://vbalulo-maker.github.io/ai-banking-assistant/" class="link-btn link-btn-primary" target="_blank" rel="noopener">
+                    🚀 Посмотреть прототип →
+                </a>
+                <a href="https://github.com/vbalulo-maker/ai-banking-assistant" class="link-btn link-btn-outline" target="_blank" rel="noopener">
+                    💻 Исходный код на GitHub →
+                </a>
+            </div>
+
+            <div style="display:flex; flex-wrap:wrap; gap:12px 24px; justify-content:center; font-size:14px; color:#b0a89e;">
+                <span>📧 vbalulo@yandex.ru</span>
+                <span>🔗 <a href="https://linkedin.com/in/valeriy-balulo" target="_blank" style="color:#C9A87C; text-decoration:none; border-bottom:1px solid #C9A87C;">LinkedIn</a></span>
+                <span>💬 <a href="https://t.me/Balulo" target="_blank" style="color:#C9A87C; text-decoration:none; border-bottom:1px solid #C9A87C;">@Balulo</a></span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
